@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MovieApp</string>
+    <string name="cannot_fetch">Cannot fetch data</string>
+    <string name="no_connection">No connection</string>
+    <string name="movie_poster">Movie poster</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="star_icon">Star icon</string>
+    <string name="rating_sample">8.3</string>
+    <string name="genre">Genre: Action</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="date_released">Date released: 2021–04–20</string>
+</resources>
