@@ -9,4 +9,26 @@
     <string name="genre">Genre: Action</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="date_released">Date released: 2021–04–20</string>
+    <string name="backdrop_image">Backdrop Image</string>
+    <string name="_18">18 +</string>
+    <string name="overview">Overview</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+        anim id est laborum.
+        \n
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+        anim id est laborum.
+    </string>
+    <string name="genres">"Genres"</string>
+    <string name="genres_sample">• Action\n• Romance</string>
+    <string name="_2020_04_20">2020-04-20</string>
+    <string name="date_released_title">Date released</string>
+    <string name="tv_title">Tv Show Title</string>
+    <string name="first_on_air_date">First On-Air Date</string>
+    <string name="en">EN</string>
 </resources>

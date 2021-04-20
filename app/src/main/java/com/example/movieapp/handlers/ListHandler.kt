@@ -1,13 +1,15 @@
 package com.example.movieapp.handlers
 
 import android.content.Context
-import android.widget.Toast
+import android.content.Intent
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.adapters.MoviesAdapter
 import com.example.movieapp.adapters.TvShowsAdapter
 import com.example.movieapp.models.Movie
 import com.example.movieapp.models.TvShow
+import com.example.movieapp.views.MovieDetailActivity
+import com.example.movieapp.views.TvDetailActivity
 
 class ListHandler {
 
@@ -24,11 +26,10 @@ class ListHandler {
 
         adapter.setOnItemClickCallback(object : MoviesAdapter.OnItemClickCallback {
             override fun onItemClicked(data: Movie) {
-                Toast.makeText(context, "ITEM CLICKED", Toast.LENGTH_SHORT).show()
-//                val intent = Intent(context, DetailActivity::class.java)
-//                intent.putExtra("ID", data.id)
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                context.startActivity(intent)
+                val intent = Intent(context, MovieDetailActivity::class.java)
+                intent.putExtra("MOVIE", data)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                context.startActivity(intent)
             }
         })
     }
@@ -46,11 +47,10 @@ class ListHandler {
 
         adapter.setOnItemClickCallback(object : TvShowsAdapter.OnItemClickCallback {
             override fun onItemClicked(data: TvShow) {
-                Toast.makeText(context, "ITEM CLICKED", Toast.LENGTH_SHORT).show()
-//                val intent = Intent(context, DetailActivity::class.java)
-//                intent.putExtra("ID", data.id)
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                context.startActivity(intent)
+                val intent = Intent(context, TvDetailActivity::class.java)
+                intent.putExtra("TVSHOW", data)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                context.startActivity(intent)
             }
         })
     }
