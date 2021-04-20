@@ -45,7 +45,7 @@ class TvDetailActivity : AppCompatActivity() {
             textviewDetailTvTitle.text = tvShow.name
             textviewDetailTvOverviewContent.text = tvShow.overview
             textviewDetailTvDateContent.text = tvShow.first_air_date
-            detailVoteAverageTextview.text = tvShow.vote_average.toString()
+            detailTvVoteAverageTextview.text = tvShow.vote_average.toString()
 
             var genreText = ""
             tvShow.genre?.forEachIndexed { i, it ->

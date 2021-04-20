@@ -50,7 +50,7 @@ class MovieDetailActivity : AppCompatActivity() {
             textviewDetailMovieTitle.text = movie.title
             textviewDetailMovieOverviewContent.text = movie.overview
             textviewDetailMovieDateContent.text = movie.release_date
-            detailVoteAverageTextview.text = movie.vote_average.toString()
+            detailMovieVoteAverageTextview.text = movie.vote_average.toString()
 
             var genreText = ""
             movie.genre?.forEachIndexed { i, it ->
