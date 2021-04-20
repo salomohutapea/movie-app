@@ -31,7 +31,7 @@ class TvShowsAdapter(private val listTvShows: ArrayList<TvShow>) :
             .into(holder.binding.singlePosterImg)
         holder.binding.singlePopularityTextview.text = tvShow.vote_average.toString()
         holder.binding.singleTitleTextview.text = tvShow.name
-        holder.binding.singleDateReleasedTextview.text = StringBuilder("First air date: ${tvShow.first_air_date}")
+        holder.binding.singleDateReleasedTextview.text = StringBuilder("First on-air date: ${tvShow.first_air_date}")
 
         var genreText = "Genre: "
 
