@@ -60,6 +60,7 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
 
     //testing
+    implementation "androidx.test.espresso:espresso-idling-resource:$idleResourceVersion"
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"

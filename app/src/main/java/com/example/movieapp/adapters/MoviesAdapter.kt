@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
+import com.example.movieapp.data.model.Movie
 import com.example.movieapp.databinding.ItemTvMovieListBinding
-import com.example.movieapp.models.Movie
 
 class MoviesAdapter(private val listMovies: ArrayList<Movie>) : RecyclerView.Adapter<MoviesAdapter.ListViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback

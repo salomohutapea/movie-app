@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.adapters.MoviesAdapter
 import com.example.movieapp.adapters.TvShowsAdapter
-import com.example.movieapp.models.Movie
-import com.example.movieapp.models.TvShow
+import com.example.movieapp.data.model.Movie
+import com.example.movieapp.data.model.TvShow
 import com.example.movieapp.views.MovieDetailActivity
 import com.example.movieapp.views.TvDetailActivity
 

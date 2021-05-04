@@ -1,17 +1,18 @@
 package com.example.movieapp.handlers
 
-import com.example.movieapp.models.NowPlayingMovies
+import android.content.Context
+import com.example.movieapp.R
+import com.example.movieapp.data.model.GenreEntity
+import com.example.movieapp.data.model.MovieEntity
+import com.example.movieapp.data.model.TvShowEntity
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Query
 
-class NetworkHandler {
-
-    // For next submission!!
+class NetworkHandler(private val context: Context) {
 
     // set interceptor
     private fun getInterceptor(): OkHttpClient {
@@ -20,7 +21,13 @@ class NetworkHandler {
         return OkHttpClient.Builder()
             .addInterceptor(logging)
             .addInterceptor { chain ->
-                val request = chain.request().newBuilder().build()
+                var request = chain.request()
+                val url = request.url.newBuilder().addQueryParameter(
+                    "api_key", context.getString(
+                        R.string.tmdb_api_key
+                    )
+                ).build()
+                request = request.newBuilder().url(url).build()
                 chain.proceed(request)
             }
             .build()
@@ -34,11 +41,20 @@ class NetworkHandler {
             .build()
     }
 
-    fun getService(token: String): ServiceApiCall = getRetrofit().create(ServiceApiCall::class.java)
+    fun getService(): ServiceApiCall = getRetrofit().create(ServiceApiCall::class.java)
 }
 
 interface ServiceApiCall {
     @GET("movie/now_playing")
-    fun getNowPlayingMovies(@Query("api_key") api_key: String): Call<NowPlayingMovies>
+    fun getAllMovies(): Call<MovieEntity>
+
+    @GET("tv/on_the_air")
+    fun getAllTvShows(): Call<TvShowEntity>
+
+    @GET("genre/movie/list")
+    fun getMovieGenres(): Call<GenreEntity>
+
+    @GET("genre/tv/list")
+    fun getTvGenres(): Call<GenreEntity>
 
 }

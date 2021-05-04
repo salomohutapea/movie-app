@@ -3,8 +3,11 @@ package com.example.movieapp.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.movieapp.data.Repository
 
-class DetailTvViewModel : ViewModel() {
+class DetailTvViewModel(private val repository: Repository) : ViewModel() {
+
+    //TODO: GET TV DETAIL BY ID
     val isLoading = MutableLiveData<Boolean>()
 
     fun getIsLoading(): LiveData<Boolean> {

@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
+import com.example.movieapp.data.model.TvShow
 import com.example.movieapp.databinding.ItemTvMovieListBinding
-import com.example.movieapp.models.TvShow
 
 class TvShowsAdapter(private val listTvShows: ArrayList<TvShow>) :
     RecyclerView.Adapter<TvShowsAdapter.ListViewHolder>() {

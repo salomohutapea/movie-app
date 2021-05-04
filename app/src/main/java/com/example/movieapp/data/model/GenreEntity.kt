@@ -1,9 +1,9 @@
-package com.example.movieapp.models
+package com.example.movieapp.data.model
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class Genres(
+data class GenreEntity(
 
     @field:SerializedName("genres")
     val genres: ArrayList<Genre>? = null

@@ -124,7 +124,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:includeFontPadding="false"
-                                    android:text="@string/_18"
+                                    android:text="@string/en"
                                     android:textColor="@color/white"
                                     android:textSize="12sp"/>
                         </LinearLayout>
