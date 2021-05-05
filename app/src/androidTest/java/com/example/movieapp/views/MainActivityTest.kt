@@ -57,7 +57,7 @@ class MainActivityTest {
         onView(withId(R.id.detail_movie_lang_textview)).check(
             ViewAssertions.matches(
                 withText(
-                    dummyMovieTv.first.movies?.get(0)?.original_language?.capitalize()
+                    dummyMovieTv.first.movies?.get(0)?.originalLanguage?.capitalize()
                 )
             )
         )
@@ -79,7 +79,7 @@ class MainActivityTest {
     fun loadTvShowsData() {
         onView(withText("TV SHOWS")).perform(ViewActions.click())
         onView(withId(R.id.rv_movietv)).check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.rv_movietv)).perform(dummyMovieTv.second.onAir?.size?.let {
+        onView(withId(R.id.rv_movietv)).perform(dummyMovieTv.second.tvShow?.size?.let {
             RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
                 it
             )

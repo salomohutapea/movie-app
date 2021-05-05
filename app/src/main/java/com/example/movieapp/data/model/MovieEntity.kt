@@ -17,16 +17,16 @@ data class Movie(
     val backdrop_path: String? = null,
 
     @field:SerializedName("genre_ids")
-    val genre_ids: ArrayList<Int>? = null,
+    val genreIds: ArrayList<Int>? = null,
 
     @field:SerializedName("id")
     val id: Int? = 0,
 
     @field:SerializedName("original_language")
-    val original_language: String? = null,
+    val originalLanguage: String? = null,
 
     @field:SerializedName("original_title")
-    val original_title: String? = null,
+    val originalTitle: String? = null,
 
     @field:SerializedName("overview")
     val overview: String? = null,
@@ -35,10 +35,10 @@ data class Movie(
     val popularity: Double? = null,
 
     @field:SerializedName("poster_path")
-    val poster_path: String? = null,
+    val posterPath: String? = null,
 
     @field:SerializedName("release_date")
-    val release_date: String? = null,
+    val releaseDate: String? = null,
 
     @field:SerializedName("title")
     val title: String? = null,
@@ -47,10 +47,10 @@ data class Movie(
     val video: Boolean? = false,
 
     @field:SerializedName("vote_average")
-    val vote_average: Float? = null,
+    val voteAverage: Float? = null,
 
     @field:SerializedName("vote_count")
-    val vote_count: Int? = 0,
+    val voteCount: Int? = 0,
 
     var genre: ArrayList<String>? = null
 ) : Serializable

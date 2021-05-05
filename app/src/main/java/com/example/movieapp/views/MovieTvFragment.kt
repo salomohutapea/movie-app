@@ -60,7 +60,7 @@ class MovieTvFragment : Fragment() {
         } else if (index == 2) {
             val list = arguments?.getSerializable(TV_SHOWS) as TvShowEntity
             context?.let {
-                list.onAir?.let { it1 -> rvHandler.showTvRecyclerView(rvMovieTv, it, it1) }
+                list.tvShow?.let { it1 -> rvHandler.showTvRecyclerView(rvMovieTv, it, it1) }
             }
         }
     }

@@ -5,20 +5,20 @@ import java.io.Serializable
 
 data class TvShowEntity(
     @field:SerializedName("results")
-    val onAir: ArrayList<TvShow>? = null,
+    val tvShow: ArrayList<TvShow>? = null,
 
     ) : Serializable
 
 data class TvShow(
 
     @field:SerializedName("backdrop_path")
-    val backdrop_path: String? = null,
+    val backdropPath: String? = null,
 
     @field:SerializedName("first_air_date")
-    val first_air_date: String? = null,
+    val firstAirDate: String? = null,
 
     @field:SerializedName("genre_ids")
-    val genre_ids: ArrayList<Int>? = null,
+    val genreIds: ArrayList<Int>? = null,
 
     @field:SerializedName("id")
     val id: Int? = 0,
@@ -27,13 +27,13 @@ data class TvShow(
     val name: String? = null,
 
     @field:SerializedName("original_country")
-    val original_country: String? = null,
+    val originalCountry: String? = null,
 
     @field:SerializedName("original_language")
-    val original_language: String? = null,
+    val originalLanguage: String? = null,
 
     @field:SerializedName("original_name")
-    val original_name: String? = null,
+    val originalName: String? = null,
 
     @field:SerializedName("overview")
     val overview: String? = null,
@@ -42,13 +42,13 @@ data class TvShow(
     val popularity: Double? = null,
 
     @field:SerializedName("poster_path")
-    val poster_path: String? = null,
+    val posterPath: String? = null,
 
     @field:SerializedName("vote_average")
-    val vote_average: Float? = null,
+    val voteAverage: Float? = null,
 
     @field:SerializedName("vote_count")
-    val vote_count: Int? = 0,
+    val voteCount: Int? = 0,
 
     var genre: ArrayList<String>? = null
 ) : Serializable

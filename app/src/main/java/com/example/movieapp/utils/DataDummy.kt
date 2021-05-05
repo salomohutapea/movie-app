@@ -28,6 +28,13 @@ object DataDummy {
         return Pair(data.first, data.second)
     }
 
+    fun generateDummyMovieTvGenres(): Pair<GenreEntity, GenreEntity> {
+        return Pair(
+            gson.fromJson(dummyGenresMoviesData, GenreEntity::class.java),
+            gson.fromJson(dummyGenresTvShowsData, GenreEntity::class.java)
+        )
+    }
+
     private fun searchGenre(
         movieEntity: MovieEntity,
         tvShowEntity: TvShowEntity
@@ -38,7 +45,7 @@ object DataDummy {
 
         movieEntity.movies?.forEach { movie ->
             movie.genre = ArrayList()
-            movie.genre_ids?.forEach { id ->
+            movie.genreIds?.forEach { id ->
                 moviesGenre.genres?.forEach {
                     if (id == it.id) {
                         it.name?.let { genre_name -> movie.genre?.add(genre_name) }
@@ -46,9 +53,9 @@ object DataDummy {
                 }
             }
         }
-        tvShowEntity.onAir?.forEach { tvShows ->
+        tvShowEntity.tvShow?.forEach { tvShows ->
             tvShows.genre = ArrayList()
-            tvShows.genre_ids?.forEach { id ->
+            tvShows.genreIds?.forEach { id ->
                 tvShowsGenre.genres?.forEach { it ->
                     if (id == it.id) {
                         it.name?.let { genre_name -> tvShows.genre?.add(genre_name) }

@@ -27,11 +27,11 @@ class TvShowsAdapter(private val listTvShows: ArrayList<TvShow>) :
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val tvShow = listTvShows[position]
         Glide.with(holder.itemView.context)
-            .load("https://image.tmdb.org/t/p/w500${tvShow.poster_path}")
+            .load("https://image.tmdb.org/t/p/w500${tvShow.posterPath}")
             .into(holder.binding.singlePosterImg)
-        holder.binding.singlePopularityTextview.text = tvShow.vote_average.toString()
+        holder.binding.singlePopularityTextview.text = tvShow.voteAverage.toString()
         holder.binding.singleTitleTextview.text = tvShow.name
-        holder.binding.singleDateReleasedTextview.text = StringBuilder("First on-air date: ${tvShow.first_air_date}")
+        holder.binding.singleDateReleasedTextview.text = StringBuilder("First on-air date: ${tvShow.firstAirDate}")
 
         var genreText = "Genre: "
 

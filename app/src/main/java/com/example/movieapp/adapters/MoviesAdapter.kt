@@ -26,11 +26,11 @@ class MoviesAdapter(private val listMovies: ArrayList<Movie>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val movie = listMovies[position]
         Glide.with(holder.itemView.context)
-            .load("https://image.tmdb.org/t/p/w500${movie.poster_path}")
+            .load("https://image.tmdb.org/t/p/w500${movie.posterPath}")
             .into(holder.binding.singlePosterImg)
-        holder.binding.singlePopularityTextview.text = movie.vote_average.toString()
+        holder.binding.singlePopularityTextview.text = movie.voteAverage.toString()
         holder.binding.singleTitleTextview.text = movie.title
-        holder.binding.singleDateReleasedTextview.text = StringBuilder("Date released: ${movie.release_date}")
+        holder.binding.singleDateReleasedTextview.text = StringBuilder("Date released: ${movie.releaseDate}")
 
         var genreText = "Genre: "
 

@@ -11,7 +11,7 @@ import com.example.movieapp.data.model.GenreEntity
 import com.example.movieapp.data.model.MovieEntity
 import com.example.movieapp.data.model.TvShowEntity
 import com.example.movieapp.databinding.ActivityMainBinding
-import com.example.movieapp.viewmodel.ViewModelFactory
+import com.example.movieapp.viewmodels.ViewModelFactory
 import com.example.movieapp.viewmodels.MainViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         if (flag == 4) {
             movieEntity.movies?.forEach { movie ->
                 movie.genre = ArrayList()
-                movie.genre_ids?.forEach { id ->
+                movie.genreIds?.forEach { id ->
                     movieGenres.genres?.forEach {
                         if (id == it.id) {
                             it.name?.let { genre_name -> movie.genre?.add(genre_name) }
@@ -108,9 +108,9 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-            tvShowEntity.onAir?.forEach { tvShows ->
+            tvShowEntity.tvShow?.forEach { tvShows ->
                 tvShows.genre = ArrayList()
-                tvShows.genre_ids?.forEach { id ->
+                tvShows.genreIds?.forEach { id ->
                     tvGenres.genres?.forEach { it ->
                         if (id == it.id) {
                             it.name?.let { genre_name -> tvShows.genre?.add(genre_name) }

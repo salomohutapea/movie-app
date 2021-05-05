@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.movieapp.data.model.TvShow
 import com.example.movieapp.databinding.ActivityTvDetailBinding
-import com.example.movieapp.viewmodel.ViewModelFactory
+import com.example.movieapp.viewmodels.ViewModelFactory
 import com.example.movieapp.viewmodels.DetailTvViewModel
 import java.util.*
 
@@ -42,14 +42,14 @@ class TvDetailActivity : AppCompatActivity() {
         with(binding) {
 
             Glide.with(applicationContext)
-                .load("https://image.tmdb.org/t/p/w500${tvShow.backdrop_path}")
+                .load("https://image.tmdb.org/t/p/w500${tvShow.backdropPath}")
                 .into(imageviewDetailTvBackdrop)
 
             textviewDetailTvTitle.text = tvShow.name
             textviewDetailTvOverviewContent.text = tvShow.overview
-            detailTvLangTextview.text = tvShow.original_language?.capitalize(Locale.ROOT)
-            textviewDetailTvDateContent.text = tvShow.first_air_date
-            detailTvVoteAverageTextview.text = tvShow.vote_average.toString()
+            detailTvLangTextview.text = tvShow.originalLanguage?.capitalize(Locale.ROOT)
+            textviewDetailTvDateContent.text = tvShow.firstAirDate
+            detailTvVoteAverageTextview.text = tvShow.voteAverage.toString()
 
             var genreText = ""
             tvShow.genre?.forEachIndexed { i, it ->
