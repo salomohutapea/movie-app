@@ -25,8 +25,8 @@ class MainViewModelTest {
     fun getAllData() {
         val dataEntities = viewModel.getAllData()
         assertNotNull(dataEntities)
-        assertEquals(20, dataEntities.value?.first?.movies?.size)
-        assertEquals(20, dataEntities.value?.second?.onAir?.size)
+        assertEquals(20, dataEntities.value.first.movies.size)
+        assertEquals(20, dataEntities.value.second.onAir.size)
     }
 
     @Test
