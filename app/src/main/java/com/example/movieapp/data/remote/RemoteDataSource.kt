@@ -1,7 +1,5 @@
 package com.example.movieapp.data.remote
 
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import com.example.movieapp.data.model.GenreEntity
 import com.example.movieapp.data.model.MovieEntity
@@ -14,8 +12,6 @@ import retrofit2.Response
 
 class RemoteDataSource private constructor(private val networkHandler: NetworkHandler) {
 
-    private val handler = Handler(Looper.getMainLooper())
-
     companion object {
         @Volatile
         private var instance: RemoteDataSource? = null
@@ -25,8 +21,6 @@ class RemoteDataSource private constructor(private val networkHandler: NetworkHa
                 RemoteDataSource(networkHandler).apply { instance = this }
             }
     }
-
-    //TODO: IDLING RESOURCE
 
     fun getAllMovies(callback: LoadMoviesCallback) {
         EspressoIdlingResource.increment()

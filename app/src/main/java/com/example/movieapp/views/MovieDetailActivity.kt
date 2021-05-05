@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.databinding.ActivityMovieDetailBinding
-import com.example.movieapp.viewmodels.ViewModelFactory
 import com.example.movieapp.viewmodels.DetailMovieViewModel
+import com.example.movieapp.viewmodels.ViewModelFactory
 import java.util.*
 
 class MovieDetailActivity : AppCompatActivity() {

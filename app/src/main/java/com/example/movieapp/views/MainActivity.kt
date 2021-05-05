@@ -11,8 +11,8 @@ import com.example.movieapp.data.model.GenreEntity
 import com.example.movieapp.data.model.MovieEntity
 import com.example.movieapp.data.model.TvShowEntity
 import com.example.movieapp.databinding.ActivityMainBinding
-import com.example.movieapp.viewmodels.ViewModelFactory
 import com.example.movieapp.viewmodels.MainViewModel
+import com.example.movieapp.viewmodels.ViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
