@@ -56,9 +56,7 @@ class MainActivityTest {
             )
         onView(withId(R.id.detail_movie_lang_textview)).check(
             ViewAssertions.matches(
-                withText(
-                    dummyMovieTv.first.movies?.get(0)?.originalLanguage?.capitalize()
-                )
+                isDisplayed()
             )
         )
         onView(withId(R.id.textview_detail_movie_title)).check(
