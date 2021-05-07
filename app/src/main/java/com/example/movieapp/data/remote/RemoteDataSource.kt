@@ -28,7 +28,7 @@ class RemoteDataSource private constructor(private val networkHandler: NetworkHa
             Callback<MovieEntity> {
 
             override fun onFailure(call: Call<MovieEntity>, t: Throwable) {
-                Log.d("Request Failed", "Search user")
+                Log.d("Request Failed", "Search movies")
             }
 
             override fun onResponse(
@@ -47,7 +47,7 @@ class RemoteDataSource private constructor(private val networkHandler: NetworkHa
             Callback<TvShowEntity> {
 
             override fun onFailure(call: Call<TvShowEntity>, t: Throwable) {
-                Log.d("Request Failed", "Search user")
+                Log.d("Request Failed", "Search tv shows")
             }
 
             override fun onResponse(
@@ -66,7 +66,7 @@ class RemoteDataSource private constructor(private val networkHandler: NetworkHa
             Callback<GenreEntity> {
 
             override fun onFailure(call: Call<GenreEntity>, t: Throwable) {
-                Log.d("Request Failed", "Search user")
+                Log.d("Request Failed", "Search movie genres")
             }
 
             override fun onResponse(
@@ -85,7 +85,7 @@ class RemoteDataSource private constructor(private val networkHandler: NetworkHa
             Callback<GenreEntity> {
 
             override fun onFailure(call: Call<GenreEntity>, t: Throwable) {
-                Log.d("Request Failed", "Search user")
+                Log.d("Request Failed", "Search tv show genres")
             }
 
             override fun onResponse(
