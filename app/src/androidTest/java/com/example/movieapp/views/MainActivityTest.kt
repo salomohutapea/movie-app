@@ -54,7 +54,7 @@ class MainActivityTest {
                     ViewActions.click()
                 )
             )
-        onView(withId(R.id.detail_movie_lang_textview)).check(
+        onView(withId(R.id.textview_detail_movie_title)).check(
             ViewAssertions.matches(
                 isDisplayed()
             )
@@ -94,7 +94,7 @@ class MainActivityTest {
                     ViewActions.click()
                 )
             )
-        onView(withId(R.id.detail_tv_lang_textview)).check(
+        onView(withId(R.id.textview_detail_tv_title)).check(
             ViewAssertions.matches(
                 isDisplayed()
             )
