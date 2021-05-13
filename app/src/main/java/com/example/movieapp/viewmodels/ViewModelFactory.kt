@@ -22,10 +22,10 @@ class ViewModelFactory private constructor(private val mRepository: Repository) 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(DetailMovieViewModel::class.java) -> {
-                DetailMovieViewModel() as T
+                DetailMovieViewModel(mRepository) as T
             }
             modelClass.isAssignableFrom(DetailTvViewModel::class.java) -> {
-                DetailTvViewModel() as T
+                DetailTvViewModel(mRepository) as T
             }
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 MainViewModel(mRepository) as T

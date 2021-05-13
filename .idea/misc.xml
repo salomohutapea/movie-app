@@ -3,8 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_movie_detail.xml" value="0.335" />
+        <entry key="app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.2574074074074074" />
+        <entry key="app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.2574074074074074" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_movie_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_tv_detail.xml" value="0.23324275362318841" />
+        <entry key="app/src/main/res/layout/fragment_movie_tv.xml" value="0.3453125" />
+        <entry key="app/src/main/res/layout/item_tv_movie_list.xml" value="0.3453125" />
+        <entry key="app/src/main/res/menu/menu_detail.xml" value="0.3453125" />
       </map>
     </option>
   </component>

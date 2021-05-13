@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.R
-import com.example.movieapp.data.model.MovieEntity
-import com.example.movieapp.data.model.TvShowEntity
+import com.example.movieapp.data.model.Movie
+import com.example.movieapp.data.model.TvShow
 import com.example.movieapp.databinding.FragmentMovieTvBinding
 import com.example.movieapp.handlers.ListHandler
 
@@ -23,12 +23,12 @@ class MovieTvFragment : Fragment() {
         private const val TV_SHOWS = "tv_shows"
 
         @JvmStatic
-        fun newInstance(index: Int, movieEntity: MovieEntity, tvShows: TvShowEntity) =
+        fun newInstance(index: Int, movieEntity: List<Movie>, tvShows: List<TvShow>) =
             MovieTvFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, index)
-                    putSerializable(MOVIES, movieEntity)
-                    putSerializable(TV_SHOWS, tvShows)
+                    putSerializable(MOVIES, movieEntity as ArrayList<Movie>)
+                    putSerializable(TV_SHOWS, tvShows as ArrayList<TvShow>)
                 }
             }
     }
@@ -53,14 +53,14 @@ class MovieTvFragment : Fragment() {
 
         if (index == 1) {
 
-            val list = arguments?.getSerializable(MOVIES) as MovieEntity
+            val list = arguments?.getSerializable(MOVIES) as ArrayList<Movie>
             context?.let {
-                list.movies?.let { it1 -> rvHandler.showMovieRecyclerView(rvMovieTv, it, it1) }
+                list.let { it1 -> rvHandler.showMovieRecyclerView(rvMovieTv, it, it1) }
             }
         } else if (index == 2) {
-            val list = arguments?.getSerializable(TV_SHOWS) as TvShowEntity
+            val list = arguments?.getSerializable(TV_SHOWS) as ArrayList<TvShow>
             context?.let {
-                list.tvShow?.let { it1 -> rvHandler.showTvRecyclerView(rvMovieTv, it, it1) }
+                list.let { it1 -> rvHandler.showTvRecyclerView(rvMovieTv, it, it1) }
             }
         }
     }

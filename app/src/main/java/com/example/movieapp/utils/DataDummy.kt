@@ -44,21 +44,21 @@ object DataDummy {
         tvShowsGenre = gson.fromJson(dummyGenresTvShowsData, GenreEntity::class.java)
 
         movieEntity.movies?.forEach { movie ->
-            movie.genre = ArrayList()
+            movie.genres = ArrayList()
             movie.genreIds?.forEach { id ->
                 moviesGenre.genres?.forEach {
-                    if (id == it.id) {
-                        it.name?.let { genre_name -> movie.genre?.add(genre_name) }
+                    if (id == it.id.toString()) {
+                        it.name?.let { genreName -> movie.genres?.add(genreName) }
                     }
                 }
             }
         }
         tvShowEntity.tvShow?.forEach { tvShows ->
-            tvShows.genre = ArrayList()
+            tvShows.genres = ArrayList()
             tvShows.genreIds?.forEach { id ->
                 tvShowsGenre.genres?.forEach { it ->
-                    if (id == it.id) {
-                        it.name?.let { genre_name -> tvShows.genre?.add(genre_name) }
+                    if (id == it.id.toString()) {
+                        it.name?.let { genreName -> tvShows.genres?.add(genreName) }
                     }
                 }
             }

@@ -1,17 +1,25 @@
 package com.example.movieapp.data
 
 import androidx.lifecycle.LiveData
-import com.example.movieapp.data.model.GenreEntity
-import com.example.movieapp.data.model.MovieEntity
-import com.example.movieapp.data.model.TvShowEntity
+import com.example.movieapp.data.model.Movie
+import com.example.movieapp.data.model.TvShow
+import com.example.movieapp.vo.Resource
 
 interface MovieDataSource {
 
-    fun getAllMovies(): LiveData<MovieEntity>
+    fun getAllMovies(): LiveData<Resource<List<Movie>>>
 
-    fun getAllTvShows(): LiveData<TvShowEntity>
+    fun getAllTvShows(): LiveData<Resource<List<TvShow>>>
 
-    fun getMovieGenres(): LiveData<GenreEntity>
+    fun getFavoriteMovies(): LiveData<List<Movie>>
 
-    fun getTvGenres(): LiveData<GenreEntity>
+    fun getFavoriteTvShows(): LiveData<List<TvShow>>
+
+    fun setMovieFavorite(movie: Movie, state: Boolean)
+
+    fun setTvShowFavorite(tvShow: TvShow, state: Boolean)
+
+    fun getMovieById(movieId: String)
+
+    fun getTvShowById(tvShowId: String)
 }

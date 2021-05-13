@@ -1,18 +1,20 @@
 package com.example.movieapp.views
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.movieapp.R
 import com.example.movieapp.adapters.PagerAdapter
-import com.example.movieapp.data.model.GenreEntity
-import com.example.movieapp.data.model.MovieEntity
-import com.example.movieapp.data.model.TvShowEntity
+import com.example.movieapp.data.model.Movie
+import com.example.movieapp.data.model.TvShow
 import com.example.movieapp.databinding.ActivityMainBinding
 import com.example.movieapp.viewmodels.MainViewModel
 import com.example.movieapp.viewmodels.ViewModelFactory
+import com.example.movieapp.vo.Status
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -22,16 +24,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabs: TabLayout
     private lateinit var pagerAdapter: PagerAdapter
+    private lateinit var movieEntity: List<Movie>
+    private lateinit var tvShowEntity: List<TvShow>
 
-    private var movieEntity = MovieEntity()
-    private var tvShowEntity = TvShowEntity()
-    private var movieGenres = GenreEntity()
-    private var tvGenres = GenreEntity()
-
-    private var flag = 0
+    private var notFavFlag = 0
+    private var favFlag = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Log.d("OONCREATE", "created")
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -40,10 +42,16 @@ class MainActivity : AppCompatActivity() {
         tabs = findViewById(R.id.tabs)
 
         initializeViewModel()
+        initializeFavSwitch()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        favFlag = 0
+        notFavFlag = 0
     }
 
     private fun initializeViewModel() {
-        flag = 0
 
         val factory = ViewModelFactory.getInstance(this)
         mainViewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
@@ -52,40 +60,104 @@ class MainActivity : AppCompatActivity() {
             showLoading(it)
         }
 
-        mainViewModel.isLoading.postValue(true)
-
-        mainViewModel.getMovies().observe(this) {
-            flag++
-            movieEntity = it
-            addGenreToData()
-        }
-        mainViewModel.getTvShows().observe(this) {
-            flag++
-            tvShowEntity = it
-            addGenreToData()
-        }
-        mainViewModel.getMovieGenres().observe(this) {
-            flag++
-            movieGenres = it
-            addGenreToData()
-        }
-        mainViewModel.getTvGenres().observe(this) {
-            flag++
-            tvGenres = it
-            addGenreToData()
-        }
     }
 
-    private fun displayPager(data: Pair<MovieEntity, TvShowEntity>) {
-        supportActionBar?.elevation = 0f
-        pagerAdapter = PagerAdapter(this, data.first, data.second)
-        viewPager.adapter = pagerAdapter
-        TabLayoutMediator(tabs, viewPager) { tab, position ->
-            when (position) {
-                0 -> tab.text = "MOVIES"
-                1 -> tab.text = "TV SHOWS"
+    private fun initializeFavSwitch() {
+        binding.switchFavorite.setOnCheckedChangeListener { _, isChecked ->
+            favFlag = 0
+            notFavFlag = 0
+            mainViewModel.setIsLoading(true)
+            if (isChecked) {
+                favFlag = 0
+                mainViewModel.favMovies().observe(this) {
+                    if (it != null) {
+                        favFlag++
+                        movieEntity = it
+                        displayPager()
+                    }
+                }
+                mainViewModel.favTvShows().observe(this) {
+                    if (it != null) {
+                        favFlag++
+                        tvShowEntity = it
+                        displayPager()
+                    }
+                }
+            } else {
+                mainViewModel.movies().observe(this) { movies ->
+                    if (movies != null) {
+                        when (movies.status) {
+                            Status.LOADING -> Log.d("AABC", "LOADING GET MOVIES")
+                            Status.SUCCESS -> {
+                                Log.d("AABC", "SUCCESS GET MOVIES")
+                                if (movies.data != null) {
+                                    movieEntity = movies.data
+                                    Log.d("AABC", movieEntity.toString())
+                                    notFavFlag++
+                                    displayPager()
+                                }
+                                mainViewModel.setIsLoading(false)
+                            }
+                            Status.ERROR -> {
+                                mainViewModel.setIsLoading(false)
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Terjadi kesalahan",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+                        }
+                    }
+                }
+                mainViewModel.tvShows().observe(this) { tvShows ->
+                    if (tvShows != null) {
+                        when (tvShows.status) {
+                            Status.LOADING -> Log.d("AABC", "LOADING GET TVSHOWS")
+                            Status.SUCCESS -> {
+                                Log.d("AABC", "SUCCESS GET TV SHOWS")
+                                if (tvShows.data != null) {
+                                    tvShowEntity = tvShows.data
+                                    Log.d("AABC", tvShowEntity.toString())
+                                    notFavFlag++
+                                    displayPager()
+                                }
+                                mainViewModel.setIsLoading(false)
+                            }
+                            Status.ERROR -> {
+                                mainViewModel.setIsLoading(false)
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Terjadi kesalahan",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+                        }
+                    }
+                }
             }
-        }.attach()
+        }
+        binding.switchFavorite.isChecked = true
+        binding.switchFavorite.isChecked = false
+    }
+
+    private fun displayPager() {
+        Log.d("FLAAGFAV", favFlag.toString())
+        if (notFavFlag == 2 || favFlag == 2) {
+            Log.d("INSIDEIF1", movieEntity.toString())
+            Log.d("INSIDEIF2", tvShowEntity.toString())
+            supportActionBar?.elevation = 0f
+            pagerAdapter = PagerAdapter(this, movieEntity, tvShowEntity)
+            viewPager.adapter = pagerAdapter
+            TabLayoutMediator(tabs, viewPager) { tab, position ->
+                when (position) {
+                    0 -> tab.text = "MOVIES"
+                    1 -> tab.text = "TV SHOWS"
+                }
+            }.attach()
+            mainViewModel.setIsLoading(false)
+        }
     }
 
     private fun showLoading(loading: Boolean) {
@@ -96,30 +168,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun addGenreToData() {
-        if (flag == 4) {
-            movieEntity.movies?.forEach { movie ->
-                movie.genre = ArrayList()
-                movie.genreIds?.forEach { id ->
-                    movieGenres.genres?.forEach {
-                        if (id == it.id) {
-                            it.name?.let { genre_name -> movie.genre?.add(genre_name) }
-                        }
-                    }
-                }
-            }
-            tvShowEntity.tvShow?.forEach { tvShows ->
-                tvShows.genre = ArrayList()
-                tvShows.genreIds?.forEach { id ->
-                    tvGenres.genres?.forEach { it ->
-                        if (id == it.id) {
-                            it.name?.let { genre_name -> tvShows.genre?.add(genre_name) }
-                        }
-                    }
-                }
-            }
-            displayPager(Pair(movieEntity, tvShowEntity))
-            mainViewModel.isLoading.postValue(false)
-        }
-    }
 }

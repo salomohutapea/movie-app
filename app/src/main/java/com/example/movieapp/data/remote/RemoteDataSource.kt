@@ -1,11 +1,13 @@
 package com.example.movieapp.data.remote
 
 import android.util.Log
-import com.example.movieapp.data.model.GenreEntity
-import com.example.movieapp.data.model.MovieEntity
-import com.example.movieapp.data.model.TvShowEntity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.example.movieapp.data.model.*
 import com.example.movieapp.handlers.NetworkHandler
 import com.example.movieapp.utils.EspressoIdlingResource
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,95 +24,101 @@ class RemoteDataSource private constructor(private val networkHandler: NetworkHa
             }
     }
 
-    fun getAllMovies(callback: LoadMoviesCallback) {
+    fun getAllMovies(): LiveData<ApiResponse<List<Movie>>> {
         EspressoIdlingResource.increment()
+        val resultMovie = MutableLiveData<ApiResponse<List<Movie>>>()
         networkHandler.getService().getAllMovies().enqueue(object :
             Callback<MovieEntity> {
 
             override fun onFailure(call: Call<MovieEntity>, t: Throwable) {
-                Log.d("Request Failed", "Search movies")
+                Log.d("Requestt Failed", "Get movies, ${t.cause}")
             }
 
             override fun onResponse(
                 call: Call<MovieEntity>,
                 response: Response<MovieEntity>
             ) {
-                response.body()?.let { callback.onAllMoviesReceived(it) }
+                lateinit var data: List<Movie>
+                try {
+                    GlobalScope.launch {
+                        val genreResponse =
+                            networkHandler.getService().getMovieGenres().body()
+                        response.body()?.let {
+                            data = addGenreToMovie(genreResponse, it.movies as List<Movie>)
+                            resultMovie.postValue(ApiResponse.success(data))
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
                 EspressoIdlingResource.decrement()
             }
         })
+        return resultMovie
     }
 
-    fun getAllTvShows(callback: LoadTvShowsCallback) {
+    fun getAllTvShows(): LiveData<ApiResponse<List<TvShow>>> {
         EspressoIdlingResource.increment()
+        val resultTvShow = MutableLiveData<ApiResponse<List<TvShow>>>()
         networkHandler.getService().getAllTvShows().enqueue(object :
             Callback<TvShowEntity> {
 
             override fun onFailure(call: Call<TvShowEntity>, t: Throwable) {
-                Log.d("Request Failed", "Search tv shows")
+                Log.d("Requestt Failed", "Get tv shows, ${t.cause}")
             }
 
             override fun onResponse(
                 call: Call<TvShowEntity>,
                 response: Response<TvShowEntity>
             ) {
-                response.body()?.let { callback.onAllTvShowsReceived(it) }
+                lateinit var data: List<TvShow>
+                try {
+                    GlobalScope.launch {
+                        val genreResponse =
+                            networkHandler.getService().getTvGenres().body()
+                        response.body()?.let {
+                            data = addGenreToTvShows(genreResponse, it.tvShow as List<TvShow>)
+                            resultTvShow.postValue(ApiResponse.success(data))
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
                 EspressoIdlingResource.decrement()
             }
         })
+        return resultTvShow
     }
 
-    fun getMovieGenres(callback: LoadMovieGenresCallback) {
-        EspressoIdlingResource.increment()
-        networkHandler.getService().getMovieGenres().enqueue(object :
-            Callback<GenreEntity> {
-
-            override fun onFailure(call: Call<GenreEntity>, t: Throwable) {
-                Log.d("Request Failed", "Search movie genres")
+    private fun addGenreToMovie(movieGenres: GenreEntity?, movieEntity: List<Movie>): List<Movie> {
+        movieEntity.forEach { movie ->
+            movie.genres = ArrayList()
+            movie.genreIds?.forEach { id ->
+                movieGenres?.genres?.forEach {
+                    if (id == it.id.toString()) {
+                        it.name?.let { genreName -> movie.genres?.add(genreName) }
+                    }
+                }
             }
+        }
+        return movieEntity
+    }
 
-            override fun onResponse(
-                call: Call<GenreEntity>,
-                response: Response<GenreEntity>
-            ) {
-                response.body()?.let { callback.onMovieGenresReceived(it) }
-                EspressoIdlingResource.decrement()
+    private fun addGenreToTvShows(
+        tvGenres: GenreEntity?,
+        tvShowEntity: List<TvShow>
+    ): List<TvShow> {
+        tvShowEntity.forEach { tvShows ->
+            tvShows.genres = ArrayList()
+            tvShows.genreIds?.forEach { id ->
+                tvGenres?.genres?.forEach { it ->
+                    if (id == it.id.toString()) {
+                        it.name?.let { genreName -> tvShows.genres?.add(genreName) }
+                    }
+                }
             }
-        })
+        }
+        return tvShowEntity
     }
 
-    fun getTvGenres(callback: LoadTvGenresCallback) {
-        EspressoIdlingResource.increment()
-        networkHandler.getService().getTvGenres().enqueue(object :
-            Callback<GenreEntity> {
-
-            override fun onFailure(call: Call<GenreEntity>, t: Throwable) {
-                Log.d("Request Failed", "Search tv show genres")
-            }
-
-            override fun onResponse(
-                call: Call<GenreEntity>,
-                response: Response<GenreEntity>
-            ) {
-                response.body()?.let { callback.onTvGenresReceived(it) }
-                EspressoIdlingResource.decrement()
-            }
-        })
-    }
-
-    interface LoadMoviesCallback {
-        fun onAllMoviesReceived(moviesResponse: MovieEntity)
-    }
-
-    interface LoadTvShowsCallback {
-        fun onAllTvShowsReceived(tvShowsResponse: TvShowEntity)
-    }
-
-    interface LoadMovieGenresCallback {
-        fun onMovieGenresReceived(movieGenresResponse: GenreEntity)
-    }
-
-    interface LoadTvGenresCallback {
-        fun onTvGenresReceived(tvGenresResponse: GenreEntity)
-    }
 }

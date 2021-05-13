@@ -35,8 +35,8 @@ class TvShowsAdapter(private val listTvShows: ArrayList<TvShow>) :
 
         var genreText = "Genre: "
 
-        tvShow.genre?.forEachIndexed { i, it ->
-            genreText = if (i != tvShow.genre!!.size - 1) {
+        tvShow.genres?.forEachIndexed { i, it ->
+            genreText = if (i != tvShow.genres!!.size - 1) {
                 genreText.plus(it).plus(", ")
             } else {
                 genreText.plus(it)

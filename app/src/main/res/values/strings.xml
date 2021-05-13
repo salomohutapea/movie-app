@@ -7,7 +7,6 @@
     <string name="star_icon">Star icon</string>
     <string name="rating_sample">8.3</string>
     <string name="genre">Genre: Action</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="date_released">Date released: 2021–04–20</string>
     <string name="backdrop_image">Backdrop Image</string>
     <string name="_18">18 +</string>
@@ -31,4 +30,8 @@
     <string name="tv_title">Tv Show Title</string>
     <string name="first_on_air_date">First On-Air Date</string>
     <string name="en">EN</string>
+    <string name="only_favorite">Show Favorites Only</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="add_to_favorite">Add To Favorite</string>
 </resources>

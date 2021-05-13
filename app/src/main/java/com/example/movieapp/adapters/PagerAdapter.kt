@@ -3,14 +3,14 @@ package com.example.movieapp.adapters
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.movieapp.data.model.MovieEntity
-import com.example.movieapp.data.model.TvShowEntity
+import com.example.movieapp.data.model.Movie
+import com.example.movieapp.data.model.TvShow
 import com.example.movieapp.views.MovieTvFragment
 
 class PagerAdapter(
     activity: AppCompatActivity,
-    private var nowPlayingMovies: MovieEntity,
-    private var tvShows: TvShowEntity,
+    private var nowPlayingMovies: List<Movie>,
+    private var tvShows: List<TvShow>,
 ) :
     FragmentStateAdapter(activity) {
     override fun createFragment(position: Int): Fragment {

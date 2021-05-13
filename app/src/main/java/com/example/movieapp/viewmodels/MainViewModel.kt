@@ -4,20 +4,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.movieapp.data.Repository
-import com.example.movieapp.data.model.GenreEntity
-import com.example.movieapp.data.model.MovieEntity
-import com.example.movieapp.data.model.TvShowEntity
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
-    fun getTvShows(): LiveData<TvShowEntity> = repository.getAllTvShows()
-    fun getMovies(): LiveData<MovieEntity> = repository.getAllMovies()
-    fun getTvGenres(): LiveData<GenreEntity> = repository.getTvGenres()
-    fun getMovieGenres(): LiveData<GenreEntity> = repository.getMovieGenres()
+    private val isLoading = MutableLiveData<Boolean>()
 
-    val isLoading = MutableLiveData<Boolean>()
-
-    fun getIsLoading(): LiveData<Boolean> {
-        return isLoading
+    fun setIsLoading(loading: Boolean) {
+        isLoading.postValue(loading)
     }
+
+    fun tvShows() = repository.getAllTvShows()
+
+    fun favTvShows() = repository.getFavoriteTvShows()
+
+    fun movies() = repository.getAllMovies()
+
+    fun favMovies() = repository.getFavoriteMovies()
+
+    fun getIsLoading(): LiveData<Boolean> = isLoading
+
+
 }

@@ -1,10 +1,15 @@
 package com.example.movieapp.views
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.movieapp.R
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.databinding.ActivityMovieDetailBinding
 import com.example.movieapp.viewmodels.DetailMovieViewModel
@@ -15,6 +20,8 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMovieDetailBinding
     private lateinit var detailMovieViewModel: DetailMovieViewModel
+    private var menu: Menu? = null
+    lateinit var movie: Movie
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +30,34 @@ class MovieDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Movie Detail"
 
+        movie = intent.getSerializableExtra("MOVIE") as Movie
+
+        initializeViewModel()
+        initializeView()
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_detail, menu)
+        this.menu = menu
+        setFavoriteState(movie.isFavorite)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_favorite) {
+            detailMovieViewModel.setFavorite(movie)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun initializeViewModel() {
         val factory = ViewModelFactory.getInstance(this)
         detailMovieViewModel = ViewModelProvider(this, factory)[DetailMovieViewModel::class.java]
 
@@ -32,12 +67,12 @@ class MovieDetailActivity : AppCompatActivity() {
 
         detailMovieViewModel.isLoading.postValue(true)
 
-        initializeView()
-
+        detailMovieViewModel.getFavorite().observe(this) {
+            setFavoriteState(it)
+        }
     }
 
     private fun initializeView() {
-        val movie = intent.getSerializableExtra("MOVIE") as Movie
         with(binding) {
             if (movie.adult == true) {
                 cardDetailMovieAdult.visibility = View.VISIBLE
@@ -52,12 +87,12 @@ class MovieDetailActivity : AppCompatActivity() {
             textviewDetailMovieTitle.text = movie.title
             textviewDetailMovieOverviewContent.text = movie.overview
             textviewDetailMovieDateContent.text = movie.releaseDate
-            detailMovieLangTextview.text = movie.originalLanguage?.capitalize(Locale.ROOT)
+            detailMovieLangTextview.text = movie.originalLanguage?.uppercase(Locale.getDefault())
             detailMovieVoteAverageTextview.text = movie.voteAverage.toString()
 
             var genreText = ""
-            movie.genre?.forEachIndexed { i, it ->
-                genreText = if (i != movie.genre!!.size - 1) {
+            movie.genres?.forEachIndexed { i, it ->
+                genreText = if (i != movie.genres!!.size - 1) {
                     genreText.plus("•  ${it}\n")
                 } else {
                     genreText.plus("•  $it")
@@ -75,6 +110,18 @@ class MovieDetailActivity : AppCompatActivity() {
         } else {
             binding.progressDetailMovie.visibility = View.GONE
             binding.constraintDetailMovieAll.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setFavoriteState(state: Boolean) {
+        if (menu == null) return
+        val menuItem = menu?.findItem(R.id.action_favorite)
+        if (state) {
+            menuItem?.icon =
+                ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_24_white)
+        } else {
+            menuItem?.icon =
+                ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_border_24_white)
         }
     }
 }

@@ -8,6 +8,7 @@ import com.example.movieapp.data.model.TvShowEntity
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -52,9 +53,9 @@ interface ServiceApiCall {
     fun getAllTvShows(): Call<TvShowEntity>
 
     @GET("genre/movie/list")
-    fun getMovieGenres(): Call<GenreEntity>
+    suspend fun getMovieGenres(): Response<GenreEntity>
 
     @GET("genre/tv/list")
-    fun getTvGenres(): Call<GenreEntity>
+    suspend fun getTvGenres(): Response<GenreEntity>
 
 }

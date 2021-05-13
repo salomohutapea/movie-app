@@ -34,8 +34,8 @@ class MoviesAdapter(private val listMovies: ArrayList<Movie>) : RecyclerView.Ada
 
         var genreText = "Genre: "
 
-        movie.genre?.forEachIndexed { i, it ->
-            genreText = if (i != movie.genre!!.size - 1) {
+        movie.genres?.forEachIndexed { i, it ->
+            genreText = if (i != movie.genres!!.size - 1) {
                 genreText.plus(it).plus(", ")
             } else {
                 genreText.plus(it)
