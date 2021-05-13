@@ -33,8 +33,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.d("OONCREATE", "created")
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -87,12 +85,11 @@ class MainActivity : AppCompatActivity() {
                 mainViewModel.movies().observe(this) { movies ->
                     if (movies != null) {
                         when (movies.status) {
-                            Status.LOADING -> Log.d("AABC", "LOADING GET MOVIES")
+                            Status.LOADING -> Log.d("STATUS_GETDATA", "LOADING GET MOVIES")
                             Status.SUCCESS -> {
-                                Log.d("AABC", "SUCCESS GET MOVIES")
+                                Log.d("STATUS_GETDATA", "SUCCESS GET MOVIES")
                                 if (movies.data != null) {
                                     movieEntity = movies.data
-                                    Log.d("AABC", movieEntity.toString())
                                     notFavFlag++
                                     displayPager()
                                 }
@@ -113,12 +110,11 @@ class MainActivity : AppCompatActivity() {
                 mainViewModel.tvShows().observe(this) { tvShows ->
                     if (tvShows != null) {
                         when (tvShows.status) {
-                            Status.LOADING -> Log.d("AABC", "LOADING GET TVSHOWS")
+                            Status.LOADING -> Log.d("STATUS_GETDATA", "LOADING GET TVSHOWS")
                             Status.SUCCESS -> {
-                                Log.d("AABC", "SUCCESS GET TV SHOWS")
+                                Log.d("STATUS_GETDATA", "SUCCESS GET TV SHOWS")
                                 if (tvShows.data != null) {
                                     tvShowEntity = tvShows.data
-                                    Log.d("AABC", tvShowEntity.toString())
                                     notFavFlag++
                                     displayPager()
                                 }
@@ -143,10 +139,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displayPager() {
-        Log.d("FLAAGFAV", favFlag.toString())
         if (notFavFlag == 2 || favFlag == 2) {
-            Log.d("INSIDEIF1", movieEntity.toString())
-            Log.d("INSIDEIF2", tvShowEntity.toString())
             supportActionBar?.elevation = 0f
             pagerAdapter = PagerAdapter(this, movieEntity, tvShowEntity)
             viewPager.adapter = pagerAdapter

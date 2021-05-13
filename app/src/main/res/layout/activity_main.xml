@@ -10,11 +10,11 @@
         android:id="@+id/switchFavorite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
         android:text="@string/only_favorite"
         android:textColor="@color/design_default_color_primary"
         android:textOff="@string/on"
         android:textOn="@string/off"
-        android:paddingHorizontal="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
