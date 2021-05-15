@@ -1,10 +1,8 @@
 package com.example.movieapp.views
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-
 import androidx.viewpager2.widget.ViewPager2
 import com.example.movieapp.R
 import com.example.movieapp.adapters.PagerAdapter
@@ -38,15 +36,11 @@ class MainActivity : AppCompatActivity() {
     private fun initializeViewModel() {
         val factory = ViewModelFactory.getInstance(this)
         mainViewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
-
-        mainViewModel.getIsLoading().observe(this) {
-            showLoading(it)
-        }
     }
 
     private fun displayPager() {
         supportActionBar?.elevation = 0f
-        pagerAdapter = PagerAdapter(this, binding.switchFavorite)
+        pagerAdapter = PagerAdapter(this, binding)
         viewPager.adapter = pagerAdapter
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             when (position) {
@@ -54,15 +48,6 @@ class MainActivity : AppCompatActivity() {
                 1 -> tab.text = "TV SHOWS"
             }
         }.attach()
-        mainViewModel.setIsLoading(false)
-    }
-
-    private fun showLoading(loading: Boolean) {
-        if (loading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
     }
 
 }

@@ -11,18 +11,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.R
+import com.example.movieapp.databinding.ActivityMainBinding
 import com.example.movieapp.databinding.FragmentMovieTvBinding
 import com.example.movieapp.handlers.RecyclerViewHandler
 import com.example.movieapp.viewmodels.FragmentMovieTvViewModel
 import com.example.movieapp.viewmodels.ViewModelFactory
 import com.example.movieapp.vo.Status
-import com.google.android.material.switchmaterial.SwitchMaterial
 
 
 class MovieTvFragment : Fragment() {
     private lateinit var rvMovieTv: RecyclerView
     private lateinit var binding: FragmentMovieTvBinding
-    private lateinit var switchFavorite: SwitchMaterial
+    private lateinit var activityMainBinding: ActivityMainBinding
     private lateinit var fragmentViewModel: FragmentMovieTvViewModel
 
     private var isShowingFavorite = MutableLiveData<Boolean>()
@@ -33,9 +33,9 @@ class MovieTvFragment : Fragment() {
         private const val ARG_SECTION_NUMBER = "section_number"
 
         @JvmStatic
-        fun newInstance(index: Int, switchFavorite: SwitchMaterial) =
+        fun newInstance(index: Int, activityMainBinding: ActivityMainBinding) =
             MovieTvFragment().apply {
-                this.switchFavorite = switchFavorite
+                this.activityMainBinding = activityMainBinding
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, index)
                 }
@@ -66,10 +66,13 @@ class MovieTvFragment : Fragment() {
 
     private fun initializeObservers() {
 //        viewModel.setIsLoading(true)
-        switchFavorite.setOnCheckedChangeListener { _, state ->
+        activityMainBinding.switchFavorite.setOnCheckedChangeListener { _, state ->
             isShowingFavorite.postValue(state)
         }
         isShowingFavorite.observe(viewLifecycleOwner) { state ->
+
+            showLoading(true)
+
             // All
             if (!state) {
                 when (index) {
@@ -90,16 +93,16 @@ class MovieTvFragment : Fragment() {
                                             }
                                         }
                                     }
-//                                    viewModel.setIsLoading(false)
+                                    showLoading(false)
                                 }
                                 Status.ERROR -> {
-//                                    viewModel.setIsLoading(false)
                                     Toast.makeText(
                                         context,
                                         "Terjadi kesalahan",
                                         Toast.LENGTH_SHORT
                                     )
                                         .show()
+                                    showLoading(false)
                                 }
                             }
                         }
@@ -121,16 +124,16 @@ class MovieTvFragment : Fragment() {
                                             }
                                         }
                                     }
-//                                    viewModel.setIsLoading(false)
+                                    showLoading(false)
                                 }
                                 Status.ERROR -> {
-//                                    viewModel.setIsLoading(false)
                                     Toast.makeText(
                                         context,
                                         "Terjadi kesalahan",
                                         Toast.LENGTH_SHORT
                                     )
                                         .show()
+                                    showLoading(false)
                                 }
                             }
                         }
@@ -154,6 +157,7 @@ class MovieTvFragment : Fragment() {
                                         )
                                     }
                                 }
+                                showLoading(false)
                             }
                     }
                     2 -> {
@@ -169,11 +173,20 @@ class MovieTvFragment : Fragment() {
                                         )
                                     }
                                 }
+                                showLoading(false)
                             }
                     }
                 }
             }
         }
-        isShowingFavorite.postValue(switchFavorite.isChecked)
+        isShowingFavorite.postValue(activityMainBinding.switchFavorite.isChecked)
+    }
+
+    private fun showLoading(loading: Boolean) {
+        if (loading) {
+            activityMainBinding.progressBar.visibility = View.VISIBLE
+        } else {
+            activityMainBinding.progressBar.visibility = View.GONE
+        }
     }
 }

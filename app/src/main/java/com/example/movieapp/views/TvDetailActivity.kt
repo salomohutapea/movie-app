@@ -1,14 +1,13 @@
 package com.example.movieapp.views
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NavUtils
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.data.model.TvShow
@@ -41,8 +40,7 @@ class TvDetailActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent = Intent(applicationContext, MainActivity::class.java)
-        startActivity(intent)
+        finish()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -55,6 +53,10 @@ class TvDetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_favorite) {
             detailTvViewModel.setFavorite(tvShow)
+        }
+        else if(item.itemId == R.id.home) {
+            this.finish()
+            NavUtils.navigateUpFromSameTask(this)
         }
         return super.onOptionsItemSelected(item)
     }
