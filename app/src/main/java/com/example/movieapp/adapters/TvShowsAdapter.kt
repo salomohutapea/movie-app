@@ -3,6 +3,8 @@ package com.example.movieapp.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
@@ -10,7 +12,20 @@ import com.example.movieapp.data.model.TvShow
 import com.example.movieapp.databinding.ItemTvMovieListBinding
 
 class TvShowsAdapter(private val listTvShows: ArrayList<TvShow>) :
-    RecyclerView.Adapter<TvShowsAdapter.ListViewHolder>() {
+    PagingDataAdapter<TvShow, TvShowsAdapter.ListViewHolder>(
+        REPO_COMPARATOR
+    ) {
+
+    companion object {
+        private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<TvShow>() {
+            override fun areItemsTheSame(oldItem: TvShow, newItem: TvShow) =
+                oldItem.id == newItem.id
+
+            override fun areContentsTheSame(oldItem: TvShow, newItem: TvShow) =
+                oldItem.id == newItem.id
+        }
+    }
+
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -18,7 +33,8 @@ class TvShowsAdapter(private val listTvShows: ArrayList<TvShow>) :
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ListViewHolder {
-        val view: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_tv_movie_list, viewGroup, false)
+        val view: View = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.item_tv_movie_list, viewGroup, false)
         val holder = ListViewHolder(view)
         holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listTvShows[holder.absoluteAdapterPosition]) }
         return holder
@@ -31,7 +47,8 @@ class TvShowsAdapter(private val listTvShows: ArrayList<TvShow>) :
             .into(holder.binding.singlePosterImg)
         holder.binding.singlePopularityTextview.text = tvShow.voteAverage.toString()
         holder.binding.singleTitleTextview.text = tvShow.name
-        holder.binding.singleDateReleasedTextview.text = StringBuilder("First on-air date: ${tvShow.firstAirDate}")
+        holder.binding.singleDateReleasedTextview.text =
+            StringBuilder("First on-air date: ${tvShow.firstAirDate}")
 
         var genreText = "Genre: "
 

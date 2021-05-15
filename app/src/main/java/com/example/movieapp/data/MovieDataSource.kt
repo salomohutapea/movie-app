@@ -5,7 +5,6 @@ import androidx.paging.PagingData
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.data.model.TvShow
 import com.example.movieapp.vo.Resource
-import kotlinx.coroutines.flow.Flow
 
 interface MovieDataSource {
 
@@ -25,7 +24,11 @@ interface MovieDataSource {
 
     fun getTvShowById(tvShowId: String)
 
-    fun getMovieFavoritePaging(): Flow<PagingData<Movie>>
+    fun getMoviesFavoritePaging(): LiveData<PagingData<Movie>>
 
-    fun getTvShowFavoritePaging(): Flow<PagingData<TvShow>>
+    fun getTvShowsFavoritePaging(): LiveData<PagingData<TvShow>>
+
+    fun getMoviesPaging(): LiveData<Resource<PagingData<Movie>>>
+
+    fun getTvShowsPaging(): LiveData<Resource<PagingData<TvShow>>>
 }

@@ -22,6 +22,9 @@ interface MovieDao {
     @Query("SELECT * from movie")
     fun getAllMovies(): LiveData<List<Movie>>
 
+    @Query("SELECT * from movie")
+    fun getAllMoviesPaging(): PagingSource<Int, Movie>
+
     @Query("SELECT * FROM movie WHERE is_favorite = 1")
     fun getFavoriteMovies(): LiveData<List<Movie>>
 
