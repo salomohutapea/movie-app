@@ -30,7 +30,7 @@ class ViewModelFactory private constructor(private val mRepository: Repository) 
                 DetailTvViewModel(mRepository) as T
             }
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
-                MainViewModel(mRepository) as T
+                MainViewModel() as T
             }
             modelClass.isAssignableFrom(FragmentMovieTvViewModel::class.java) -> {
                 FragmentMovieTvViewModel(mRepository) as T

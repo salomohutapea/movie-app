@@ -32,102 +32,19 @@ class MainActivity : AppCompatActivity() {
         tabs = findViewById(R.id.tabs)
 
         initializeViewModel()
-//        initializeFavSwitch()
         displayPager()
     }
 
     private fun initializeViewModel() {
-
         val factory = ViewModelFactory.getInstance(this)
         mainViewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
 
         mainViewModel.getIsLoading().observe(this) {
             showLoading(it)
         }
-
-    }
-
-    private fun initializeFavSwitch() {
-//        binding.switchFavorite.setOnCheckedChangeListener { _, state ->
-//            isShowingFavorite = state
-//            favFlag = 0
-//            notFavFlag = 0
-//            mainViewModel.setIsLoading(true)
-//            if (state) {
-//                favFlag = 0
-//                mainViewModel.favMovies().observe(this) {
-//                    if (it != null) {
-//                        favFlag++
-//                        movieEntity = it
-//                        displayPager()
-//                    }
-//                }
-//                mainViewModel.favTvShows().observe(this) {
-//                    if (it != null) {
-//                        favFlag++
-//                        tvShowEntity = it
-//                        displayPager()
-//                    }
-//                }
-//            } else {
-//                mainViewModel.movies().observe(this) { movies ->
-//                    if (movies != null) {
-//                        when (movies.status) {
-//                            Status.LOADING -> Log.d("STATUS_GETDATA", "LOADING GET MOVIES")
-//                            Status.SUCCESS -> {
-//                                Log.d("STATUS_GETDATA", "SUCCESS GET MOVIES")
-//                                if (movies.data != null) {
-//                                    movieEntity = movies.data
-//                                    notFavFlag++
-//                                    displayPager()
-//                                }
-//                                mainViewModel.setIsLoading(false)
-//                            }
-//                            Status.ERROR -> {
-//                                mainViewModel.setIsLoading(false)
-//                                Toast.makeText(
-//                                    applicationContext,
-//                                    "Terjadi kesalahan",
-//                                    Toast.LENGTH_SHORT
-//                                )
-//                                    .show()
-//                            }
-//                        }
-//                    }
-//                }
-//                mainViewModel.tvShows().observe(this) { tvShows ->
-//                    if (tvShows != null) {
-//                        when (tvShows.status) {
-//                            Status.LOADING -> Log.d("STATUS_GETDATA", "LOADING GET TVSHOWS")
-//                            Status.SUCCESS -> {
-//                                Log.d("STATUS_GETDATA", "SUCCESS GET TV SHOWS")
-//                                if (tvShows.data != null) {
-//                                    tvShowEntity = tvShows.data
-//                                    notFavFlag++
-//                                    displayPager()
-//                                }
-//                                mainViewModel.setIsLoading(false)
-//                            }
-//                            Status.ERROR -> {
-//                                mainViewModel.setIsLoading(false)
-//                                Toast.makeText(
-//                                    applicationContext,
-//                                    "Terjadi kesalahan",
-//                                    Toast.LENGTH_SHORT
-//                                )
-//                                    .show()
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
     }
 
     private fun displayPager() {
-//        if (notFavFlag == 2 || favFlag == 2) {
-//
-//        }
         supportActionBar?.elevation = 0f
         pagerAdapter = PagerAdapter(this, binding.switchFavorite)
         viewPager.adapter = pagerAdapter

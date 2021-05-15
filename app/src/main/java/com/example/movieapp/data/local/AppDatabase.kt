@@ -21,7 +21,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun tvShowDao(): TvShowDao
 
     companion object {
-        const val MOVIE_DB = "movie.db"
+        private const val MOVIE_DB = "movie.db"
 
         @Volatile
         private var INSTANCE: AppDatabase? = null

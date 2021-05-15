@@ -14,7 +14,7 @@ import com.example.movieapp.views.MovieDetailActivity
 import com.example.movieapp.views.TvDetailActivity
 
 
-class ListHandler {
+class RecyclerViewHandler {
 
     fun showMovieRecyclerView(
         recyclerView: RecyclerView,

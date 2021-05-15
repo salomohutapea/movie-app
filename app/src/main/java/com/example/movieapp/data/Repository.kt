@@ -33,47 +33,6 @@ class Repository private constructor(
             }
     }
 
-    override fun getAllMovies(): LiveData<Resource<List<Movie>>> {
-        return object : NetworkBoundResource<List<Movie>, List<Movie>>(appExecutors) {
-            public override fun loadFromDB(): LiveData<List<Movie>> =
-                localDataSource.getAllMovies()
-
-            override fun shouldFetch(data: List<Movie>?): Boolean =
-                data == null || data.isEmpty()
-
-            public override fun createCall(): LiveData<ApiResponse<List<Movie>>> =
-                remoteDataSource.getAllMovies()
-
-            public override fun saveCallResult(data: List<Movie>) {
-
-                localDataSource.insertMovies(data)
-            }
-
-        }.asLiveData()
-    }
-
-    override fun getAllTvShows(): LiveData<Resource<List<TvShow>>> {
-        return object : NetworkBoundResource<List<TvShow>, List<TvShow>>(appExecutors) {
-            public override fun loadFromDB(): LiveData<List<TvShow>> =
-                localDataSource.getAllTvShows()
-
-            override fun shouldFetch(data: List<TvShow>?): Boolean =
-                data == null || data.isEmpty()
-
-            public override fun createCall(): LiveData<ApiResponse<List<TvShow>>> =
-                remoteDataSource.getAllTvShows()
-
-            public override fun saveCallResult(data: List<TvShow>) {
-                localDataSource.insertTvShows(data)
-            }
-
-        }.asLiveData()
-    }
-
-    override fun getFavoriteMovies(): LiveData<List<Movie>> = localDataSource.getFavoriteMovies()
-
-    override fun getFavoriteTvShows(): LiveData<List<TvShow>> = localDataSource.getFavoriteTvShows()
-
     override fun setMovieFavorite(movie: Movie, state: Boolean) {
         appExecutors.diskIO().execute { localDataSource.setFavoriteMovie(movie, state) }
     }
@@ -90,21 +49,21 @@ class Repository private constructor(
         localDataSource.getTvShowById(tvShowId)
     }
 
-    override fun getMoviesFavoritePaging(): LiveData<PagedList<Movie>> {
+    override fun getFavoriteMovies(): LiveData<PagedList<Movie>> {
         return LivePagedListBuilder(
             localDataSource.getFavoriteMoviesPaging(),
             getDefaultPageConfig()
         ).build()
     }
 
-    override fun getTvShowsFavoritePaging(): LiveData<PagedList<TvShow>> {
+    override fun getFavoriteTvShows(): LiveData<PagedList<TvShow>> {
         return LivePagedListBuilder(
             localDataSource.getFavoriteTvShowsPaging(),
             getDefaultPageConfig()
         ).build()
     }
 
-    override fun getMoviesPaging(): LiveData<Resource<PagedList<Movie>>> {
+    override fun getAllMovies(): LiveData<Resource<PagedList<Movie>>> {
         return object : NetworkBoundResource<PagedList<Movie>, List<Movie>>(appExecutors) {
             public override fun loadFromDB(): LiveData<PagedList<Movie>> {
                 return LivePagedListBuilder(
@@ -128,7 +87,7 @@ class Repository private constructor(
         }.asLiveData()
     }
 
-    override fun getTvShowsPaging(): LiveData<Resource<PagedList<TvShow>>> {
+    override fun getAllTvShows(): LiveData<Resource<PagedList<TvShow>>> {
         return object : NetworkBoundResource<PagedList<TvShow>, List<TvShow>>(appExecutors) {
             public override fun loadFromDB(): LiveData<PagedList<TvShow>> {
                 return LivePagedListBuilder(

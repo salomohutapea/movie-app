@@ -1,6 +1,5 @@
 package com.example.movieapp.data.local
 
-import androidx.lifecycle.LiveData
 import com.example.movieapp.data.local.dao.MovieDao
 import com.example.movieapp.data.local.dao.TvShowDao
 import com.example.movieapp.data.model.Movie
@@ -19,14 +18,6 @@ class LocalDataSource private constructor(
                 INSTANCE = this
             }
     }
-
-    fun getAllMovies(): LiveData<List<Movie>> = mMovieDao.getAllMovies()
-
-    fun getAllTvShows(): LiveData<List<TvShow>> = mTvShowDao.getAllTvShows()
-
-    fun getFavoriteMovies(): LiveData<List<Movie>> = mMovieDao.getFavoriteMovies()
-
-    fun getFavoriteTvShows(): LiveData<List<TvShow>> = mTvShowDao.getFavoriteTvShows()
 
     fun getMovieById(movieId: String) =
         mMovieDao.getMovieById(movieId)

@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
-
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMovieTvBinding
-import com.example.movieapp.handlers.ListHandler
+import com.example.movieapp.handlers.RecyclerViewHandler
 import com.example.movieapp.viewmodels.FragmentMovieTvViewModel
 import com.example.movieapp.viewmodels.ViewModelFactory
 import com.example.movieapp.vo.Status
@@ -25,8 +25,9 @@ class MovieTvFragment : Fragment() {
     private lateinit var switchFavorite: SwitchMaterial
     private lateinit var fragmentViewModel: FragmentMovieTvViewModel
 
+    private var isShowingFavorite = MutableLiveData<Boolean>()
     private var index = 0
-    private var rvHandler = ListHandler()
+    private var rvHandler = RecyclerViewHandler()
 
     companion object {
         private const val ARG_SECTION_NUMBER = "section_number"
@@ -37,7 +38,6 @@ class MovieTvFragment : Fragment() {
                 this.switchFavorite = switchFavorite
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, index)
-//                    putSerializable(IS_SHOWING_FAVORITE, isShowingFavorite)
                 }
             }
     }
@@ -67,8 +67,9 @@ class MovieTvFragment : Fragment() {
     private fun initializeObservers() {
 //        viewModel.setIsLoading(true)
         switchFavorite.setOnCheckedChangeListener { _, state ->
-            Log.d("STAATE1", state.toString())
-            Log.d("STAATE2", index.toString())
+            isShowingFavorite.postValue(state)
+        }
+        isShowingFavorite.observe(viewLifecycleOwner) { state ->
             // All
             if (!state) {
                 when (index) {
@@ -173,7 +174,6 @@ class MovieTvFragment : Fragment() {
                 }
             }
         }
-        switchFavorite.isChecked = !switchFavorite.isChecked
-        switchFavorite.isChecked = !switchFavorite.isChecked
+        isShowingFavorite.postValue(switchFavorite.isChecked)
     }
 }
