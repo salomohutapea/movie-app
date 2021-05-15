@@ -1,7 +1,7 @@
 package com.example.movieapp.data.local.dao
 
 import androidx.lifecycle.LiveData
-import androidx.paging.PagingSource
+import androidx.paging.DataSource
 import androidx.room.*
 import com.example.movieapp.data.model.TvShow
 
@@ -23,11 +23,11 @@ interface TvShowDao {
     fun getAllTvShows(): LiveData<List<TvShow>>
 
     @Query("SELECT * from tvshow")
-    fun getAllTvShowsPaging(): PagingSource<Int, TvShow>
+    fun getAllTvShowsPaging(): DataSource.Factory<Int, TvShow>
 
     @Query("SELECT * FROM tvshow WHERE is_favorite = 1")
     fun getFavoriteTvShows(): LiveData<List<TvShow>>
 
     @Query("SELECT * FROM tvshow WHERE is_favorite = 1")
-    fun getFavoriteTvShowPaging(): PagingSource<Int, TvShow>
+    fun getFavoriteTvShowPaging(): DataSource.Factory<Int, TvShow>
 }

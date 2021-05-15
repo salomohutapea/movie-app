@@ -2,6 +2,8 @@ package com.example.movieapp.handlers
 
 import android.content.Context
 import android.content.Intent
+
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.adapters.MoviesAdapter
@@ -11,14 +13,16 @@ import com.example.movieapp.data.model.TvShow
 import com.example.movieapp.views.MovieDetailActivity
 import com.example.movieapp.views.TvDetailActivity
 
+
 class ListHandler {
 
     fun showMovieRecyclerView(
         recyclerView: RecyclerView,
         context: Context,
-        list: ArrayList<Movie>
+        list: PagedList<Movie>
     ) {
-        val adapter =  MoviesAdapter(list)
+        val adapter = MoviesAdapter()
+        adapter.submitList(list)
         recyclerView.adapter = adapter
         recyclerView.itemAnimator = null
         recyclerView.setHasFixedSize(true)
@@ -37,9 +41,10 @@ class ListHandler {
     fun showTvRecyclerView(
         recyclerView: RecyclerView,
         context: Context,
-        list: ArrayList<TvShow>
+        list: PagedList<TvShow>
     ) {
-        val adapter =  TvShowsAdapter(list)
+        val adapter = TvShowsAdapter()
+        adapter.submitList(list)
         recyclerView.adapter = adapter
         recyclerView.itemAnimator = null
         recyclerView.setHasFixedSize(true)

@@ -3,11 +3,11 @@ package com.example.movieapp.viewmodels
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.paging.ExperimentalPagingApi
+
 import com.example.movieapp.data.Repository
 import com.example.movieapp.di.Injection
 
-@ExperimentalPagingApi
+
 class ViewModelFactory private constructor(private val mRepository: Repository) : ViewModelProvider.NewInstanceFactory() {
 
     companion object {
@@ -32,8 +32,8 @@ class ViewModelFactory private constructor(private val mRepository: Repository) 
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 MainViewModel(mRepository) as T
             }
-            modelClass.isAssignableFrom(FavoriteViewModel::class.java) -> {
-                FavoriteViewModel(mRepository) as T
+            modelClass.isAssignableFrom(FragmentMovieTvViewModel::class.java) -> {
+                FragmentMovieTvViewModel(mRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

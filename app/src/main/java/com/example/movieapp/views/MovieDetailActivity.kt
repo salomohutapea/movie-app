@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.data.model.Movie
@@ -15,6 +16,7 @@ import com.example.movieapp.databinding.ActivityMovieDetailBinding
 import com.example.movieapp.viewmodels.DetailMovieViewModel
 import com.example.movieapp.viewmodels.ViewModelFactory
 import java.util.*
+
 
 class MovieDetailActivity : AppCompatActivity() {
 

@@ -47,10 +47,10 @@ class NetworkHandler(private val context: Context) {
 
 interface ServiceApiCall {
     @GET("movie/now_playing")
-    suspend fun getAllMovies(): Call<MovieEntity>
+    fun getAllMovies(): Call<MovieEntity>
 
     @GET("tv/on_the_air")
-    suspend fun getAllTvShows(): Call<TvShowEntity>
+    fun getAllTvShows(): Call<TvShowEntity>
 
     @GET("genre/movie/list")
     suspend fun getMovieGenres(): Response<GenreEntity>

@@ -1,7 +1,9 @@
 package com.example.movieapp.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.paging.*
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.example.movieapp.data.local.LocalDataSource
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.data.model.TvShow
@@ -10,7 +12,7 @@ import com.example.movieapp.data.remote.RemoteDataSource
 import com.example.movieapp.utils.AppExecutors
 import com.example.movieapp.vo.Resource
 
-@ExperimentalPagingApi
+
 class Repository private constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
@@ -20,8 +22,6 @@ class Repository private constructor(
     companion object {
         @Volatile
         private var instance: Repository? = null
-
-        const val DEFAULT_PAGE_SIZE = 20
 
         fun getInstance(
             remoteData: RemoteDataSource,
@@ -90,56 +90,55 @@ class Repository private constructor(
         localDataSource.getTvShowById(tvShowId)
     }
 
-    override fun getMoviesFavoritePaging(): LiveData<PagingData<Movie>> {
-        val pagingSourceFactory = { localDataSource.getFavoriteMoviesPaging() }
-        return Pager(
-            config = getDefaultPageConfig(),
-            pagingSourceFactory = pagingSourceFactory
-        ).liveData
+    override fun getMoviesFavoritePaging(): LiveData<PagedList<Movie>> {
+        return LivePagedListBuilder(
+            localDataSource.getFavoriteMoviesPaging(),
+            getDefaultPageConfig()
+        ).build()
     }
 
-    override fun getTvShowsFavoritePaging(): LiveData<PagingData<TvShow>> {
-        val pagingSourceFactory = { localDataSource.getFavoriteTvShowsPaging() }
-        return Pager(
-            config = getDefaultPageConfig(),
-            pagingSourceFactory = pagingSourceFactory
-        ).liveData
+    override fun getTvShowsFavoritePaging(): LiveData<PagedList<TvShow>> {
+        return LivePagedListBuilder(
+            localDataSource.getFavoriteTvShowsPaging(),
+            getDefaultPageConfig()
+        ).build()
     }
 
-    override fun getMoviesPaging(): LiveData<Resource<PagingData<Movie>>> {
-        return object : NetworkBoundResource<PagingData<Movie>, List<Movie>>(appExecutors) {
-            public override fun loadFromDB(): LiveData<PagingData<Movie>> {
-                val pagingSourceFactory = { localDataSource.getMoviesPaging() }
-                return Pager(
-                    config = getDefaultPageConfig(),
-                    pagingSourceFactory = pagingSourceFactory
-                ).liveData
+    override fun getMoviesPaging(): LiveData<Resource<PagedList<Movie>>> {
+        return object : NetworkBoundResource<PagedList<Movie>, List<Movie>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<PagedList<Movie>> {
+                return LivePagedListBuilder(
+                    localDataSource.getMoviesPaging(),
+                    getDefaultPageConfig()
+                ).build()
             }
 
-            override fun shouldFetch(data: PagingData<Movie>?): Boolean =
-                data == null
+            override fun shouldFetch(data: PagedList<Movie>?): Boolean =
+                data == null || data.isEmpty()
 
-            public override fun createCall(): LiveData<ApiResponse<List<Movie>>> =
-                remoteDataSource.getAllMovies()
+            public override fun createCall(): LiveData<ApiResponse<List<Movie>>> {
+                Log.d("DEEEP", "CRERATECALL MOVIESPAGING")
+                return remoteDataSource.getAllMovies()
+            }
 
             public override fun saveCallResult(data: List<Movie>) {
                 localDataSource.insertMovies(data)
             }
+
         }.asLiveData()
     }
 
-    override fun getTvShowsPaging(): LiveData<Resource<PagingData<TvShow>>> {
-        return object : NetworkBoundResource<PagingData<TvShow>, List<TvShow>>(appExecutors) {
-            public override fun loadFromDB(): LiveData<PagingData<TvShow>> {
-                val pagingSourceFactory = { localDataSource.getTvShowsPaging() }
-                return Pager(
-                    config = getDefaultPageConfig(),
-                    pagingSourceFactory = pagingSourceFactory
-                ).liveData
+    override fun getTvShowsPaging(): LiveData<Resource<PagedList<TvShow>>> {
+        return object : NetworkBoundResource<PagedList<TvShow>, List<TvShow>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<PagedList<TvShow>> {
+                return LivePagedListBuilder(
+                    localDataSource.getTvShowsPaging(),
+                    getDefaultPageConfig()
+                ).build()
             }
 
-            override fun shouldFetch(data: PagingData<TvShow>?): Boolean =
-                data == null
+            override fun shouldFetch(data: PagedList<TvShow>?): Boolean =
+                data == null || data.isEmpty()
 
             public override fun createCall(): LiveData<ApiResponse<List<TvShow>>> =
                 remoteDataSource.getAllTvShows()
@@ -150,8 +149,12 @@ class Repository private constructor(
         }.asLiveData()
     }
 
-    private fun getDefaultPageConfig(): PagingConfig {
-        return PagingConfig(pageSize = DEFAULT_PAGE_SIZE, enablePlaceholders = true)
+    private fun getDefaultPageConfig(): PagedList.Config {
+        return PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
     }
 
 }

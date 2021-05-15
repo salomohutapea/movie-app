@@ -1,34 +1,43 @@
 package com.example.movieapp.views
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.R
-import com.example.movieapp.data.model.Movie
-import com.example.movieapp.data.model.TvShow
 import com.example.movieapp.databinding.FragmentMovieTvBinding
 import com.example.movieapp.handlers.ListHandler
+import com.example.movieapp.viewmodels.FragmentMovieTvViewModel
+import com.example.movieapp.viewmodels.ViewModelFactory
+import com.example.movieapp.vo.Status
+import com.google.android.material.switchmaterial.SwitchMaterial
+
 
 class MovieTvFragment : Fragment() {
     private lateinit var rvMovieTv: RecyclerView
     private lateinit var binding: FragmentMovieTvBinding
+    private lateinit var switchFavorite: SwitchMaterial
+    private lateinit var fragmentViewModel: FragmentMovieTvViewModel
+
+    private var index = 0
     private var rvHandler = ListHandler()
 
     companion object {
         private const val ARG_SECTION_NUMBER = "section_number"
-        private const val MOVIES = "movies"
-        private const val TV_SHOWS = "tv_shows"
 
         @JvmStatic
-        fun newInstance(index: Int, movieEntity: List<Movie>, tvShows: List<TvShow>) =
+        fun newInstance(index: Int, switchFavorite: SwitchMaterial) =
             MovieTvFragment().apply {
+                this.switchFavorite = switchFavorite
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, index)
-                    putSerializable(MOVIES, movieEntity as ArrayList<Movie>)
-                    putSerializable(TV_SHOWS, tvShows as ArrayList<TvShow>)
+//                    putSerializable(IS_SHOWING_FAVORITE, isShowingFavorite)
                 }
             }
     }
@@ -38,30 +47,133 @@ class MovieTvFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMovieTvBinding.inflate(inflater, container, false)
-
+        val factory = requireContext().let { ViewModelFactory.getInstance(it) }
+        fragmentViewModel =
+            ViewModelProvider(this, factory).get(FragmentMovieTvViewModel::class.java)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rvMovieTv = view.findViewById(R.id.rv_movietv)
-        showRecyclerList()
     }
 
-    private fun showRecyclerList() {
-        val index = arguments?.getInt(ARG_SECTION_NUMBER, 0)
+    override fun onResume() {
+        super.onResume()
+        index = arguments?.getInt(ARG_SECTION_NUMBER, 0)!!
+        initializeObservers()
+    }
 
-        if (index == 1) {
-
-            val list = arguments?.getSerializable(MOVIES) as ArrayList<Movie>
-            context?.let {
-                list.let { it1 -> rvHandler.showMovieRecyclerView(rvMovieTv, it, it1) }
+    private fun initializeObservers() {
+//        viewModel.setIsLoading(true)
+        switchFavorite.setOnCheckedChangeListener { _, state ->
+            Log.d("STAATE1", state.toString())
+            Log.d("STAATE2", index.toString())
+            // All
+            if (!state) {
+                when (index) {
+                    1 -> {
+                        fragmentViewModel.fetchMovies().observe(viewLifecycleOwner) { movies ->
+                            when (movies.status) {
+                                Status.LOADING -> Log.d("STATUS_GETDATA", "LOADING GET MOVIES")
+                                Status.SUCCESS -> {
+                                    Log.d("STATUS_GETDATA", "SUCCESS GET MOVIES")
+                                    context?.let {
+                                        movies.data.let { it1 ->
+                                            if (it1 != null) {
+                                                rvHandler.showMovieRecyclerView(
+                                                    rvMovieTv,
+                                                    it,
+                                                    it1
+                                                )
+                                            }
+                                        }
+                                    }
+//                                    viewModel.setIsLoading(false)
+                                }
+                                Status.ERROR -> {
+//                                    viewModel.setIsLoading(false)
+                                    Toast.makeText(
+                                        context,
+                                        "Terjadi kesalahan",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                }
+                            }
+                        }
+                    }
+                    2 -> {
+                        fragmentViewModel.fetchTvShows().observe(viewLifecycleOwner) { tvShows ->
+                            when (tvShows.status) {
+                                Status.LOADING -> Log.d("STATUS_GETDATA", "LOADING GET TV SHOWS")
+                                Status.SUCCESS -> {
+                                    Log.d("STATUS_GETDATA", "SUCCESS GET TV SHOWS")
+                                    context?.let {
+                                        tvShows.data.let { it1 ->
+                                            if (it1 != null) {
+                                                rvHandler.showTvRecyclerView(
+                                                    rvMovieTv,
+                                                    it,
+                                                    it1
+                                                )
+                                            }
+                                        }
+                                    }
+//                                    viewModel.setIsLoading(false)
+                                }
+                                Status.ERROR -> {
+//                                    viewModel.setIsLoading(false)
+                                    Toast.makeText(
+                                        context,
+                                        "Terjadi kesalahan",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                }
+                            }
+                        }
+                    }
+                }
             }
-        } else if (index == 2) {
-            val list = arguments?.getSerializable(TV_SHOWS) as ArrayList<TvShow>
-            context?.let {
-                list.let { it1 -> rvHandler.showTvRecyclerView(rvMovieTv, it, it1) }
+
+            // Favorite only
+            else {
+                when (index) {
+                    1 -> {
+                        fragmentViewModel.fetchFavoriteMovies()
+                            .observe(viewLifecycleOwner) { movies ->
+                                Log.d("STATUS_GETDATA", "SUCCESS GET FAVORITE MOVIES")
+                                context?.let {
+                                    movies.let { it1 ->
+                                        rvHandler.showMovieRecyclerView(
+                                            rvMovieTv,
+                                            it,
+                                            it1
+                                        )
+                                    }
+                                }
+                            }
+                    }
+                    2 -> {
+                        fragmentViewModel.fetchFavoriteTvShows()
+                            .observe(viewLifecycleOwner) { tvShows ->
+                                Log.d("STATUS_GETDATA", "SUCCESS GET FAVORITE TVSHOWS")
+                                context?.let {
+                                    tvShows.let { it1 ->
+                                        rvHandler.showTvRecyclerView(
+                                            rvMovieTv,
+                                            it,
+                                            it1
+                                        )
+                                    }
+                                }
+                            }
+                    }
+                }
             }
         }
+        switchFavorite.isChecked = !switchFavorite.isChecked
+        switchFavorite.isChecked = !switchFavorite.isChecked
     }
 }

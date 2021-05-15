@@ -1,9 +1,10 @@
 package com.example.movieapp.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -11,8 +12,8 @@ import com.example.movieapp.R
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.databinding.ItemTvMovieListBinding
 
-class MoviesAdapter(private val listMovies: ArrayList<Movie>) :
-    PagingDataAdapter<Movie, MoviesAdapter.ListViewHolder>(
+class MoviesAdapter :
+    PagedListAdapter<Movie, MoviesAdapter.ListViewHolder>(
         REPO_COMPARATOR
     ) {
     private lateinit var onItemClickCallback: OnItemClickCallback
@@ -34,35 +35,35 @@ class MoviesAdapter(private val listMovies: ArrayList<Movie>) :
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ListViewHolder {
         val view: View = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.item_tv_movie_list, viewGroup, false)
-        val holder = ListViewHolder(view)
-        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listMovies[holder.absoluteAdapterPosition]) }
-        return holder
+        return ListViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val movie = listMovies[position]
-        Glide.with(holder.itemView.context)
-            .load("https://image.tmdb.org/t/p/w500${movie.posterPath}")
-            .into(holder.binding.singlePosterImg)
-        holder.binding.singlePopularityTextview.text = movie.voteAverage.toString()
-        holder.binding.singleTitleTextview.text = movie.title
-        holder.binding.singleDateReleasedTextview.text =
-            StringBuilder("Date released: ${movie.releaseDate}")
-
-        var genreText = "Genre: "
-
-        movie.genres?.forEachIndexed { i, it ->
-            genreText = if (i != movie.genres!!.size - 1) {
-                genreText.plus(it).plus(", ")
-            } else {
-                genreText.plus(it)
+        val movie = getItem(position)
+        Log.d("OONBIND", movie.toString())
+        if (movie != null) {
+            holder.itemView.setOnClickListener {
+                onItemClickCallback.onItemClicked(movie)
             }
-        }
-        holder.binding.singleGenreTextview.text = genreText
-    }
+            Glide.with(holder.itemView.context)
+                .load("https://image.tmdb.org/t/p/w500${movie.posterPath}")
+                .into(holder.binding.singlePosterImg)
+            holder.binding.singlePopularityTextview.text = movie.voteAverage.toString()
+            holder.binding.singleTitleTextview.text = movie.title
+            holder.binding.singleDateReleasedTextview.text =
+                StringBuilder("Date released: ${movie.releaseDate}")
 
-    override fun getItemCount(): Int {
-        return listMovies.size
+            var genreText = "Genre: "
+
+            movie.genres?.forEachIndexed { i, it ->
+                genreText = if (i != movie.genres!!.size - 1) {
+                    genreText.plus(it).plus(", ")
+                } else {
+                    genreText.plus(it)
+                }
+            }
+            holder.binding.singleGenreTextview.text = genreText
+        }
     }
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

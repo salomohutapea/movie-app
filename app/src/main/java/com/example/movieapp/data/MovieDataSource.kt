@@ -1,7 +1,7 @@
 package com.example.movieapp.data
 
 import androidx.lifecycle.LiveData
-import androidx.paging.PagingData
+import androidx.paging.PagedList
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.data.model.TvShow
 import com.example.movieapp.vo.Resource
@@ -24,11 +24,11 @@ interface MovieDataSource {
 
     fun getTvShowById(tvShowId: String)
 
-    fun getMoviesFavoritePaging(): LiveData<PagingData<Movie>>
+    fun getMoviesFavoritePaging(): LiveData<PagedList<Movie>>
 
-    fun getTvShowsFavoritePaging(): LiveData<PagingData<TvShow>>
+    fun getTvShowsFavoritePaging(): LiveData<PagedList<TvShow>>
 
-    fun getMoviesPaging(): LiveData<Resource<PagingData<Movie>>>
+    fun getMoviesPaging(): LiveData<Resource<PagedList<Movie>>>
 
-    fun getTvShowsPaging(): LiveData<Resource<PagingData<TvShow>>>
+    fun getTvShowsPaging(): LiveData<Resource<PagedList<TvShow>>>
 }
