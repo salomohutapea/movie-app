@@ -5,7 +5,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NavUtils
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -38,11 +37,6 @@ class TvDetailActivity : AppCompatActivity() {
 
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_detail, menu)
         this.menu = menu
@@ -53,10 +47,6 @@ class TvDetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_favorite) {
             detailTvViewModel.setFavorite(tvShow)
-        }
-        else if(item.itemId == R.id.home) {
-            this.finish()
-            NavUtils.navigateUpFromSameTask(this)
         }
         return super.onOptionsItemSelected(item)
     }

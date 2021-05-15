@@ -37,11 +37,6 @@ class MovieDetailActivity : AppCompatActivity() {
 
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_detail, menu)
         this.menu = menu
