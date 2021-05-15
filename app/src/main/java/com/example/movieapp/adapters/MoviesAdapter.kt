@@ -1,6 +1,5 @@
 package com.example.movieapp.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +39,6 @@ class MoviesAdapter :
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val movie = getItem(position)
-        Log.d("OONBIND", movie.toString())
         if (movie != null) {
             holder.itemView.setOnClickListener {
                 onItemClickCallback.onItemClicked(movie)

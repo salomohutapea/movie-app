@@ -12,11 +12,10 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.example.movieapp.R
 import com.example.movieapp.utils.DataDummy
 import com.example.movieapp.utils.EspressoIdlingResource
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
+import org.junit.runners.MethodSorters
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class MainActivityTest {
 
     private val dummyMovieTv = DataDummy.generateDummyMoviesAndTv()
@@ -36,7 +35,7 @@ class MainActivityTest {
     var activityRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun loadMoviesData() {
+    fun a_loadMoviesData() {
         onView(withId(R.id.rv_movietv)).check(ViewAssertions.matches(isDisplayed()))
         onView(withId(R.id.rv_movietv)).perform(dummyMovieTv.first.movies?.size?.let {
             RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
@@ -46,7 +45,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun loadDetailMovie() {
+    fun b_loadDetailMovie() {
         onView(withId(R.id.rv_movietv))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
@@ -71,10 +70,17 @@ class MainActivityTest {
         )
         onView(withId(R.id.textview_detail_movie_date_content))
             .check(ViewAssertions.matches(isDisplayed()))
+
+        onView(withId(R.id.action_favorite))
+            .perform(ViewActions.click())
+
+        onView(isRoot())
+            .perform(ViewActions.pressBack())
+
     }
 
     @Test
-    fun loadTvShowsData() {
+    fun c_loadTvShowsData() {
         onView(withText("TV SHOWS")).perform(ViewActions.click())
         onView(withId(R.id.rv_movietv)).check(ViewAssertions.matches(isDisplayed()))
         onView(withId(R.id.rv_movietv)).perform(dummyMovieTv.second.tvShow?.size?.let {
@@ -85,7 +91,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun loadDetailTvShow() {
+    fun d_loadDetailTvShow() {
         onView(withText("TV SHOWS")).perform(ViewActions.click())
         onView(withId(R.id.rv_movietv))
             .perform(
@@ -111,5 +117,36 @@ class MainActivityTest {
         )
         onView(withId(R.id.textview_detail_tv_date_content))
             .check(ViewAssertions.matches(isDisplayed()))
+
+        onView(withId(R.id.action_favorite))
+            .perform(ViewActions.click())
+
+        onView(isRoot())
+            .perform(ViewActions.pressBack())
+
+    }
+
+    @Test
+    fun e_loadFavoriteMovies() {
+        onView(withId(R.id.switchFavorite))
+            .perform(ViewActions.click())
+        onView(withId(R.id.rv_movietv)).check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.rv_movietv)).perform(
+            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
+                0
+            )
+        )
+    }
+    @Test
+    fun f_loadFavoriteTvShows() {
+        onView(withId(R.id.switchFavorite))
+            .perform(ViewActions.click())
+        onView(withText("TV SHOWS")).perform(ViewActions.click())
+        onView(withId(R.id.rv_movietv)).check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.rv_movietv)).perform(
+            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
+                0
+            )
+        )
     }
 }

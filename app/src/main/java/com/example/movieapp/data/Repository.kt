@@ -1,6 +1,5 @@
 package com.example.movieapp.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -76,7 +75,6 @@ class Repository private constructor(
                 data == null || data.isEmpty()
 
             public override fun createCall(): LiveData<ApiResponse<List<Movie>>> {
-                Log.d("DEEEP", "CRERATECALL MOVIESPAGING")
                 return remoteDataSource.getAllMovies()
             }
 

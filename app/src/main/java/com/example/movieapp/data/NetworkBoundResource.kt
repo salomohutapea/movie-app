@@ -1,6 +1,5 @@
 package com.example.movieapp.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.example.movieapp.data.remote.ApiResponse
@@ -20,7 +19,6 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
 
         result.addSource(dbSource) { data ->
             result.removeSource(dbSource)
-            Log.d("DEEEP", "NETWORKBOUNDRESOURCE ${shouldFetch(data)}")
             if (shouldFetch(data)) {
                 fetchFromNetwork(dbSource)
             } else {
