@@ -1,6 +1,7 @@
-package com.example.movieapp.data.local
+package com.example.movieapp.data.local.dao
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagingSource
 import androidx.room.*
 import com.example.movieapp.data.model.Movie
 
@@ -23,4 +24,7 @@ interface MovieDao {
 
     @Query("SELECT * FROM movie WHERE is_favorite = 1")
     fun getFavoriteMovies(): LiveData<List<Movie>>
+
+    @Query("SELECT * FROM movie WHERE is_favorite = 1")
+    fun getFavoriteMoviesPaging(): PagingSource<Int, Movie>
 }

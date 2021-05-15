@@ -3,9 +3,11 @@ package com.example.movieapp.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.paging.ExperimentalPagingApi
 import com.example.movieapp.data.Repository
 
-class MainViewModel(private val repository: Repository) : ViewModel() {
+@ExperimentalPagingApi
+class MainViewModel constructor(private val repository: Repository) : ViewModel() {
 
     private val isLoading = MutableLiveData<Boolean>()
 

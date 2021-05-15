@@ -5,6 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.movieapp.data.local.dao.MovieDao
+import com.example.movieapp.data.local.dao.TvShowDao
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.data.model.TvShow
 
@@ -13,27 +15,29 @@ import com.example.movieapp.data.model.TvShow
 )
 @TypeConverters(Converters::class)
 
-abstract class RoomDb : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
 
     abstract fun movieDao(): MovieDao
     abstract fun tvShowDao(): TvShowDao
 
     companion object {
+        const val MOVIE_DB = "movie.db"
+
         @Volatile
-        private var INSTANCE: RoomDb? = null
+        private var INSTANCE: AppDatabase? = null
 
         @JvmStatic
-        fun getInstance(context: Context): RoomDb {
+        fun getInstance(context: Context): AppDatabase {
             if (INSTANCE == null) {
-                synchronized(RoomDb::class.java) {
+                synchronized(AppDatabase::class.java) {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
-                        RoomDb::class.java, "database"
+                        AppDatabase::class.java, MOVIE_DB
                     )
                         .build()
                 }
             }
-            return INSTANCE as RoomDb
+            return INSTANCE as AppDatabase
         }
     }
 }

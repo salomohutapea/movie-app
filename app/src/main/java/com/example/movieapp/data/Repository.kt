@@ -1,6 +1,10 @@
 package com.example.movieapp.data
 
 import androidx.lifecycle.LiveData
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.movieapp.data.local.LocalDataSource
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.data.model.TvShow
@@ -8,7 +12,9 @@ import com.example.movieapp.data.remote.ApiResponse
 import com.example.movieapp.data.remote.RemoteDataSource
 import com.example.movieapp.utils.AppExecutors
 import com.example.movieapp.vo.Resource
+import kotlinx.coroutines.flow.Flow
 
+@ExperimentalPagingApi
 class Repository private constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
@@ -18,6 +24,9 @@ class Repository private constructor(
     companion object {
         @Volatile
         private var instance: Repository? = null
+
+        const val DEFAULT_PAGE_INDEX = 1
+        const val DEFAULT_PAGE_SIZE = 20
 
         fun getInstance(
             remoteData: RemoteDataSource,
@@ -84,6 +93,26 @@ class Repository private constructor(
 
     override fun getTvShowById(tvShowId: String) {
         localDataSource.getTvShowById(tvShowId)
+    }
+
+    override fun getMovieFavoritePaging(): Flow<PagingData<Movie>> {
+        val pagingSourceFactory = { localDataSource.getFavoriteMoviePaging() }
+        return Pager(
+            config = getDefaultPageConfig(),
+            pagingSourceFactory = pagingSourceFactory
+        ).flow
+    }
+
+    override fun getTvShowFavoritePaging(): Flow<PagingData<TvShow>> {
+        val pagingSourceFactory = { localDataSource.getFavoriteTvShowPaging() }
+        return Pager(
+            config = getDefaultPageConfig(),
+            pagingSourceFactory = pagingSourceFactory
+        ).flow
+    }
+
+    private fun getDefaultPageConfig(): PagingConfig {
+        return PagingConfig(pageSize = DEFAULT_PAGE_SIZE, enablePlaceholders = true)
     }
 
 }

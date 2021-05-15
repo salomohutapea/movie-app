@@ -1,6 +1,8 @@
 package com.example.movieapp.data.local
 
 import androidx.lifecycle.LiveData
+import com.example.movieapp.data.local.dao.MovieDao
+import com.example.movieapp.data.local.dao.TvShowDao
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.data.model.TvShow
 
@@ -46,4 +48,7 @@ class LocalDataSource private constructor(
 
     fun insertTvShows(tvShows: List<TvShow>) = mTvShowDao.insertTvShows(tvShows)
 
+    fun getFavoriteMoviePaging() = mMovieDao.getFavoriteMoviesPaging()
+
+    fun getFavoriteTvShowPaging() = mTvShowDao.getFavoriteTvShowPaging()
 }
