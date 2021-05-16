@@ -20,8 +20,8 @@ interface MovieDao {
     fun delete(movie: Movie)
 
     @Query("SELECT * from movie")
-    fun getAllMoviesPaging(): DataSource.Factory<Int, Movie>
+    fun getAllMovies(): DataSource.Factory<Int, Movie>
 
     @Query("SELECT * FROM movie WHERE is_favorite = 1")
-    fun getFavoriteMoviesPaging(): DataSource.Factory<Int, Movie>
+    fun getFavoriteMovies(): DataSource.Factory<Int, Movie>
 }

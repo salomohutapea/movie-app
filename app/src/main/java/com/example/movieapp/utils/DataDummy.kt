@@ -28,12 +28,12 @@ object DataDummy {
         return Pair(data.first, data.second)
     }
 
-    fun generateDummyMovieTvGenres(): Pair<GenreEntity, GenreEntity> {
-        return Pair(
-            gson.fromJson(dummyGenresMoviesData, GenreEntity::class.java),
-            gson.fromJson(dummyGenresTvShowsData, GenreEntity::class.java)
-        )
-    }
+//    fun generateDummyMovieTvGenres(): Pair<GenreEntity, GenreEntity> {
+//        return Pair(
+//            gson.fromJson(dummyGenresMoviesData, GenreEntity::class.java),
+//            gson.fromJson(dummyGenresTvShowsData, GenreEntity::class.java)
+//        )
+//    }
 
     private fun searchGenre(
         movieEntity: MovieEntity,

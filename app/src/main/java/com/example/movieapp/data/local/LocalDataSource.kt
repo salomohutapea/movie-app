@@ -39,11 +39,11 @@ class LocalDataSource private constructor(
 
     fun insertTvShows(tvShows: List<TvShow>) = mTvShowDao.insertTvShows(tvShows)
 
-    fun getFavoriteMoviesPaging() = mMovieDao.getFavoriteMoviesPaging()
+    fun getFavoriteMovies() = mMovieDao.getFavoriteMovies()
 
-    fun getFavoriteTvShowsPaging() = mTvShowDao.getFavoriteTvShowPaging()
+    fun getFavoriteTvShows() = mTvShowDao.getFavoriteTvShows()
 
-    fun getMoviesPaging() = mMovieDao.getAllMoviesPaging()
+    fun getAllMovies() = mMovieDao.getAllMovies()
 
-    fun getTvShowsPaging() = mTvShowDao.getAllTvShowsPaging()
+    fun getAllTvShows() = mTvShowDao.getAllTvShows()
 }

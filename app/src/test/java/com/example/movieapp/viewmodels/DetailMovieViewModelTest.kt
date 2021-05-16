@@ -1,20 +1,28 @@
 package com.example.movieapp.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.example.movieapp.data.Repository
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class DetailMovieViewModelTest {
     private lateinit var viewModel: DetailMovieViewModel
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
+    @Mock
+    private lateinit var repository: Repository
+
     @Before
     fun setUp() {
-        viewModel = DetailMovieViewModel()
+        viewModel = DetailMovieViewModel(repository)
         viewModel.isLoading.postValue(false)
     }
 

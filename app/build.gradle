@@ -5,10 +5,6 @@ plugins {
     id 'kotlin-parcelize'
 }
 
-kapt {
-    generateStubs = true
-}
-
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -45,11 +41,11 @@ dependencies {
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$coreVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
 
     //API
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
@@ -57,6 +53,7 @@ dependencies {
     //DB
     implementation 'androidx.room:room-runtime:2.3.0'
     implementation 'androidx.paging:paging-runtime-ktx:2.1.1'
+    implementation 'junit:junit:4.13.2'
     kapt 'androidx.room:room-compiler:2.3.0'
     kapt "org.xerial:sqlite-jdbc:3.34.0"
 
@@ -82,8 +79,8 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$junitExtversion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
     androidTestImplementation 'androidx.room:room-testing:2.3.0'
-    testImplementation "org.mockito:mockito-core:3.8.0"
-    testImplementation "org.mockito:mockito-inline:3.6.0"
-    testImplementation "org.mockito.kotlin:mockito-kotlin:3.1.0"
+    testImplementation "org.mockito:mockito-core:3.10.0"
+    testImplementation "org.mockito:mockito-inline:3.10.0"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:3.2.0"
     testImplementation 'android.arch.core:core-testing:1.1.1'
 }

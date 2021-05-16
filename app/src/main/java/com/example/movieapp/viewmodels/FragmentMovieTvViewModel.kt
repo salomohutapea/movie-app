@@ -1,18 +1,16 @@
 package com.example.movieapp.viewmodels
 
 import androidx.lifecycle.ViewModel
-
 import com.example.movieapp.data.Repository
-
 
 class FragmentMovieTvViewModel constructor(private val repository: Repository) : ViewModel() {
 
-    fun fetchFavoriteMovies() = repository.getFavoriteMovies()
+    fun getFavoriteMovies() = repository.getFavoriteMovies()
 
-    fun fetchFavoriteTvShows() = repository.getFavoriteTvShows()
+    fun getFavoriteTvShows() = repository.getFavoriteTvShows()
 
-    fun fetchMovies() = repository.getAllMovies()
+    fun getAllMovies() = repository.getAllMovies()
 
-    fun fetchTvShows() = repository.getAllTvShows()
+    fun getAllTvShows() = repository.getAllTvShows()
 
 }

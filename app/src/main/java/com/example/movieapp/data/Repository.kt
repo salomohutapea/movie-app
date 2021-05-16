@@ -50,14 +50,14 @@ class Repository private constructor(
 
     override fun getFavoriteMovies(): LiveData<PagedList<Movie>> {
         return LivePagedListBuilder(
-            localDataSource.getFavoriteMoviesPaging(),
+            localDataSource.getFavoriteMovies(),
             getDefaultPageConfig()
         ).build()
     }
 
     override fun getFavoriteTvShows(): LiveData<PagedList<TvShow>> {
         return LivePagedListBuilder(
-            localDataSource.getFavoriteTvShowsPaging(),
+            localDataSource.getFavoriteTvShows(),
             getDefaultPageConfig()
         ).build()
     }
@@ -66,7 +66,7 @@ class Repository private constructor(
         return object : NetworkBoundResource<PagedList<Movie>, List<Movie>>(appExecutors) {
             public override fun loadFromDB(): LiveData<PagedList<Movie>> {
                 return LivePagedListBuilder(
-                    localDataSource.getMoviesPaging(),
+                    localDataSource.getAllMovies(),
                     getDefaultPageConfig()
                 ).build()
             }
@@ -89,7 +89,7 @@ class Repository private constructor(
         return object : NetworkBoundResource<PagedList<TvShow>, List<TvShow>>(appExecutors) {
             public override fun loadFromDB(): LiveData<PagedList<TvShow>> {
                 return LivePagedListBuilder(
-                    localDataSource.getTvShowsPaging(),
+                    localDataSource.getAllTvShows(),
                     getDefaultPageConfig()
                 ).build()
             }

@@ -20,8 +20,8 @@ interface TvShowDao {
     fun getMovieById(tvShowId: String): LiveData<List<TvShow>>
 
     @Query("SELECT * from tvshow")
-    fun getAllTvShowsPaging(): DataSource.Factory<Int, TvShow>
+    fun getAllTvShows(): DataSource.Factory<Int, TvShow>
 
     @Query("SELECT * FROM tvshow WHERE is_favorite = 1")
-    fun getFavoriteTvShowPaging(): DataSource.Factory<Int, TvShow>
+    fun getFavoriteTvShows(): DataSource.Factory<Int, TvShow>
 }

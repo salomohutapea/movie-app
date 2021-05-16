@@ -77,7 +77,7 @@ class MovieTvFragment : Fragment() {
             if (!state) {
                 when (index) {
                     1 -> {
-                        fragmentViewModel.fetchMovies().observe(viewLifecycleOwner) { movies ->
+                        fragmentViewModel.getAllMovies().observe(viewLifecycleOwner) { movies ->
                             when (movies.status) {
                                 Status.LOADING -> Log.d("STATUS_GETDATA", "LOADING GET MOVIES")
                                 Status.SUCCESS -> {
@@ -108,7 +108,7 @@ class MovieTvFragment : Fragment() {
                         }
                     }
                     2 -> {
-                        fragmentViewModel.fetchTvShows().observe(viewLifecycleOwner) { tvShows ->
+                        fragmentViewModel.getAllTvShows().observe(viewLifecycleOwner) { tvShows ->
                             when (tvShows.status) {
                                 Status.LOADING -> Log.d("STATUS_GETDATA", "LOADING GET TV SHOWS")
                                 Status.SUCCESS -> {
@@ -145,7 +145,7 @@ class MovieTvFragment : Fragment() {
             else {
                 when (index) {
                     1 -> {
-                        fragmentViewModel.fetchFavoriteMovies()
+                        fragmentViewModel.getFavoriteMovies()
                             .observe(viewLifecycleOwner) { movies ->
                                 Log.d("STATUS_GETDATA", "SUCCESS GET FAVORITE MOVIES")
                                 context?.let {
@@ -161,7 +161,7 @@ class MovieTvFragment : Fragment() {
                             }
                     }
                     2 -> {
-                        fragmentViewModel.fetchFavoriteTvShows()
+                        fragmentViewModel.getFavoriteTvShows()
                             .observe(viewLifecycleOwner) { tvShows ->
                                 Log.d("STATUS_GETDATA", "SUCCESS GET FAVORITE TVSHOWS")
                                 context?.let {
