@@ -42,6 +42,13 @@ class MainActivityTest {
                 it
             )
         })
+        onView(isRoot()).perform(OrientationChangeAction.orientationLandscape())
+        onView(withId(R.id.rv_movietv)).check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.rv_movietv)).perform(dummyMovieTv.first.movies?.size?.let {
+            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
+                it
+            )
+        })
     }
 
     @Test
@@ -81,6 +88,13 @@ class MainActivityTest {
     @Test
     fun c_loadTvShowsData() {
         onView(withText("TV SHOWS")).perform(ViewActions.click())
+        onView(withId(R.id.rv_movietv)).check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.rv_movietv)).perform(dummyMovieTv.second.tvShow?.size?.let {
+            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
+                it
+            )
+        })
+        onView(isRoot()).perform(OrientationChangeAction.orientationLandscape())
         onView(withId(R.id.rv_movietv)).check(ViewAssertions.matches(isDisplayed()))
         onView(withId(R.id.rv_movietv)).perform(dummyMovieTv.second.tvShow?.size?.let {
             RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
@@ -132,6 +146,7 @@ class MainActivityTest {
         onView(withId(R.id.switchFavorite))
             .perform(ViewActions.click())
     }
+
     @Test
     fun f_loadFavoriteTvShows() {
         onView(withId(R.id.switchFavorite))

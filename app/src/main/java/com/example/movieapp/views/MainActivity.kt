@@ -35,11 +35,15 @@ class MainActivity : AppCompatActivity() {
     private fun initializeViewModel() {
         val factory = ViewModelFactory.getInstance(this)
         mainViewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
+
+        binding.switchFavorite.setOnCheckedChangeListener { _, _ ->
+            displayPager()
+        }
     }
 
     private fun displayPager() {
         supportActionBar?.elevation = 0f
-        pagerAdapter = PagerAdapter(this, binding)
+        pagerAdapter = PagerAdapter(this, binding.switchFavorite.isChecked)
         viewPager.adapter = pagerAdapter
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             when (position) {

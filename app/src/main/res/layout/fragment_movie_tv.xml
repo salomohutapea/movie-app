@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     android:paddingBottom="24dp">
 
+    <ProgressBar
+        android:id="@+id/progress_fragment"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_movietv"
         android:layout_width="match_parent"
