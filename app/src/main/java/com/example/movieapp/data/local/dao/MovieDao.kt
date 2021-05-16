@@ -1,6 +1,5 @@
 package com.example.movieapp.data.local.dao
 
-import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
 import com.example.movieapp.data.model.Movie
@@ -12,9 +11,6 @@ interface MovieDao {
 
     @Update
     fun update(movie: Movie)
-
-    @Query("SELECT * FROM movie WHERE id = :movieId")
-    fun getMovieById(movieId: String): LiveData<List<Movie>>
 
     @Delete
     fun delete(movie: Movie)

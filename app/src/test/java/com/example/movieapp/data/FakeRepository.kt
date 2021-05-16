@@ -25,14 +25,6 @@ class FakeRepository constructor(
         appExecutors.diskIO().execute { localDataSource.setFavoriteTvShow(tvShow, state) }
     }
 
-    override fun getMovieById(movieId: String) {
-        localDataSource.getMovieById(movieId)
-    }
-
-    override fun getTvShowById(tvShowId: String) {
-        localDataSource.getTvShowById(tvShowId)
-    }
-
     override fun getFavoriteMovies(): LiveData<PagedList<Movie>> {
         return LivePagedListBuilder(
             localDataSource.getFavoriteMovies(),

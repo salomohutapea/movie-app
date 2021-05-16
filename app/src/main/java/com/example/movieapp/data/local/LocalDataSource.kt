@@ -4,6 +4,7 @@ import com.example.movieapp.data.local.dao.MovieDao
 import com.example.movieapp.data.local.dao.TvShowDao
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.data.model.TvShow
+import com.example.movieapp.utils.EspressoIdlingResource
 
 class LocalDataSource private constructor(
     private val mMovieDao: MovieDao,
@@ -19,20 +20,18 @@ class LocalDataSource private constructor(
             }
     }
 
-    fun getMovieById(movieId: String) =
-        mMovieDao.getMovieById(movieId)
-
-    fun getTvShowById(tvShowId: String) =
-        mMovieDao.getMovieById(tvShowId)
-
     fun setFavoriteMovie(movie: Movie, newState: Boolean) {
+        EspressoIdlingResource.increment()
         movie.isFavorite = newState
         mMovieDao.update(movie)
+        EspressoIdlingResource.decrement()
     }
 
     fun setFavoriteTvShow(tvShow: TvShow, newState: Boolean) {
+        EspressoIdlingResource.increment()
         tvShow.isFavorite = newState
         mTvShowDao.update(tvShow)
+        EspressoIdlingResource.decrement()
     }
 
     fun insertMovies(movies: List<Movie>) = mMovieDao.insertMovies(movies)

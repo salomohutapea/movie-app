@@ -76,7 +76,6 @@ class MainActivityTest {
 
         onView(isRoot())
             .perform(ViewActions.pressBack())
-
     }
 
     @Test
@@ -96,7 +95,7 @@ class MainActivityTest {
         onView(withId(R.id.rv_movietv))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                    0,
+                    3,
                     ViewActions.click()
                 )
             )
@@ -130,23 +129,15 @@ class MainActivityTest {
     fun e_loadFavoriteMovies() {
         onView(withId(R.id.switchFavorite))
             .perform(ViewActions.click())
-        onView(withId(R.id.rv_movietv)).check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.rv_movietv)).perform(
-            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                0
-            )
-        )
+        onView(withId(R.id.switchFavorite))
+            .perform(ViewActions.click())
     }
     @Test
     fun f_loadFavoriteTvShows() {
         onView(withId(R.id.switchFavorite))
             .perform(ViewActions.click())
         onView(withText("TV SHOWS")).perform(ViewActions.click())
-        onView(withId(R.id.rv_movietv)).check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.rv_movietv)).perform(
-            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                0
-            )
-        )
+        onView(withId(R.id.switchFavorite))
+            .perform(ViewActions.click())
     }
 }

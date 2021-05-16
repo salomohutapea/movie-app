@@ -12,10 +12,6 @@ interface MovieDataSource {
 
     fun setTvShowFavorite(tvShow: TvShow, state: Boolean)
 
-    fun getMovieById(movieId: String)
-
-    fun getTvShowById(tvShowId: String)
-
     fun getFavoriteMovies(): LiveData<PagedList<Movie>>
 
     fun getFavoriteTvShows(): LiveData<PagedList<TvShow>>
