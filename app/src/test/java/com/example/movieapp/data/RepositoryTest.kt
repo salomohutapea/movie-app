@@ -15,7 +15,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
+import org.mockito.Mockito.times
 import org.mockito.kotlin.verify
+import java.util.concurrent.Executor
+
 
 class RepositoryTest {
     @get:Rule
@@ -23,16 +26,31 @@ class RepositoryTest {
 
     private val remote = Mockito.mock(RemoteDataSource::class.java)
     private val local = Mockito.mock(LocalDataSource::class.java)
-    private val appExecutors = Mockito.mock(AppExecutors::class.java)
+
+    private val executor = Executor { it.run() }
+    private val appExecutors = AppExecutors(executor, executor, executor)
+
     private val repository = FakeRepository(remote, local, appExecutors)
     private val movieTvResponse = DataDummy.generateDummyMoviesAndTv()
 
     @Test
     fun setMovieFavorite() {
+        val dummy = DataDummy.generateDummyMoviesAndTv().first.movies?.get(0)
+
+        if (dummy != null) {
+            repository.setMovieFavorite(dummy, true)
+            verify(local, times(1)).setFavoriteMovie(dummy, true)
+        }
     }
 
     @Test
     fun setTvShowFavorite() {
+        val dummy = DataDummy.generateDummyMoviesAndTv().second.tvShow?.get(0)
+
+        if (dummy != null) {
+            repository.setTvShowFavorite(dummy, true)
+            verify(local, times(1)).setFavoriteTvShow(dummy, true)
+        }
     }
 
     @Test
