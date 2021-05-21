@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">MovieApp</string>
-    <string name="cannot_fetch">Cannot fetch data</string>
-    <string name="no_connection">No connection</string>
     <string name="movie_poster">Movie poster</string>
     <string name="movie_title">Movie Title</string>
     <string name="star_icon">Star icon</string>

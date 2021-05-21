@@ -17,7 +17,7 @@ import com.example.movieapp.viewmodels.ViewModelFactory
 import com.example.movieapp.vo.Status
 
 
-class MovieTvFragment() : Fragment() {
+class MovieTvFragment : Fragment() {
     private lateinit var rvMovieTv: RecyclerView
     private lateinit var binding: FragmentMovieTvBinding
     private lateinit var fragmentViewModel: FragmentMovieTvViewModel

@@ -55,49 +55,69 @@ class RepositoryTest {
 
     @Test
     fun getFavoriteMovies() {
-        val dataSourceFactory = Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, Movie>
+        val dataSourceFactory =
+            Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, Movie>
         Mockito.`when`(local.getFavoriteMovies()).thenReturn(dataSourceFactory)
         repository.getFavoriteMovies()
 
-        val courseEntities = Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMoviesAndTv().first.movies as List<Movie>))
+        val courseEntities =
+            Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMoviesAndTv().first.movies as List<Movie>))
         verify(local).getFavoriteMovies()
         Assert.assertNotNull(courseEntities.data)
-        assertEquals(movieTvResponse.first.movies?.size?.toLong(), courseEntities.data?.size?.toLong())
+        assertEquals(
+            movieTvResponse.first.movies?.size?.toLong(),
+            courseEntities.data?.size?.toLong()
+        )
     }
 
     @Test
     fun getFavoriteTvShows() {
-        val dataSourceFactory = Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShow>
+        val dataSourceFactory =
+            Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShow>
         Mockito.`when`(local.getFavoriteTvShows()).thenReturn(dataSourceFactory)
         repository.getFavoriteTvShows()
 
-        val courseEntities = Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMoviesAndTv().second.tvShow as List<TvShow>))
+        val courseEntities =
+            Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMoviesAndTv().second.tvShow as List<TvShow>))
         verify(local).getFavoriteTvShows()
         Assert.assertNotNull(courseEntities.data)
-        assertEquals(movieTvResponse.second.tvShow?.size?.toLong(), courseEntities.data?.size?.toLong())
+        assertEquals(
+            movieTvResponse.second.tvShow?.size?.toLong(),
+            courseEntities.data?.size?.toLong()
+        )
     }
 
     @Test
     fun getAllMovies() {
-        val dataSourceFactory = Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, Movie>
+        val dataSourceFactory =
+            Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, Movie>
         Mockito.`when`(local.getAllMovies()).thenReturn(dataSourceFactory)
         repository.getAllMovies()
 
-        val courseEntities = Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMoviesAndTv().first.movies as List<Movie>))
+        val courseEntities =
+            Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMoviesAndTv().first.movies as List<Movie>))
         verify(local).getAllMovies()
         Assert.assertNotNull(courseEntities.data)
-        assertEquals(movieTvResponse.first.movies?.size?.toLong(), courseEntities.data?.size?.toLong())
+        assertEquals(
+            movieTvResponse.first.movies?.size?.toLong(),
+            courseEntities.data?.size?.toLong()
+        )
     }
 
     @Test
     fun getAllTvShows() {
-        val dataSourceFactory = Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShow>
+        val dataSourceFactory =
+            Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShow>
         Mockito.`when`(local.getAllTvShows()).thenReturn(dataSourceFactory)
         repository.getAllTvShows()
 
-        val courseEntities = Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMoviesAndTv().second.tvShow as List<TvShow>))
+        val courseEntities =
+            Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMoviesAndTv().second.tvShow as List<TvShow>))
         verify(local).getAllTvShows()
         Assert.assertNotNull(courseEntities.data)
-        assertEquals(movieTvResponse.second.tvShow?.size?.toLong(), courseEntities.data?.size?.toLong())
+        assertEquals(
+            movieTvResponse.second.tvShow?.size?.toLong(),
+            courseEntities.data?.size?.toLong()
+        )
     }
 }
