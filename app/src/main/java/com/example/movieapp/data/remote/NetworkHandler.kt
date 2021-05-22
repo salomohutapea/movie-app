@@ -1,4 +1,4 @@
-package com.example.movieapp.handlers
+package com.example.movieapp.data.remote
 
 import android.content.Context
 import com.example.movieapp.R
@@ -7,7 +7,6 @@ import com.example.movieapp.data.model.MovieEntity
 import com.example.movieapp.data.model.TvShowEntity
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -47,15 +46,14 @@ class NetworkHandler(private val context: Context) {
 
 interface ServiceApiCall {
     @GET("movie/now_playing")
-    fun getAllMovies(): Call<MovieEntity>
+    suspend fun getAllMovies(): MovieEntity
 
     @GET("tv/on_the_air")
-    fun getAllTvShows(): Call<TvShowEntity>
+    suspend fun getAllTvShows(): TvShowEntity
 
     @GET("genre/movie/list")
     suspend fun getMovieGenres(): Response<GenreEntity>
 
     @GET("genre/tv/list")
     suspend fun getTvGenres(): Response<GenreEntity>
-
 }

@@ -51,11 +51,11 @@ class FakeRepository constructor(
             override fun shouldFetch(data: PagedList<Movie>?): Boolean =
                 data == null || data.isEmpty()
 
-            public override fun createCall(): LiveData<ApiResponse<List<Movie>>> {
+            public override suspend fun createCall(): LiveData<ApiResponse<List<Movie>>> {
                 return remoteDataSource.getAllMovies()
             }
 
-            public override fun saveCallResult(data: List<Movie>) {
+            public override suspend fun saveCallResult(data: List<Movie>) {
                 localDataSource.insertMovies(data)
             }
 
@@ -74,10 +74,10 @@ class FakeRepository constructor(
             override fun shouldFetch(data: PagedList<TvShow>?): Boolean =
                 data == null || data.isEmpty()
 
-            public override fun createCall(): LiveData<ApiResponse<List<TvShow>>> =
+            public override suspend fun createCall(): LiveData<ApiResponse<List<TvShow>>> =
                 remoteDataSource.getAllTvShows()
 
-            public override fun saveCallResult(data: List<TvShow>) {
+            public override suspend fun saveCallResult(data: List<TvShow>) {
                 localDataSource.insertTvShows(data)
             }
         }.asLiveData()

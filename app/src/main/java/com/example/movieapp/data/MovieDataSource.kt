@@ -1,10 +1,9 @@
 package com.example.movieapp.data
 
-import androidx.lifecycle.LiveData
-import androidx.paging.PagedList
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.data.model.TvShow
 import com.example.movieapp.vo.Resource
+import kotlinx.coroutines.flow.Flow
 
 interface MovieDataSource {
 
@@ -12,11 +11,11 @@ interface MovieDataSource {
 
     fun setTvShowFavorite(tvShow: TvShow, state: Boolean)
 
-    fun getFavoriteMovies(): LiveData<PagedList<Movie>>
+    fun getFavoriteMovies(): Flow<List<Movie>>
 
-    fun getFavoriteTvShows(): LiveData<PagedList<TvShow>>
+    fun getFavoriteTvShows(): Flow<List<TvShow>>
 
-    fun getAllMovies(): LiveData<Resource<PagedList<Movie>>>
+    fun getAllMovies(): Flow<Resource<List<Movie>>>
 
-    fun getAllTvShows(): LiveData<Resource<PagedList<TvShow>>>
+    fun getAllTvShows(): Flow<Resource<List<TvShow>>>
 }

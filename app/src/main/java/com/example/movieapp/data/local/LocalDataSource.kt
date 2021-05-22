@@ -29,9 +29,9 @@ class LocalDataSource private constructor(
         mTvShowDao.update(tvShow)
     }
 
-    fun insertMovies(movies: List<Movie>) = mMovieDao.insertMovies(movies)
+    suspend fun insertMovies(movies: List<Movie>) = mMovieDao.insertMovies(movies)
 
-    fun insertTvShows(tvShows: List<TvShow>) = mTvShowDao.insertTvShows(tvShows)
+    suspend fun insertTvShows(tvShows: List<TvShow>) = mTvShowDao.insertTvShows(tvShows)
 
     fun getFavoriteMovies() = mMovieDao.getFavoriteMovies()
 

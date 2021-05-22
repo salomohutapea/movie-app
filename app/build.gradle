@@ -54,6 +54,7 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.3.0'
     //noinspection GradleDependency
     implementation 'androidx.paging:paging-runtime-ktx:2.1.1'
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation 'junit:junit:4.13.2'
     kapt 'androidx.room:room-compiler:2.3.0'
     kapt "org.xerial:sqlite-jdbc:3.34.0"

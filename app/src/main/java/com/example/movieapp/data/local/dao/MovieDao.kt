@@ -1,13 +1,13 @@
 package com.example.movieapp.data.local.dao
 
-import androidx.paging.DataSource
 import androidx.room.*
 import com.example.movieapp.data.model.Movie
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertMovies(movie: List<Movie>)
+    suspend fun insertMovies(movie: List<Movie>)
 
     @Update
     fun update(movie: Movie)
@@ -16,8 +16,8 @@ interface MovieDao {
     fun delete(movie: Movie)
 
     @Query("SELECT * from movie")
-    fun getAllMovies(): DataSource.Factory<Int, Movie>
+    fun getAllMovies(): Flow<List<Movie>>
 
     @Query("SELECT * FROM movie WHERE is_favorite = 1")
-    fun getFavoriteMovies(): DataSource.Factory<Int, Movie>
+    fun getFavoriteMovies(): Flow<List<Movie>>
 }

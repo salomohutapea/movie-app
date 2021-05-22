@@ -1,8 +1,5 @@
 package com.example.movieapp.data
 
-import androidx.lifecycle.LiveData
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
 import com.example.movieapp.data.local.LocalDataSource
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.data.model.TvShow
@@ -10,8 +7,10 @@ import com.example.movieapp.data.remote.ApiResponse
 import com.example.movieapp.data.remote.RemoteDataSource
 import com.example.movieapp.utils.AppExecutors
 import com.example.movieapp.vo.Resource
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.flow.Flow
 
-
+@DelicateCoroutinesApi
 class Repository private constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
@@ -40,70 +39,49 @@ class Repository private constructor(
         appExecutors.diskIO().execute { localDataSource.setFavoriteTvShow(tvShow, state) }
     }
 
-    override fun getFavoriteMovies(): LiveData<PagedList<Movie>> {
-        return LivePagedListBuilder(
-            localDataSource.getFavoriteMovies(),
-            getDefaultPageConfig()
-        ).build()
+    override fun getFavoriteMovies(): Flow<List<Movie>> {
+        return localDataSource.getFavoriteMovies()
     }
 
-    override fun getFavoriteTvShows(): LiveData<PagedList<TvShow>> {
-        return LivePagedListBuilder(
-            localDataSource.getFavoriteTvShows(),
-            getDefaultPageConfig()
-        ).build()
+    override fun getFavoriteTvShows(): Flow<List<TvShow>> {
+        return localDataSource.getFavoriteTvShows()
     }
 
-    override fun getAllMovies(): LiveData<Resource<PagedList<Movie>>> {
-        return object : NetworkBoundResource<PagedList<Movie>, List<Movie>>(appExecutors) {
-            public override fun loadFromDB(): LiveData<PagedList<Movie>> {
-                return LivePagedListBuilder(
-                    localDataSource.getAllMovies(),
-                    getDefaultPageConfig()
-                ).build()
+    override fun getAllMovies(): Flow<Resource<List<Movie>>> {
+        return object : NetworkBoundResource<List<Movie>, List<Movie>>() {
+            public override fun loadFromDB(): Flow<List<Movie>> {
+                return localDataSource.getAllMovies()
             }
 
-            override fun shouldFetch(data: PagedList<Movie>?): Boolean =
+            override fun shouldFetch(data: List<Movie>?): Boolean =
                 data == null || data.isEmpty()
 
-            public override fun createCall(): LiveData<ApiResponse<List<Movie>>> {
+            override suspend fun createCall(): Flow<ApiResponse<List<Movie>>> {
                 return remoteDataSource.getAllMovies()
             }
 
-            public override fun saveCallResult(data: List<Movie>) {
+            override suspend fun saveCallResult(data: List<Movie>) {
                 localDataSource.insertMovies(data)
             }
 
-        }.asLiveData()
+        }.asFlow()
     }
 
-    override fun getAllTvShows(): LiveData<Resource<PagedList<TvShow>>> {
-        return object : NetworkBoundResource<PagedList<TvShow>, List<TvShow>>(appExecutors) {
-            public override fun loadFromDB(): LiveData<PagedList<TvShow>> {
-                return LivePagedListBuilder(
-                    localDataSource.getAllTvShows(),
-                    getDefaultPageConfig()
-                ).build()
+    override fun getAllTvShows(): Flow<Resource<List<TvShow>>> {
+        return object : NetworkBoundResource<List<TvShow>, List<TvShow>>() {
+            public override fun loadFromDB(): Flow<List<TvShow>> {
+                return localDataSource.getAllTvShows()
             }
 
-            override fun shouldFetch(data: PagedList<TvShow>?): Boolean =
+            override fun shouldFetch(data: List<TvShow>?): Boolean =
                 data == null || data.isEmpty()
 
-            public override fun createCall(): LiveData<ApiResponse<List<TvShow>>> =
+            public override suspend fun createCall(): Flow<ApiResponse<List<TvShow>>> =
                 remoteDataSource.getAllTvShows()
 
-            public override fun saveCallResult(data: List<TvShow>) {
+            public override suspend fun saveCallResult(data: List<TvShow>) {
                 localDataSource.insertTvShows(data)
             }
-        }.asLiveData()
+        }.asFlow()
     }
-
-    private fun getDefaultPageConfig(): PagedList.Config {
-        return PagedList.Config.Builder()
-            .setEnablePlaceholders(false)
-            .setInitialLoadSizeHint(4)
-            .setPageSize(4)
-            .build()
-    }
-
 }

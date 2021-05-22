@@ -1,50 +1,52 @@
 package com.example.movieapp.data
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import com.example.movieapp.data.remote.ApiResponse
 import com.example.movieapp.data.remote.StatusResponse
 import com.example.movieapp.utils.AppExecutors
 import com.example.movieapp.vo.Resource
+import kotlinx.coroutines.flow.*
 
-abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecutors: AppExecutors) {
-
-    private val result = MediatorLiveData<Resource<ResultType>>()
-
-    init {
-        result.value = Resource.loading(null)
-
-        @Suppress("LeakingThis")
-        val dbSource = loadFromDB()
-
-        result.addSource(dbSource) { data ->
-            result.removeSource(dbSource)
-            if (shouldFetch(data)) {
-                fetchFromNetwork(dbSource)
-            } else {
-                result.addSource(dbSource) { newData ->
-                    result.value = Resource.success(newData)
+abstract class NetworkBoundResource<ResultType, RequestType> (private val mExecutors: AppExecutors){
+    private var result: Flow<Resource<ResultType>> = flow {
+        emit(Resource.Loading())
+        val dbSource = loadFromDB().first()
+        if (shouldFetch(dbSource)) {
+            emit(Resource.Loading())
+            when (val apiResponse = createCall().first()) {
+                is ApiResponse.Success -> {
+                    saveCallResult(apiResponse.data)
+                    emitAll(loadFromDB().map { Resource.Success(it) })
+                }
+                is ApiResponse.Empty -> {
+                    emitAll(loadFromDB().map { Resource.Success(it) })
+                }
+                is ApiResponse.Error -> {
+                    onFetchFailed()
+                    emit(Resource.Error<ResultType>(apiResponse.errorMessage))
                 }
             }
+        } else {
+            emitAll(fetchFromNetwork(loadFromDB()))
         }
     }
+    private var reesult = combine(dbFlow,  apiFlow)
 
     protected open fun onFetchFailed() {}
 
-    protected abstract fun loadFromDB(): LiveData<ResultType>
+    protected abstract fun loadFromDB(): Flow<ResultType>
 
     protected abstract fun shouldFetch(data: ResultType?): Boolean
 
-    protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
+    protected abstract suspend fun createCall(): Flow<ApiResponse<RequestType>>
 
-    protected abstract fun saveCallResult(data: RequestType)
+    protected abstract suspend fun saveCallResult(data: RequestType)
 
-    private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
+    private suspend fun fetchFromNetwork(dbSource: Flow<ResultType>) : Flow<Resource<ResultType>> = flow{
 
         val apiResponse = createCall()
-
-        result.addSource(dbSource) { newData ->
-            result.value = Resource.loading(newData)
+        result.first().addSource(dbSource) { newData ->
+            result.value = Resource.Loading(newData)
         }
         result.addSource(apiResponse) { response ->
             result.removeSource(apiResponse)
@@ -74,5 +76,5 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
         }
     }
 
-    fun asLiveData(): LiveData<Resource<ResultType>> = result
+    fun asFlow(): Flow<Resource<ResultType>> = result
 }
