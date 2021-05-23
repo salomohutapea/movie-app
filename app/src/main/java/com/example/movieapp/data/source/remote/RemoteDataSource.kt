@@ -1,8 +1,8 @@
-package com.example.movieapp.data.remote
+package com.example.movieapp.data.source.remote
 
-import com.example.movieapp.data.model.GenreEntity
-import com.example.movieapp.data.model.Movie
-import com.example.movieapp.data.model.TvShow
+import com.example.movieapp.domain.model.GenreEntity
+import com.example.movieapp.domain.model.Movie
+import com.example.movieapp.domain.model.TvShow
 import com.example.movieapp.utils.EspressoIdlingResource
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers

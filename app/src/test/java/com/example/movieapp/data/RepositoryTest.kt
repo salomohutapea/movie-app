@@ -2,14 +2,13 @@ package com.example.movieapp.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.DataSource
-import com.example.movieapp.data.local.LocalDataSource
-import com.example.movieapp.data.model.Movie
-import com.example.movieapp.data.model.TvShow
-import com.example.movieapp.data.remote.RemoteDataSource
+import com.example.movieapp.data.source.local.LocalDataSource
+import com.example.movieapp.domain.model.Movie
+import com.example.movieapp.domain.model.TvShow
+import com.example.movieapp.data.source.remote.RemoteDataSource
 import com.example.movieapp.utils.AppExecutors
 import com.example.movieapp.utils.DataDummy
 import com.example.movieapp.utils.PagedListUtil
-import com.example.movieapp.vo.Resource
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Rule

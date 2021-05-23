@@ -1,9 +1,9 @@
-package com.example.movieapp.data.local
+package com.example.movieapp.data.source.local
 
-import com.example.movieapp.data.local.dao.MovieDao
-import com.example.movieapp.data.local.dao.TvShowDao
-import com.example.movieapp.data.model.Movie
-import com.example.movieapp.data.model.TvShow
+import com.example.movieapp.data.source.local.dao.MovieDao
+import com.example.movieapp.data.source.local.dao.TvShowDao
+import com.example.movieapp.domain.model.Movie
+import com.example.movieapp.domain.model.TvShow
 
 class LocalDataSource private constructor(
     private val mMovieDao: MovieDao,

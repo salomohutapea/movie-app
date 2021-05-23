@@ -3,19 +3,20 @@ package com.example.movieapp.data
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.example.movieapp.data.local.LocalDataSource
-import com.example.movieapp.data.model.Movie
-import com.example.movieapp.data.model.TvShow
-import com.example.movieapp.data.remote.ApiResponse
-import com.example.movieapp.data.remote.RemoteDataSource
+import com.example.movieapp.data.source.local.LocalDataSource
+import com.example.movieapp.domain.model.Movie
+import com.example.movieapp.domain.model.TvShow
+import com.example.movieapp.data.source.remote.ApiResponse
+import com.example.movieapp.data.source.remote.RemoteDataSource
+import com.example.movieapp.domain.repository.IMovieRepository
 import com.example.movieapp.utils.AppExecutors
-import com.example.movieapp.vo.Resource
+import com.example.movieapp.data.Resource
 
 class FakeRepository constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
-) : MovieDataSource {
+) : IMovieRepository {
 
     override fun setMovieFavorite(movie: Movie, state: Boolean) {
         appExecutors.diskIO().execute { localDataSource.setFavoriteMovie(movie, state) }

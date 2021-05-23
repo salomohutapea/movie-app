@@ -1,4 +1,4 @@
-package com.example.movieapp.data.local
+package com.example.movieapp.data.source.local
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

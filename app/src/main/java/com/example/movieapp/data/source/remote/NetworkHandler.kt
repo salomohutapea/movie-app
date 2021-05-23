@@ -1,10 +1,10 @@
-package com.example.movieapp.data.remote
+package com.example.movieapp.data.source.remote
 
 import android.content.Context
 import com.example.movieapp.R
-import com.example.movieapp.data.model.GenreEntity
-import com.example.movieapp.data.model.MovieEntity
-import com.example.movieapp.data.model.TvShowEntity
+import com.example.movieapp.domain.model.GenreEntity
+import com.example.movieapp.domain.model.MovieEntity
+import com.example.movieapp.domain.model.TvShowEntity
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response

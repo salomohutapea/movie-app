@@ -1,8 +1,8 @@
 package com.example.movieapp.utils
 
-import com.example.movieapp.data.model.GenreEntity
-import com.example.movieapp.data.model.MovieEntity
-import com.example.movieapp.data.model.TvShowEntity
+import com.example.movieapp.domain.model.GenreEntity
+import com.example.movieapp.domain.model.MovieEntity
+import com.example.movieapp.domain.model.TvShowEntity
 import com.google.gson.Gson
 
 object DataDummy {

@@ -3,30 +3,25 @@ package com.example.movieapp.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
-import com.example.movieapp.data.model.TvShow
 import com.example.movieapp.databinding.ItemTvMovieListBinding
+import com.example.movieapp.domain.model.TvShow
+import java.util.*
 
 class TvShowsAdapter :
-    PagedListAdapter<TvShow, TvShowsAdapter.ListViewHolder>(
-        REPO_COMPARATOR
-    ) {
+    RecyclerView.Adapter<TvShowsAdapter.ListViewHolder>() {
 
-    companion object {
-        private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<TvShow>() {
-            override fun areItemsTheSame(oldItem: TvShow, newItem: TvShow) =
-                oldItem.id == newItem.id
-
-            override fun areContentsTheSame(oldItem: TvShow, newItem: TvShow) =
-                oldItem.id == newItem.id
-        }
-    }
-
+    private var listData = ArrayList<TvShow>()
     private lateinit var onItemClickCallback: OnItemClickCallback
+
+    fun setData(newListData: List<TvShow>?) {
+        if (newListData == null) return
+        listData.clear()
+        listData.addAll(newListData)
+        notifyDataSetChanged()
+    }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
@@ -40,34 +35,32 @@ class TvShowsAdapter :
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
 
-        val tvShow = getItem(position)
+        val tvShow = listData[position]
 
-        if (tvShow != null) {
-            holder.itemView.setOnClickListener {
-                onItemClickCallback.onItemClicked(
-                    tvShow
-                )
-            }
-            Glide.with(holder.itemView.context)
-                .load("https://image.tmdb.org/t/p/w500${tvShow.posterPath}")
-                .into(holder.binding.singlePosterImg)
-            holder.binding.singlePopularityTextview.text = tvShow.voteAverage.toString()
-            holder.binding.singleTitleTextview.text = tvShow.name
-            holder.binding.singleDateReleasedTextview.text =
-                StringBuilder("First on-air date: ${tvShow.firstAirDate}")
-
-            var genreText = "Genre: "
-
-            tvShow.genres?.forEachIndexed { i, it ->
-                genreText = if (i != tvShow.genres!!.size - 1) {
-                    genreText.plus(it).plus(", ")
-                } else {
-                    genreText.plus(it)
-                }
-            }
-
-            holder.binding.singleGenreTextview.text = genreText
+        holder.itemView.setOnClickListener {
+            onItemClickCallback.onItemClicked(
+                tvShow
+            )
         }
+        Glide.with(holder.itemView.context)
+            .load("https://image.tmdb.org/t/p/w500${tvShow.posterPath}")
+            .into(holder.binding.singlePosterImg)
+        holder.binding.singlePopularityTextview.text = tvShow.voteAverage.toString()
+        holder.binding.singleTitleTextview.text = tvShow.name
+        holder.binding.singleDateReleasedTextview.text =
+            StringBuilder("First on-air date: ${tvShow.firstAirDate}")
+
+        var genreText = "Genre: "
+
+        tvShow.genres?.forEachIndexed { i, it ->
+            genreText = if (i != tvShow.genres!!.size - 1) {
+                genreText.plus(it).plus(", ")
+            } else {
+                genreText.plus(it)
+            }
+        }
+
+        holder.binding.singleGenreTextview.text = genreText
     }
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -77,4 +70,7 @@ class TvShowsAdapter :
     interface OnItemClickCallback {
         fun onItemClicked(data: TvShow)
     }
+
+    override fun getItemCount(): Int = listData.size
+
 }

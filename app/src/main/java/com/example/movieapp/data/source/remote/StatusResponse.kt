@@ -1,4 +1,4 @@
-package com.example.movieapp.data.remote
+package com.example.movieapp.data.source.remote
 
 enum class StatusResponse {
     SUCCESS,

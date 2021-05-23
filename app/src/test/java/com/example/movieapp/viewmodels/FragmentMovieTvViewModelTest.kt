@@ -6,10 +6,10 @@ import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.paging.PositionalDataSource
 import com.example.movieapp.data.Repository
-import com.example.movieapp.data.model.Movie
-import com.example.movieapp.data.model.TvShow
+import com.example.movieapp.domain.model.Movie
+import com.example.movieapp.domain.model.TvShow
 import com.example.movieapp.utils.DataDummy
-import com.example.movieapp.vo.Resource
+import com.example.movieapp.data.Resource
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before

@@ -10,13 +10,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.R
+import com.example.movieapp.data.Resource
 import com.example.movieapp.databinding.FragmentMovieTvBinding
 import com.example.movieapp.handlers.RecyclerViewHandler
 import com.example.movieapp.viewmodels.FragmentMovieTvViewModel
 import com.example.movieapp.viewmodels.ViewModelFactory
-import com.example.movieapp.vo.Status
+import kotlinx.coroutines.DelicateCoroutinesApi
 
 
+@DelicateCoroutinesApi
 class MovieTvFragment : Fragment() {
     private lateinit var rvMovieTv: RecyclerView
     private lateinit var binding: FragmentMovieTvBinding
@@ -70,62 +72,66 @@ class MovieTvFragment : Fragment() {
             when (index) {
                 1 -> {
                     fragmentViewModel.getAllMovies().observe(viewLifecycleOwner) { movies ->
-                        when (movies.status) {
-                            Status.LOADING -> Log.d("STATUS_GETDATA", "LOADING GET MOVIES")
-                            Status.SUCCESS -> {
-                                Log.d("STATUS_GETDATA", "SUCCESS GET MOVIES")
-                                context?.let {
-                                    movies.data.let { it1 ->
-                                        if (it1 != null) {
-                                            rvHandler.showMovieRecyclerView(
-                                                rvMovieTv,
-                                                it,
-                                                it1
-                                            )
+                        if (movies != null) {
+                            when (movies) {
+                                is Resource.Loading -> Log.d("STATUS_GETDATA", "LOADING GET MOVIES")
+                                is Resource.Success -> {
+                                    Log.d("STATUS_GETDATA", "SUCCESS GET MOVIES")
+                                    context?.let {
+                                        movies.data.let { it1 ->
+                                            if (it1 != null) {
+                                                rvHandler.showMovieRecyclerView(
+                                                    rvMovieTv,
+                                                    it,
+                                                    it1
+                                                )
+                                            }
                                         }
                                     }
+                                    showLoading(false)
                                 }
-                                showLoading(false)
-                            }
-                            Status.ERROR -> {
-                                Toast.makeText(
-                                    context,
-                                    "Terjadi kesalahan",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
-                                showLoading(false)
+                                is Resource.Error -> {
+                                    Toast.makeText(
+                                        context,
+                                        "Terjadi kesalahan",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                    showLoading(false)
+                                }
                             }
                         }
                     }
                 }
                 2 -> {
                     fragmentViewModel.getAllTvShows().observe(viewLifecycleOwner) { tvShows ->
-                        when (tvShows.status) {
-                            Status.LOADING -> Log.d("STATUS_GETDATA", "LOADING GET TV SHOWS")
-                            Status.SUCCESS -> {
-                                Log.d("STATUS_GETDATA", "SUCCESS GET TV SHOWS")
-                                context?.let {
-                                    tvShows.data.let { it1 ->
-                                        if (it1 != null) {
-                                            rvHandler.showTvRecyclerView(
-                                                rvMovieTv,
-                                                it,
-                                                it1
-                                            )
+                        if (tvShows != null) {
+                            when (tvShows) {
+                                is Resource.Loading -> Log.d("STATUS_GETDATA", "LOADING GET TVSHOWS")
+                                is Resource.Success -> {
+                                    Log.d("STATUS_GETDATA", "SUCCESS GET TVSHOWS")
+                                    context?.let {
+                                        tvShows.data.let { it1 ->
+                                            if (it1 != null) {
+                                                rvHandler.showTvRecyclerView(
+                                                    rvMovieTv,
+                                                    it,
+                                                    it1
+                                                )
+                                            }
                                         }
                                     }
+                                    showLoading(false)
                                 }
-                                showLoading(false)
-                            }
-                            Status.ERROR -> {
-                                Toast.makeText(
-                                    context,
-                                    "Terjadi kesalahan",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
-                                showLoading(false)
+                                is Resource.Error -> {
+                                    Toast.makeText(
+                                        context,
+                                        "Terjadi kesalahan",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                    showLoading(false)
+                                }
                             }
                         }
                     }

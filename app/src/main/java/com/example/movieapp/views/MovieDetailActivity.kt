@@ -9,13 +9,15 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
-import com.example.movieapp.data.model.Movie
 import com.example.movieapp.databinding.ActivityMovieDetailBinding
+import com.example.movieapp.domain.model.Movie
 import com.example.movieapp.viewmodels.DetailMovieViewModel
 import com.example.movieapp.viewmodels.ViewModelFactory
+import kotlinx.coroutines.DelicateCoroutinesApi
 import java.util.*
 
 
+@DelicateCoroutinesApi
 class MovieDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMovieDetailBinding

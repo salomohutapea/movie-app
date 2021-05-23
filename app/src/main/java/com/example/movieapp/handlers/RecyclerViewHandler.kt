@@ -2,27 +2,27 @@ package com.example.movieapp.handlers
 
 import android.content.Context
 import android.content.Intent
-
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.adapters.MoviesAdapter
 import com.example.movieapp.adapters.TvShowsAdapter
-import com.example.movieapp.data.model.Movie
-import com.example.movieapp.data.model.TvShow
+import com.example.movieapp.domain.model.Movie
+import com.example.movieapp.domain.model.TvShow
 import com.example.movieapp.views.MovieDetailActivity
 import com.example.movieapp.views.TvDetailActivity
+import kotlinx.coroutines.DelicateCoroutinesApi
 
 
+@DelicateCoroutinesApi
 class RecyclerViewHandler {
 
     fun showMovieRecyclerView(
         recyclerView: RecyclerView,
         context: Context,
-        list: PagedList<Movie>
+        list: List<Movie>
     ) {
         val adapter = MoviesAdapter()
-        adapter.submitList(list)
+        adapter.setData(list)
         recyclerView.adapter = adapter
         recyclerView.itemAnimator = null
         recyclerView.setHasFixedSize(true)
@@ -41,10 +41,10 @@ class RecyclerViewHandler {
     fun showTvRecyclerView(
         recyclerView: RecyclerView,
         context: Context,
-        list: PagedList<TvShow>
+        list: List<TvShow>
     ) {
         val adapter = TvShowsAdapter()
-        adapter.submitList(list)
+        adapter.setData(list)
         recyclerView.adapter = adapter
         recyclerView.itemAnimator = null
         recyclerView.setHasFixedSize(true)

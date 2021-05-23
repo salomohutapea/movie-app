@@ -1,16 +1,19 @@
 package com.example.movieapp.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.example.movieapp.data.Repository
+import androidx.lifecycle.asLiveData
+import com.example.movieapp.domain.usecase.MovieUseCase
+import kotlinx.coroutines.DelicateCoroutinesApi
 
-class FragmentMovieTvViewModel constructor(private val repository: Repository) : ViewModel() {
+@DelicateCoroutinesApi
+class FragmentMovieTvViewModel constructor(private val useCase: MovieUseCase) : ViewModel() {
 
-    fun getFavoriteMovies() = repository.getFavoriteMovies()
+    fun getFavoriteMovies() = useCase.getFavoriteMovies().asLiveData()
 
-    fun getFavoriteTvShows() = repository.getFavoriteTvShows()
+    fun getFavoriteTvShows() = useCase.getFavoriteTvShows().asLiveData()
 
-    fun getAllMovies() = repository.getAllMovies()
+    fun getAllMovies() = useCase.getAllMovies().asLiveData()
 
-    fun getAllTvShows() = repository.getAllTvShows()
+    fun getAllTvShows() = useCase.getAllTvShows().asLiveData()
 
 }

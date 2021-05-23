@@ -3,18 +3,17 @@ package com.example.movieapp.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.movieapp.domain.model.Movie
+import com.example.movieapp.domain.usecase.MovieUseCase
 
-import com.example.movieapp.data.Repository
-import com.example.movieapp.data.model.Movie
 
-
-class DetailMovieViewModel constructor(private val repository: Repository) : ViewModel() {
+class DetailMovieViewModel constructor(private val useCase: MovieUseCase) : ViewModel() {
 
     val isLoading = MutableLiveData<Boolean>()
     private val isFavorite = MutableLiveData<Boolean>()
 
     fun setFavorite(movie: Movie) {
-        repository.setMovieFavorite(movie, !movie.isFavorite)
+        useCase.setMovieFavorite(movie, !movie.isFavorite)
         isFavorite.postValue(!movie.isFavorite)
     }
 

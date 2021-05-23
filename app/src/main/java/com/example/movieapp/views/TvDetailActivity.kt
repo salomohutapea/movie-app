@@ -9,13 +9,15 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
-import com.example.movieapp.data.model.TvShow
 import com.example.movieapp.databinding.ActivityTvDetailBinding
+import com.example.movieapp.domain.model.TvShow
 import com.example.movieapp.viewmodels.DetailTvViewModel
 import com.example.movieapp.viewmodels.ViewModelFactory
+import kotlinx.coroutines.DelicateCoroutinesApi
 import java.util.*
 
 
+@DelicateCoroutinesApi
 class TvDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTvDetailBinding

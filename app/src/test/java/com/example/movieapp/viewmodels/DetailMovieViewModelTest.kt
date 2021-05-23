@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.movieapp.data.Repository
-import com.example.movieapp.data.model.Movie
+import com.example.movieapp.domain.model.Movie
 import com.example.movieapp.utils.DataDummy
 import org.junit.Assert
 import org.junit.Before

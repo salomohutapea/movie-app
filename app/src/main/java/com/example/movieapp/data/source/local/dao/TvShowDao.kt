@@ -1,7 +1,7 @@
-package com.example.movieapp.data.local.dao
+package com.example.movieapp.data.source.local.dao
 
 import androidx.room.*
-import com.example.movieapp.data.model.TvShow
+import com.example.movieapp.domain.model.TvShow
 import kotlinx.coroutines.flow.Flow
 
 @Dao

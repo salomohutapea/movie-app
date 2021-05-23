@@ -1,12 +1,11 @@
-package com.example.movieapp.data
+package com.example.movieapp.domain.usecase
 
-import com.example.movieapp.data.model.Movie
-import com.example.movieapp.data.model.TvShow
-import com.example.movieapp.vo.Resource
+import com.example.movieapp.data.Resource
+import com.example.movieapp.domain.model.Movie
+import com.example.movieapp.domain.model.TvShow
 import kotlinx.coroutines.flow.Flow
 
-interface MovieDataSource {
-
+interface MovieUseCase {
     fun setMovieFavorite(movie: Movie, state: Boolean)
 
     fun setTvShowFavorite(tvShow: TvShow, state: Boolean)
