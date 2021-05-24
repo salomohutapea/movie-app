@@ -1,6 +1,10 @@
 package com.salomohutapea.movieapp.main
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.movieapp.R
@@ -16,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabs: TabLayout
     private lateinit var pagerAdapter: PagerAdapter
+    private var menu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +36,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         displayPager()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_open_favorite, menu)
+        this.menu = menu
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_open_favorite) {
+            val uri = Uri.parse("movieapp://favorite")
+            startActivity(Intent(Intent.ACTION_VIEW, uri))
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun displayPager() {

@@ -47,6 +47,7 @@ class TvShowsAdapter :
         Glide.with(holder.itemView.context)
             .load("https://image.tmdb.org/t/p/w500${tvShow.posterPath}")
             .into(holder.binding.singlePosterImg)
+        holder.binding.singleCategoryTextview.text = StringBuilder("Tv Show")
         holder.binding.singlePopularityTextview.text = tvShow.voteAverage.toString()
         holder.binding.singleTitleTextview.text = tvShow.name
         holder.binding.singleDateReleasedTextview.text =

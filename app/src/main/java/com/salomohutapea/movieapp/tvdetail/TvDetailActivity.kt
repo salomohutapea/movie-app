@@ -21,7 +21,7 @@ class TvDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTvDetailBinding
     private val tvDetailViewModel: TvDetailViewModel by viewModel()
     private var menu: Menu? = null
-    lateinit var tvShow: TvShow
+    private lateinit var tvShow: TvShow
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

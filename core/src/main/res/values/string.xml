@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="movie_poster">Movie poster</string>
+    <string name="movie_poster">Poster</string>
     <string name="movie_title">Movie Title</string>
     <string name="star_icon">Star icon</string>
     <string name="rating_sample">8.3</string>

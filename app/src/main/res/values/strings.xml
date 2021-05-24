@@ -26,4 +26,5 @@
     <string name="only_favorite">Show Favorites Only</string>
     <string name="on">On</string>
     <string name="off">Off</string>
+    <string name="title_favorite">Favorite</string>
 </resources>
