@@ -3,7 +3,7 @@ package com.example.movieapp.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.example.movieapp.core.data.Repository
+import com.salomohutapea.movieapp.core.data.Repository
 import com.example.movieapp.core.domain.model.Movie
 import com.example.movieapp.moviedetail.MovieDetailViewModel
 import com.example.movieapp.core.utils.DataDummy
@@ -25,7 +25,7 @@ class MovieDetailViewModelTest {
     val rule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var repository: Repository
+    private lateinit var repository: com.salomohutapea.movieapp.core.data.Repository
 
     @Mock
     private lateinit var observer: Observer<Boolean>

@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.paging.PositionalDataSource
-import com.example.movieapp.core.data.Repository
+import com.salomohutapea.movieapp.core.data.Repository
 import com.example.movieapp.core.domain.model.Movie
 import com.example.movieapp.core.domain.model.TvShow
 import com.example.movieapp.core.utils.DataDummy
-import com.example.movieapp.core.data.Resource
+import com.salomohutapea.movieapp.core.data.Resource
 import com.example.movieapp.movietvfragment.MovieTvViewModel
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -35,13 +35,13 @@ class FragmentMovieTvViewModelTest {
     val rule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var repository: Repository
+    private lateinit var repository: com.salomohutapea.movieapp.core.data.Repository
 
     @Mock
-    private lateinit var movieObserver: Observer<Resource<PagedList<Movie>>>
+    private lateinit var movieObserver: Observer<com.salomohutapea.movieapp.core.data.Resource<PagedList<Movie>>>
 
     @Mock
-    private lateinit var tvObserver: Observer<Resource<PagedList<TvShow>>>
+    private lateinit var tvObserver: Observer<com.salomohutapea.movieapp.core.data.Resource<PagedList<TvShow>>>
 
     @Mock
     private lateinit var movieFavoriteObserver: Observer<PagedList<Movie>>
@@ -58,8 +58,8 @@ class FragmentMovieTvViewModelTest {
     fun `a_getMovies should be success`() {
         val movies =
             PagedTestDataSources.snapshot(DataDummy.generateDummyMoviesAndTv().first.movies as List<Movie>)
-        val expected = MutableLiveData<Resource<PagedList<Movie>>>()
-        expected.value = Resource.success(movies)
+        val expected = MutableLiveData<com.salomohutapea.movieapp.core.data.Resource<PagedList<Movie>>>()
+        expected.value = com.salomohutapea.movieapp.core.data.Resource.success(movies)
 
         `when`(repository.getAllMovies()).thenReturn(expected)
 
@@ -76,8 +76,8 @@ class FragmentMovieTvViewModelTest {
     @Test
     fun `b_getMovies should be success but data is empty`() {
         val movies = PagedTestDataSources.snapshot<Movie>()
-        val expected = MutableLiveData<Resource<PagedList<Movie>>>()
-        expected.value = Resource.success(movies)
+        val expected = MutableLiveData<com.salomohutapea.movieapp.core.data.Resource<PagedList<Movie>>>()
+        expected.value = com.salomohutapea.movieapp.core.data.Resource.success(movies)
 
         `when`(repository.getAllMovies()).thenReturn(expected)
 
@@ -95,8 +95,8 @@ class FragmentMovieTvViewModelTest {
     fun `c_getMovies should be error`() {
 
         val expectedMessage = "Something happen dude!"
-        val expected = MutableLiveData<Resource<PagedList<Movie>>>()
-        expected.value = Resource.error(expectedMessage, null)
+        val expected = MutableLiveData<com.salomohutapea.movieapp.core.data.Resource<PagedList<Movie>>>()
+        expected.value = com.salomohutapea.movieapp.core.data.Resource.error(expectedMessage, null)
 
         `when`(repository.getAllMovies()).thenReturn(expected)
 
@@ -111,8 +111,8 @@ class FragmentMovieTvViewModelTest {
     fun `d_getTvShows should be success`() {
         val tvShows =
             PagedTestDataSources.snapshot(DataDummy.generateDummyMoviesAndTv().second.tvShow as List<TvShow>)
-        val expected = MutableLiveData<Resource<PagedList<TvShow>>>()
-        expected.value = Resource.success(tvShows)
+        val expected = MutableLiveData<com.salomohutapea.movieapp.core.data.Resource<PagedList<TvShow>>>()
+        expected.value = com.salomohutapea.movieapp.core.data.Resource.success(tvShows)
 
         `when`(repository.getAllTvShows()).thenReturn(expected)
 
@@ -129,8 +129,8 @@ class FragmentMovieTvViewModelTest {
     @Test
     fun `e_getTvShows should be success but data is empty`() {
         val tvShow = PagedTestDataSources.snapshot<TvShow>()
-        val expected = MutableLiveData<Resource<PagedList<TvShow>>>()
-        expected.value = Resource.success(tvShow)
+        val expected = MutableLiveData<com.salomohutapea.movieapp.core.data.Resource<PagedList<TvShow>>>()
+        expected.value = com.salomohutapea.movieapp.core.data.Resource.success(tvShow)
 
         `when`(repository.getAllTvShows()).thenReturn(expected)
 
@@ -147,8 +147,8 @@ class FragmentMovieTvViewModelTest {
     @Test
     fun `f_getTvShows should be error`() {
         val expectedMessage = "Something happen dude!"
-        val expected = MutableLiveData<Resource<PagedList<TvShow>>>()
-        expected.value = Resource.error(expectedMessage, null)
+        val expected = MutableLiveData<com.salomohutapea.movieapp.core.data.Resource<PagedList<TvShow>>>()
+        expected.value = com.salomohutapea.movieapp.core.data.Resource.error(expectedMessage, null)
 
         `when`(repository.getAllTvShows()).thenReturn(expected)
 

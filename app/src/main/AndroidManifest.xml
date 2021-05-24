@@ -5,30 +5,31 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="com.salomohutapea.movieapp.MyApplication"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".MyApplication"
-        android:theme="@style/Theme.MovieApp"
-        android:fullBackupContent="true">
+        android:theme="@style/Theme.MovieApp">
         <activity
-            android:name="com.example.movieapp.tvdetail.TvDetailActivity"
-            android:parentActivityName="com.example.movieapp.main.MainActivity">
+            android:name="com.salomohutapea.movieapp.tvdetail.TvDetailActivity"
+            android:parentActivityName="com.salomohutapea.movieapp.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.movieapp.main.MainActivity" />
-        </activity>
-        <activity android:name="com.example.movieapp.moviedetail.MovieDetailActivity"
-            android:parentActivityName="com.example.movieapp.main.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.movieapp.main.MainActivity" />
+                android:value="com.salomohutapea.movieapp.main.MainActivity" />
         </activity>
         <activity
-            android:exported="true"
-            android:name="com.example.movieapp.main.MainActivity">
+            android:name="com.salomohutapea.movieapp.moviedetail.MovieDetailActivity"
+            android:parentActivityName="com.salomohutapea.movieapp.main.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.salomohutapea.movieapp.main.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.salomohutapea.movieapp.main.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

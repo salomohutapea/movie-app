@@ -39,8 +39,8 @@ class FakeRepository constructor(
         ).build()
     }
 
-    override fun getAllMovies(): LiveData<Resource<PagedList<Movie>>> {
-        return object : NetworkBoundResource<PagedList<Movie>, List<Movie>>(appExecutors) {
+    override fun getAllMovies(): LiveData<com.salomohutapea.movieapp.core.data.Resource<PagedList<Movie>>> {
+        return object : com.salomohutapea.movieapp.core.data.NetworkBoundResource<PagedList<Movie>, List<Movie>>(appExecutors) {
             public override fun loadFromDB(): LiveData<PagedList<Movie>> {
                 return LivePagedListBuilder(
                     localDataSource.getAllMovies(),
@@ -62,8 +62,8 @@ class FakeRepository constructor(
         }.asLiveData()
     }
 
-    override fun getAllTvShows(): LiveData<Resource<PagedList<TvShow>>> {
-        return object : NetworkBoundResource<PagedList<TvShow>, List<TvShow>>(appExecutors) {
+    override fun getAllTvShows(): LiveData<com.salomohutapea.movieapp.core.data.Resource<PagedList<TvShow>>> {
+        return object : com.salomohutapea.movieapp.core.data.NetworkBoundResource<PagedList<TvShow>, List<TvShow>>(appExecutors) {
             public override fun loadFromDB(): LiveData<PagedList<TvShow>> {
                 return LivePagedListBuilder(
                     localDataSource.getAllTvShows(),

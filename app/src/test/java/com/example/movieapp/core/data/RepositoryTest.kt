@@ -60,7 +60,7 @@ class RepositoryTest {
         repository.getFavoriteMovies()
 
         val courseEntities =
-            Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMoviesAndTv().first.movies as List<Movie>))
+            com.salomohutapea.movieapp.core.data.Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMoviesAndTv().first.movies as List<Movie>))
         verify(local).getFavoriteMovies()
         Assert.assertNotNull(courseEntities.data)
         assertEquals(
@@ -77,7 +77,7 @@ class RepositoryTest {
         repository.getFavoriteTvShows()
 
         val courseEntities =
-            Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMoviesAndTv().second.tvShow as List<TvShow>))
+            com.salomohutapea.movieapp.core.data.Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMoviesAndTv().second.tvShow as List<TvShow>))
         verify(local).getFavoriteTvShows()
         Assert.assertNotNull(courseEntities.data)
         assertEquals(
@@ -94,7 +94,7 @@ class RepositoryTest {
         repository.getAllMovies()
 
         val courseEntities =
-            Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMoviesAndTv().first.movies as List<Movie>))
+            com.salomohutapea.movieapp.core.data.Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMoviesAndTv().first.movies as List<Movie>))
         verify(local).getAllMovies()
         Assert.assertNotNull(courseEntities.data)
         assertEquals(
@@ -111,7 +111,7 @@ class RepositoryTest {
         repository.getAllTvShows()
 
         val courseEntities =
-            Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMoviesAndTv().second.tvShow as List<TvShow>))
+            com.salomohutapea.movieapp.core.data.Resource.success(PagedListUtil.mockPagedList(DataDummy.generateDummyMoviesAndTv().second.tvShow as List<TvShow>))
         verify(local).getAllTvShows()
         Assert.assertNotNull(courseEntities.data)
         assertEquals(
