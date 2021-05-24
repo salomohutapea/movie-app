@@ -13,21 +13,21 @@
         android:theme="@style/Theme.MovieApp"
         android:fullBackupContent="true">
         <activity
-            android:name=".ui.tvdetail.TvDetailActivity"
-            android:parentActivityName=".ui.main.MainActivity">
+            android:name="com.example.movieapp.tvdetail.TvDetailActivity"
+            android:parentActivityName="com.example.movieapp.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.main.MainActivity" />
+                android:value="com.example.movieapp.main.MainActivity" />
         </activity>
-        <activity android:name=".ui.moviedetail.MovieDetailActivity"
-            android:parentActivityName=".ui.main.MainActivity">
+        <activity android:name="com.example.movieapp.moviedetail.MovieDetailActivity"
+            android:parentActivityName="com.example.movieapp.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.main.MainActivity" />
+                android:value="com.example.movieapp.main.MainActivity" />
         </activity>
         <activity
             android:exported="true"
-            android:name=".ui.main.MainActivity">
+            android:name="com.example.movieapp.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
