@@ -1,4 +1,4 @@
-package com.example.movieapp.viewmodels
+package com.example.movieapp.ui.movietvfragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData

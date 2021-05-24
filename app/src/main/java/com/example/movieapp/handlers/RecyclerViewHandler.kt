@@ -8,8 +8,8 @@ import com.example.movieapp.adapters.MoviesAdapter
 import com.example.movieapp.adapters.TvShowsAdapter
 import com.example.movieapp.domain.model.Movie
 import com.example.movieapp.domain.model.TvShow
-import com.example.movieapp.views.MovieDetailActivity
-import com.example.movieapp.views.TvDetailActivity
+import com.example.movieapp.ui.moviedetail.MovieDetailActivity
+import com.example.movieapp.ui.tvdetail.TvDetailActivity
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 

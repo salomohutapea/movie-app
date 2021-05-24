@@ -3,7 +3,7 @@ package com.example.movieapp.adapters
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.movieapp.views.MovieTvFragment
+import com.example.movieapp.ui.movietvfragment.MovieTvFragment
 
 
 class PagerAdapter(

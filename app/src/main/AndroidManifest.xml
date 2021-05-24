@@ -10,21 +10,24 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MovieApp">
+        android:theme="@style/Theme.MovieApp"
+        android:fullBackupContent="true">
         <activity
-            android:name=".views.TvDetailActivity"
-            android:parentActivityName=".views.MainActivity">
+            android:name=".ui.tvdetail.TvDetailActivity"
+            android:parentActivityName=".ui.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.MainActivity" />
+                android:value=".ui.main.MainActivity" />
         </activity>
-        <activity android:name=".views.MovieDetailActivity"
-            android:parentActivityName=".views.MainActivity">
+        <activity android:name=".ui.moviedetail.MovieDetailActivity"
+            android:parentActivityName=".ui.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.MainActivity" />
+                android:value=".ui.main.MainActivity" />
         </activity>
-        <activity android:name=".views.MainActivity">
+        <activity
+            android:exported="true"
+            android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

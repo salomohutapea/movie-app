@@ -27,7 +27,7 @@ class RepositoryTest {
     private val local = Mockito.mock(LocalDataSource::class.java)
 
     private val executor = Executor { it.run() }
-    private val appExecutors = AppExecutors(executor, executor, executor)
+    private val appExecutors = AppExecutors(executor)
 
     private val repository = FakeRepository(remote, local, appExecutors)
     private val movieTvResponse = DataDummy.generateDummyMoviesAndTv()

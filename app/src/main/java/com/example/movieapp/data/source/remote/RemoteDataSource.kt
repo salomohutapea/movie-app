@@ -46,6 +46,7 @@ class RemoteDataSource private constructor(private val networkHandler: NetworkHa
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
             }
+            EspressoIdlingResource.decrement()
         }.flowOn(Dispatchers.IO)
     }
 
@@ -72,6 +73,7 @@ class RemoteDataSource private constructor(private val networkHandler: NetworkHa
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
             }
+            EspressoIdlingResource.decrement()
         }.flowOn(Dispatchers.IO)
     }
 

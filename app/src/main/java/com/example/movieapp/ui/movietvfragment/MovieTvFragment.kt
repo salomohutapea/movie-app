@@ -1,4 +1,4 @@
-package com.example.movieapp.views
+package com.example.movieapp.ui.movietvfragment
 
 import android.os.Bundle
 import android.util.Log
@@ -13,8 +13,7 @@ import com.example.movieapp.R
 import com.example.movieapp.data.Resource
 import com.example.movieapp.databinding.FragmentMovieTvBinding
 import com.example.movieapp.handlers.RecyclerViewHandler
-import com.example.movieapp.viewmodels.FragmentMovieTvViewModel
-import com.example.movieapp.viewmodels.ViewModelFactory
+import com.example.movieapp.viewmodel.ViewModelFactory
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 

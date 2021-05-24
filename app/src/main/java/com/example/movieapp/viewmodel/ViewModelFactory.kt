@@ -1,10 +1,14 @@
-package com.example.movieapp.viewmodels
+package com.example.movieapp.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.movieapp.di.Injection
 import com.example.movieapp.domain.usecase.MovieUseCase
+import com.example.movieapp.ui.main.MainViewModel
+import com.example.movieapp.ui.moviedetail.MovieDetailViewModel
+import com.example.movieapp.ui.movietvfragment.FragmentMovieTvViewModel
+import com.example.movieapp.ui.tvdetail.TvDetailViewModel
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 
@@ -27,11 +31,11 @@ class ViewModelFactory private constructor(private val movieUseCase: MovieUseCas
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-            modelClass.isAssignableFrom(DetailMovieViewModel::class.java) -> {
-                DetailMovieViewModel(movieUseCase) as T
+            modelClass.isAssignableFrom(MovieDetailViewModel::class.java) -> {
+                MovieDetailViewModel(movieUseCase) as T
             }
-            modelClass.isAssignableFrom(DetailTvViewModel::class.java) -> {
-                DetailTvViewModel(movieUseCase) as T
+            modelClass.isAssignableFrom(TvDetailViewModel::class.java) -> {
+                TvDetailViewModel(movieUseCase) as T
             }
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 MainViewModel() as T

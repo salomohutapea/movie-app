@@ -1,25 +1,25 @@
-package com.example.movieapp.viewmodels
+package com.example.movieapp.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.movieapp.data.Repository
-import com.example.movieapp.domain.model.TvShow
+import com.example.movieapp.domain.model.Movie
+import com.example.movieapp.ui.moviedetail.MovieDetailViewModel
 import com.example.movieapp.utils.DataDummy
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.verify
+import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class DetailTvViewModelTest {
-    private lateinit var viewModel: DetailTvViewModel
-    private val dummyTv = DataDummy.generateDummyMoviesAndTv().second.tvShow as List<TvShow>
+class MovieDetailViewModelTest {
+    private lateinit var viewModel: MovieDetailViewModel
+    private val dummyMovie = DataDummy.generateDummyMoviesAndTv().first.movies as List<Movie>
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -32,16 +32,16 @@ class DetailTvViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = DetailTvViewModel(repository)
+        viewModel = MovieDetailViewModel(repository)
         viewModel.isLoading.postValue(false)
-        viewModel.setFavorite(dummyTv[0])
+        viewModel.setFavorite(dummyMovie[0])
     }
 
     @Test
     fun getIsLoading() {
         val loadingEntity = viewModel.getIsLoading()
-        assertNotNull(loadingEntity)
-        assertEquals(false, loadingEntity.value)
+        Assert.assertNotNull(loadingEntity)
+        Assert.assertEquals(false, loadingEntity.value)
     }
 
     @Test
@@ -49,20 +49,20 @@ class DetailTvViewModelTest {
         val expected = MutableLiveData<Boolean>()
         expected.value = true
 
-        viewModel.setFavorite(dummyTv[0])
+        viewModel.setFavorite(dummyMovie[0])
         viewModel.getFavorite().observeForever(observer)
 
-        verify(observer).onChanged(expected.value)
+        Mockito.verify(observer).onChanged(expected.value)
 
         val expectedValue = expected.value
         val actualValue = viewModel.getFavorite().value
 
-        assertEquals(expectedValue, actualValue)
+        Assert.assertEquals(expectedValue, actualValue)
     }
 
     @Test
     fun getFavorite() {
         val getFavoriteEntity = viewModel.getFavorite()
-        assertEquals(true, getFavoriteEntity.value)
+        Assert.assertEquals(true, getFavoriteEntity.value)
     }
 }

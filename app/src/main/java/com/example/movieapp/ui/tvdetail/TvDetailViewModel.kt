@@ -1,20 +1,20 @@
-package com.example.movieapp.viewmodels
+package com.example.movieapp.ui.tvdetail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.movieapp.domain.model.Movie
+import com.example.movieapp.domain.model.TvShow
 import com.example.movieapp.domain.usecase.MovieUseCase
 
 
-class DetailMovieViewModel constructor(private val useCase: MovieUseCase) : ViewModel() {
+class TvDetailViewModel constructor(private val useCase: MovieUseCase) : ViewModel() {
 
     val isLoading = MutableLiveData<Boolean>()
     private val isFavorite = MutableLiveData<Boolean>()
 
-    fun setFavorite(movie: Movie) {
-        useCase.setMovieFavorite(movie, !movie.isFavorite)
-        isFavorite.postValue(!movie.isFavorite)
+    fun setFavorite(tvShow: TvShow) {
+        useCase.setTvShowFavorite(tvShow, !tvShow.isFavorite)
+        isFavorite.postValue(!tvShow.isFavorite)
     }
 
     fun getIsLoading(): LiveData<Boolean> = isLoading

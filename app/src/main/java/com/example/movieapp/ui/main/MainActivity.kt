@@ -1,4 +1,4 @@
-package com.example.movieapp.views
+package com.example.movieapp.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,8 +7,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.movieapp.R
 import com.example.movieapp.adapters.PagerAdapter
 import com.example.movieapp.databinding.ActivityMainBinding
-import com.example.movieapp.viewmodels.MainViewModel
-import com.example.movieapp.viewmodels.ViewModelFactory
+import com.example.movieapp.viewmodel.ViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.DelicateCoroutinesApi

@@ -1,4 +1,4 @@
-package com.example.movieapp.views
+package com.example.movieapp.ui.moviedetail
 
 import android.os.Bundle
 import android.view.Menu
@@ -11,8 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.databinding.ActivityMovieDetailBinding
 import com.example.movieapp.domain.model.Movie
-import com.example.movieapp.viewmodels.DetailMovieViewModel
-import com.example.movieapp.viewmodels.ViewModelFactory
+import com.example.movieapp.viewmodel.ViewModelFactory
 import kotlinx.coroutines.DelicateCoroutinesApi
 import java.util.*
 
@@ -21,7 +20,7 @@ import java.util.*
 class MovieDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMovieDetailBinding
-    private lateinit var detailMovieViewModel: DetailMovieViewModel
+    private lateinit var movieDetailViewModel: MovieDetailViewModel
     private var menu: Menu? = null
     lateinit var movie: Movie
 
@@ -48,22 +47,22 @@ class MovieDetailActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_favorite) {
-            detailMovieViewModel.setFavorite(movie)
+            movieDetailViewModel.setFavorite(movie)
         }
         return super.onOptionsItemSelected(item)
     }
 
     private fun initializeViewModel() {
         val factory = ViewModelFactory.getInstance(this)
-        detailMovieViewModel = ViewModelProvider(this, factory)[DetailMovieViewModel::class.java]
+        movieDetailViewModel = ViewModelProvider(this, factory)[MovieDetailViewModel::class.java]
 
-        detailMovieViewModel.getIsLoading().observe(this) {
+        movieDetailViewModel.getIsLoading().observe(this) {
             showLoading(it)
         }
 
-        detailMovieViewModel.isLoading.postValue(true)
+        movieDetailViewModel.isLoading.postValue(true)
 
-        detailMovieViewModel.getFavorite().observe(this) {
+        movieDetailViewModel.getFavorite().observe(this) {
             setFavoriteState(it)
         }
     }
@@ -96,7 +95,7 @@ class MovieDetailActivity : AppCompatActivity() {
             }
             textviewDetailMovieGenresContent.text = genreText
         }
-        detailMovieViewModel.isLoading.postValue(false)
+        movieDetailViewModel.isLoading.postValue(false)
     }
 
     private fun showLoading(loading: Boolean) {

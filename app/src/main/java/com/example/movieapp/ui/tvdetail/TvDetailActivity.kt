@@ -1,4 +1,4 @@
-package com.example.movieapp.views
+package com.example.movieapp.ui.tvdetail
 
 import android.os.Bundle
 import android.view.Menu
@@ -11,8 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.databinding.ActivityTvDetailBinding
 import com.example.movieapp.domain.model.TvShow
-import com.example.movieapp.viewmodels.DetailTvViewModel
-import com.example.movieapp.viewmodels.ViewModelFactory
+import com.example.movieapp.viewmodel.ViewModelFactory
 import kotlinx.coroutines.DelicateCoroutinesApi
 import java.util.*
 
@@ -21,7 +20,7 @@ import java.util.*
 class TvDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTvDetailBinding
-    private lateinit var detailTvViewModel: DetailTvViewModel
+    private lateinit var tvDetailViewModel: TvDetailViewModel
     private var menu: Menu? = null
     lateinit var tvShow: TvShow
 
@@ -48,22 +47,22 @@ class TvDetailActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_favorite) {
-            detailTvViewModel.setFavorite(tvShow)
+            tvDetailViewModel.setFavorite(tvShow)
         }
         return super.onOptionsItemSelected(item)
     }
 
     private fun initializeViewModel() {
         val factory = ViewModelFactory.getInstance(this)
-        detailTvViewModel = ViewModelProvider(this, factory)[DetailTvViewModel::class.java]
+        tvDetailViewModel = ViewModelProvider(this, factory)[TvDetailViewModel::class.java]
 
-        detailTvViewModel.getIsLoading().observe(this) {
+        tvDetailViewModel.getIsLoading().observe(this) {
             showLoading(it)
         }
 
-        detailTvViewModel.isLoading.postValue(true)
+        tvDetailViewModel.isLoading.postValue(true)
 
-        detailTvViewModel.getFavorite().observe(this) {
+        tvDetailViewModel.getFavorite().observe(this) {
             setFavoriteState(it)
         }
     }
@@ -91,7 +90,7 @@ class TvDetailActivity : AppCompatActivity() {
             }
             textviewDetailTvGenresContent.text = genreText
         }
-        detailTvViewModel.isLoading.postValue(false)
+        tvDetailViewModel.isLoading.postValue(false)
     }
 
     private fun showLoading(loading: Boolean) {

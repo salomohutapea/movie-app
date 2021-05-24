@@ -1,4 +1,4 @@
-package com.example.movieapp.viewmodels
+package com.example.movieapp.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +10,7 @@ import com.example.movieapp.domain.model.Movie
 import com.example.movieapp.domain.model.TvShow
 import com.example.movieapp.utils.DataDummy
 import com.example.movieapp.data.Resource
+import com.example.movieapp.ui.movietvfragment.FragmentMovieTvViewModel
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
