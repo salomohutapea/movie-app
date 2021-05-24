@@ -5,10 +5,7 @@ plugins {
     id 'kotlin-parcelize'
 }
 
-
-def localPropertiesFile = rootProject.file("local.properties")
-def localProperties = new Properties()
-localProperties.load(new FileInputStream(localPropertiesFile))
+apply from: '../shared_dependencies.gradle'
 
 android {
     compileSdkVersion 30
@@ -20,7 +17,6 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-        buildConfigField('String', 'MOVIE_TOKEN', localProperties['tmdbApiKey'])
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -43,55 +39,14 @@ android {
 }
 
 dependencies {
-    // Core
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "androidx.core:core-ktx:1.5.0"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
 
-    // API
-    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
-    implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-
-    // DB
-    implementation 'androidx.room:room-runtime:2.3.0'
-    implementation "androidx.room:room-ktx:2.3.0"
-    kapt 'androidx.room:room-compiler:2.3.0'
-    kapt "org.xerial:sqlite-jdbc:3.34.0"
-
-    // DI
-    implementation "io.insert-koin:koin-core:3.0.2"
-    implementation "io.insert-koin:koin-android:3.0.2"
-//    implementation "io.insert-koin:koin-androidx-viewmodel:3.0.2"
+    implementation project(":core")
 
     // UI
     implementation "androidx.appcompat:appcompat:1.3.0"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
-    implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
     implementation "com.google.android.material:material:$materialVersion"
-    implementation "com.github.bumptech.glide:glide:$glideVersion"
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-
-    // Testing
-    implementation "androidx.test.espresso:espresso-idling-resource:$idleResourceVersion"
-    testImplementation "junit:junit:4.13.2"
-    testImplementation "org.mockito:mockito-core:3.10.0"
-    testImplementation "org.mockito:mockito-inline:3.10.0"
-    testImplementation "org.mockito.kotlin:mockito-kotlin:3.2.0"
-    testImplementation 'android.arch.core:core-testing:1.1.1'
-    androidTestImplementation "junit:junit:$junitVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
-    androidTestImplementation "androidx.test:runner:$androidTestVersion"
-    androidTestImplementation "androidx.test:rules:$androidTestVersion"
-    androidTestImplementation "androidx.test.ext:junit:$junitExtversion"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
-    androidTestImplementation 'androidx.room:room-testing:2.3.0'
-    androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.3'
 }

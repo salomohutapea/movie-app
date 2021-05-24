@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMovieTvBinding
 import com.salomohutapea.movieapp.core.data.Resource
-import com.salomohutapea.movieapp.core.ui.RecyclerViewHandler
+import com.salomohutapea.movieapp.ui.RecyclerViewHandler
 import kotlinx.coroutines.DelicateCoroutinesApi
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

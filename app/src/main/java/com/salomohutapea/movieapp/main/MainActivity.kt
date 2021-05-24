@@ -7,7 +7,7 @@ import com.example.movieapp.R
 import com.example.movieapp.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.salomohutapea.movieapp.core.ui.PagerAdapter
+import com.salomohutapea.movieapp.ui.PagerAdapter
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 @DelicateCoroutinesApi

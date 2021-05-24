@@ -74,7 +74,7 @@
                         android:singleLine="false"
                         android:text="@string/movie_title"
                         android:textAlignment="textStart"
-                        android:textColor="@color/black"
+                        android:textColor="@color/design_default_color_primary"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"

@@ -3,10 +3,9 @@ package com.example.movieapp.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.salomohutapea.movieapp.core.data.Repository
 import com.example.movieapp.core.domain.model.TvShow
-import com.example.movieapp.tvdetail.TvDetailViewModel
 import com.example.movieapp.core.utils.DataDummy
+import com.example.movieapp.tvdetail.TvDetailViewModel
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before

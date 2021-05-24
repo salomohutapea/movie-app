@@ -1,4 +1,4 @@
-package com.salomohutapea.movieapp.core.ui
+package com.salomohutapea.movieapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

@@ -10,9 +10,9 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.example.movieapp.R
-import com.example.movieapp.main.MainActivity
 import com.example.movieapp.core.utils.DataDummy
 import com.example.movieapp.core.utils.EspressoIdlingResource
+import com.example.movieapp.main.MainActivity
 import org.junit.*
 import org.junit.runners.MethodSorters
 

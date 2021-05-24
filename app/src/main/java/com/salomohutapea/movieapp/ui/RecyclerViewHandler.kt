@@ -1,4 +1,4 @@
-package com.salomohutapea.movieapp.core.ui
+package com.salomohutapea.movieapp.ui
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.salomohutapea.movieapp.core.domain.model.Movie
 import com.salomohutapea.movieapp.core.domain.model.TvShow
+import com.salomohutapea.movieapp.core.ui.MoviesAdapter
+import com.salomohutapea.movieapp.core.ui.TvShowsAdapter
 import com.salomohutapea.movieapp.moviedetail.MovieDetailActivity
 import com.salomohutapea.movieapp.tvdetail.TvDetailActivity
 import kotlinx.coroutines.DelicateCoroutinesApi

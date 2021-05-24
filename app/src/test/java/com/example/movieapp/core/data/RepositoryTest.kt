@@ -3,9 +3,9 @@ package com.example.movieapp.core.data
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.DataSource
 import com.example.movieapp.core.data.source.local.LocalDataSource
+import com.example.movieapp.core.data.source.remote.RemoteDataSource
 import com.example.movieapp.core.domain.model.Movie
 import com.example.movieapp.core.domain.model.TvShow
-import com.example.movieapp.core.data.source.remote.RemoteDataSource
 import com.example.movieapp.core.utils.AppExecutors
 import com.example.movieapp.core.utils.DataDummy
 import com.example.movieapp.core.utils.PagedListUtil

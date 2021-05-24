@@ -3,10 +3,9 @@ package com.example.movieapp.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.salomohutapea.movieapp.core.data.Repository
 import com.example.movieapp.core.domain.model.Movie
-import com.example.movieapp.moviedetail.MovieDetailViewModel
 import com.example.movieapp.core.utils.DataDummy
+import com.example.movieapp.moviedetail.MovieDetailViewModel
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule

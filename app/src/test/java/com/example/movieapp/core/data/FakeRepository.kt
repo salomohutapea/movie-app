@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.example.movieapp.core.data.source.local.LocalDataSource
-import com.example.movieapp.core.domain.model.Movie
-import com.example.movieapp.core.domain.model.TvShow
 import com.example.movieapp.core.data.source.remote.ApiResponse
 import com.example.movieapp.core.data.source.remote.RemoteDataSource
+import com.example.movieapp.core.domain.model.Movie
+import com.example.movieapp.core.domain.model.TvShow
 import com.example.movieapp.core.domain.repository.IMovieRepository
 import com.example.movieapp.core.utils.AppExecutors
 

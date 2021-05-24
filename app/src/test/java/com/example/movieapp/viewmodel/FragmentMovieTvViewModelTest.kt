@@ -5,11 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.paging.PositionalDataSource
-import com.salomohutapea.movieapp.core.data.Repository
 import com.example.movieapp.core.domain.model.Movie
 import com.example.movieapp.core.domain.model.TvShow
 import com.example.movieapp.core.utils.DataDummy
-import com.salomohutapea.movieapp.core.data.Resource
 import com.example.movieapp.movietvfragment.MovieTvViewModel
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

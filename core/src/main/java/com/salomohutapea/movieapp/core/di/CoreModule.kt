@@ -1,7 +1,7 @@
 package com.salomohutapea.movieapp.core.di
 
 import androidx.room.Room
-import com.example.movieapp.BuildConfig
+import com.salomohutapea.movieapp.core.BuildConfig
 import com.salomohutapea.movieapp.core.data.Repository
 import com.salomohutapea.movieapp.core.data.source.local.AppDatabase
 import com.salomohutapea.movieapp.core.data.source.local.LocalDataSource

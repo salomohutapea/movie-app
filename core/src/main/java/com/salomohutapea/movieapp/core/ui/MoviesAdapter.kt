@@ -6,19 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.movieapp.R
-import com.example.movieapp.databinding.ItemTvMovieListBinding
-import com.salomohutapea.movieapp.core.domain.model.TvShow
-import java.util.*
+import com.salomohutapea.movieapp.core.R
+import com.salomohutapea.movieapp.core.databinding.ItemTvMovieListBinding
+import com.salomohutapea.movieapp.core.domain.model.Movie
 
-class TvShowsAdapter :
-    RecyclerView.Adapter<TvShowsAdapter.ListViewHolder>() {
+class MoviesAdapter :
+    RecyclerView.Adapter<MoviesAdapter.ListViewHolder>() {
 
-    private var listData = ArrayList<TvShow>()
+    private var listData = ArrayList<Movie>()
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(newListData: List<TvShow>?) {
+    fun setData(newListData: List<Movie>?) {
         if (newListData == null) return
         listData.clear()
         listData.addAll(newListData)
@@ -36,32 +35,27 @@ class TvShowsAdapter :
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-
-        val tvShow = listData[position]
-
+        val movie = listData[position]
         holder.itemView.setOnClickListener {
-            onItemClickCallback.onItemClicked(
-                tvShow
-            )
+            onItemClickCallback.onItemClicked(movie)
         }
         Glide.with(holder.itemView.context)
-            .load("https://image.tmdb.org/t/p/w500${tvShow.posterPath}")
+            .load("https://image.tmdb.org/t/p/w500${movie.posterPath}")
             .into(holder.binding.singlePosterImg)
-        holder.binding.singlePopularityTextview.text = tvShow.voteAverage.toString()
-        holder.binding.singleTitleTextview.text = tvShow.name
+        holder.binding.singlePopularityTextview.text = movie.voteAverage.toString()
+        holder.binding.singleTitleTextview.text = movie.title
         holder.binding.singleDateReleasedTextview.text =
-            StringBuilder("First on-air date: ${tvShow.firstAirDate}")
+            StringBuilder("Date released: ${movie.releaseDate}")
 
         var genreText = "Genre: "
 
-        tvShow.genres?.forEachIndexed { i, it ->
-            genreText = if (i != tvShow.genres!!.size - 1) {
+        movie.genres?.forEachIndexed { i, it ->
+            genreText = if (i != movie.genres!!.size - 1) {
                 genreText.plus(it).plus(", ")
             } else {
                 genreText.plus(it)
             }
         }
-
         holder.binding.singleGenreTextview.text = genreText
     }
 
@@ -70,7 +64,7 @@ class TvShowsAdapter :
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: TvShow)
+        fun onItemClicked(data: Movie)
     }
 
     override fun getItemCount(): Int = listData.size
