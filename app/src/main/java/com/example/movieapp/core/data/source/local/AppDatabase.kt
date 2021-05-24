@@ -21,23 +21,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun tvShowDao(): TvShowDao
 
     companion object {
-        private const val MOVIE_DB = "movie.db"
-
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        @JvmStatic
-        fun getInstance(context: Context): AppDatabase {
-            if (INSTANCE == null) {
-                synchronized(AppDatabase::class.java) {
-                    INSTANCE = Room.databaseBuilder(
-                        context.applicationContext,
-                        AppDatabase::class.java, MOVIE_DB
-                    )
-                        .build()
-                }
-            }
-            return INSTANCE as AppDatabase
-        }
     }
 }

@@ -5,7 +5,7 @@ import com.example.movieapp.core.data.source.local.dao.TvShowDao
 import com.example.movieapp.core.domain.model.Movie
 import com.example.movieapp.core.domain.model.TvShow
 
-class LocalDataSource private constructor(
+class LocalDataSource(
     private val mMovieDao: MovieDao,
     private val mTvShowDao: TvShowDao
 ) {
@@ -13,10 +13,6 @@ class LocalDataSource private constructor(
         @Volatile
         private var INSTANCE: LocalDataSource? = null
 
-        fun getInstance(movieDao: MovieDao, tvShowDao: TvShowDao): LocalDataSource =
-            INSTANCE ?: LocalDataSource(movieDao, tvShowDao).apply {
-                INSTANCE = this
-            }
     }
 
     fun setFavoriteMovie(movie: Movie, newState: Boolean) {

@@ -65,7 +65,7 @@ class RepositoryTest {
         Assert.assertNotNull(courseEntities.data)
         assertEquals(
             movieTvResponse.first.movies?.size?.toLong(),
-            courseEntities.data?.size?.toLong()
+            courseEntities.data.size.toLong()
         )
     }
 
@@ -82,7 +82,7 @@ class RepositoryTest {
         Assert.assertNotNull(courseEntities.data)
         assertEquals(
             movieTvResponse.second.tvShow?.size?.toLong(),
-            courseEntities.data?.size?.toLong()
+            courseEntities.data.size.toLong()
         )
     }
 
@@ -99,7 +99,7 @@ class RepositoryTest {
         Assert.assertNotNull(courseEntities.data)
         assertEquals(
             movieTvResponse.first.movies?.size?.toLong(),
-            courseEntities.data?.size?.toLong()
+            courseEntities.data.size.toLong()
         )
     }
 
@@ -116,7 +116,7 @@ class RepositoryTest {
         Assert.assertNotNull(courseEntities.data)
         assertEquals(
             movieTvResponse.second.tvShow?.size?.toLong(),
-            courseEntities.data?.size?.toLong()
+            courseEntities.data.size.toLong()
         )
     }
 }

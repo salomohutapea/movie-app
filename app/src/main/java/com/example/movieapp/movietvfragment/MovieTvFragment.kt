@@ -7,21 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.R
 import com.example.movieapp.core.data.Resource
-import com.example.movieapp.databinding.FragmentMovieTvBinding
 import com.example.movieapp.core.ui.RecyclerViewHandler
-import com.example.movieapp.core.ui.ViewModelFactory
+import com.example.movieapp.databinding.FragmentMovieTvBinding
 import kotlinx.coroutines.DelicateCoroutinesApi
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 @DelicateCoroutinesApi
 class MovieTvFragment : Fragment() {
     private lateinit var rvMovieTv: RecyclerView
     private lateinit var binding: FragmentMovieTvBinding
-    private lateinit var fragmentViewModel: FragmentMovieTvViewModel
+    private val fragmentViewModel: MovieTvViewModel by viewModel()
 
     private var isShowingFavorite = false
     private var index = 0
@@ -45,9 +44,6 @@ class MovieTvFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMovieTvBinding.inflate(inflater, container, false)
-        val factory = requireContext().let { ViewModelFactory.getInstance(it) }
-        fragmentViewModel =
-            ViewModelProvider(this, factory).get(FragmentMovieTvViewModel::class.java)
         return binding.root
     }
 

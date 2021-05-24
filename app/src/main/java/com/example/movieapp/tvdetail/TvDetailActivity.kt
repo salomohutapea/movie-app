@@ -6,13 +6,12 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.core.domain.model.TvShow
-import com.example.movieapp.core.ui.ViewModelFactory
 import com.example.movieapp.databinding.ActivityTvDetailBinding
 import kotlinx.coroutines.DelicateCoroutinesApi
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
@@ -20,7 +19,7 @@ import java.util.*
 class TvDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTvDetailBinding
-    private lateinit var tvDetailViewModel: TvDetailViewModel
+    private val tvDetailViewModel: TvDetailViewModel by viewModel()
     private var menu: Menu? = null
     lateinit var tvShow: TvShow
 
@@ -53,8 +52,6 @@ class TvDetailActivity : AppCompatActivity() {
     }
 
     private fun initializeViewModel() {
-        val factory = ViewModelFactory.getInstance(this)
-        tvDetailViewModel = ViewModelProvider(this, factory)[TvDetailViewModel::class.java]
 
         tvDetailViewModel.getIsLoading().observe(this) {
             showLoading(it)

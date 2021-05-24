@@ -25,13 +25,4 @@ object ApiConfig {
             .build()
     }
 
-    fun provideApiService(): ApiService {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
-            .client(provideOkHttpClient())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        return retrofit.create(ApiService::class.java)
-    }
-
 }

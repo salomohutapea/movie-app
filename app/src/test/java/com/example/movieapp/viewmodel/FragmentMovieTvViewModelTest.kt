@@ -10,7 +10,7 @@ import com.example.movieapp.core.domain.model.Movie
 import com.example.movieapp.core.domain.model.TvShow
 import com.example.movieapp.core.utils.DataDummy
 import com.example.movieapp.core.data.Resource
-import com.example.movieapp.movietvfragment.FragmentMovieTvViewModel
+import com.example.movieapp.movietvfragment.MovieTvViewModel
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -29,7 +29,7 @@ import java.util.concurrent.Executors
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class FragmentMovieTvViewModelTest {
 
-    private lateinit var viewModel: FragmentMovieTvViewModel
+    private lateinit var viewModel: MovieTvViewModel
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -51,7 +51,7 @@ class FragmentMovieTvViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = FragmentMovieTvViewModel(repository)
+        viewModel = MovieTvViewModel(repository)
     }
 
     @Test
@@ -70,7 +70,7 @@ class FragmentMovieTvViewModelTest {
         val actualValue = viewModel.getAllMovies().value
         assertEquals(expectedValue, actualValue)
         assertEquals(expectedValue?.data, actualValue?.data)
-        assertEquals(expectedValue?.data?.size, actualValue?.data?.size)
+        assertEquals(expectedValue?.data.size, actualValue?.data?.size)
     }
 
     @Test
@@ -123,7 +123,7 @@ class FragmentMovieTvViewModelTest {
         val actualValue = viewModel.getAllTvShows().value
         assertEquals(expectedValue, actualValue)
         assertEquals(expectedValue?.data, actualValue?.data)
-        assertEquals(expectedValue?.data?.size, actualValue?.data?.size)
+        assertEquals(expectedValue?.data.size, actualValue?.data?.size)
     }
 
     @Test
@@ -172,8 +172,8 @@ class FragmentMovieTvViewModelTest {
         val expectedValue = expected.value
         val actualValue = viewModel.getFavoriteMovies().value
         assertEquals(expectedValue, actualValue)
-        assertEquals(expectedValue?.snapshot(), actualValue?.snapshot())
-        assertEquals(expectedValue?.size, actualValue?.size)
+        assertEquals(expectedValue.snapshot(), actualValue?.snapshot())
+        assertEquals(expectedValue.size, actualValue?.size)
     }
 
     @Test
@@ -203,8 +203,8 @@ class FragmentMovieTvViewModelTest {
         val expectedValue = expected.value
         val actualValue = viewModel.getFavoriteTvShows().value
         assertEquals(expectedValue, actualValue)
-        assertEquals(expectedValue?.snapshot(), actualValue?.snapshot())
-        assertEquals(expectedValue?.size, actualValue?.size)
+        assertEquals(expectedValue.snapshot(), actualValue?.snapshot())
+        assertEquals(expectedValue.size, actualValue?.size)
     }
 
     @Test

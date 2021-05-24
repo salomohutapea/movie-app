@@ -11,7 +11,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 
 @DelicateCoroutinesApi
-class Repository private constructor(
+class Repository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
@@ -21,14 +21,6 @@ class Repository private constructor(
         @Volatile
         private var instance: Repository? = null
 
-        fun getInstance(
-            remoteData: RemoteDataSource,
-            localData: LocalDataSource,
-            appExecutors: AppExecutors
-        ): Repository =
-            instance ?: synchronized(this) {
-                Repository(remoteData, localData, appExecutors).apply { instance = this }
-            }
     }
 
     override fun setMovieFavorite(movie: Movie, state: Boolean) {

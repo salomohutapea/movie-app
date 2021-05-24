@@ -6,13 +6,12 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
-import com.example.movieapp.databinding.ActivityMovieDetailBinding
 import com.example.movieapp.core.domain.model.Movie
-import com.example.movieapp.core.ui.ViewModelFactory
+import com.example.movieapp.databinding.ActivityMovieDetailBinding
 import kotlinx.coroutines.DelicateCoroutinesApi
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
@@ -20,7 +19,7 @@ import java.util.*
 class MovieDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMovieDetailBinding
-    private lateinit var movieDetailViewModel: MovieDetailViewModel
+    private val movieDetailViewModel: MovieDetailViewModel by viewModel()
     private var menu: Menu? = null
     lateinit var movie: Movie
 
@@ -53,9 +52,6 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun initializeViewModel() {
-        val factory = ViewModelFactory.getInstance(this)
-        movieDetailViewModel = ViewModelProvider(this, factory)[MovieDetailViewModel::class.java]
-
         movieDetailViewModel.getIsLoading().observe(this) {
             showLoading(it)
         }
