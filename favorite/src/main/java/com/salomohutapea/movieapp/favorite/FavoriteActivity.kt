@@ -57,10 +57,10 @@ class FavoriteActivity : AppCompatActivity() {
     }
 
     private fun insertDataMovie(list: List<Movie>) {
-        val _adapter = FavoriteMovieAdapter()
-        _adapter.setData(list)
+        val movieAdapter = FavoriteMovieAdapter()
+        movieAdapter.setData(list)
         with(binding.favRvMovie) {
-            adapter = _adapter
+            adapter = movieAdapter
             itemAnimator = null
             setHasFixedSize(true)
             val linearLayoutManager = LinearLayoutManager(this@FavoriteActivity)
@@ -68,7 +68,7 @@ class FavoriteActivity : AppCompatActivity() {
             layoutManager = linearLayoutManager
         }
 
-        _adapter.setOnItemClickCallback(object : FavoriteMovieAdapter.OnItemClickCallback {
+        movieAdapter.setOnItemClickCallback(object : FavoriteMovieAdapter.OnItemClickCallback {
             override fun onItemClicked(data: Movie) {
                 val intent = Intent(applicationContext, MovieDetailActivity::class.java)
                 intent.putExtra("MOVIE", data)
@@ -79,11 +79,11 @@ class FavoriteActivity : AppCompatActivity() {
     }
 
     private fun insertDataTvShow(list: List<TvShow>) {
-        val _adapter = FavoriteTvShowAdapter()
-        _adapter.setData(list)
+        val tvAdapter = FavoriteTvShowAdapter()
+        tvAdapter.setData(list)
 
         with(binding.favRvTv) {
-            adapter = _adapter
+            adapter = tvAdapter
             itemAnimator = null
             setHasFixedSize(true)
             val linearLayoutManager = LinearLayoutManager(this@FavoriteActivity)
@@ -91,7 +91,7 @@ class FavoriteActivity : AppCompatActivity() {
             layoutManager = linearLayoutManager
         }
 
-        _adapter.setOnItemClickCallback(object : FavoriteTvShowAdapter.OnItemClickCallback {
+        tvAdapter.setOnItemClickCallback(object : FavoriteTvShowAdapter.OnItemClickCallback {
             override fun onItemClicked(data: TvShow) {
                 val intent = Intent(applicationContext, TvDetailActivity::class.java)
                 intent.putExtra("TVSHOW", data)

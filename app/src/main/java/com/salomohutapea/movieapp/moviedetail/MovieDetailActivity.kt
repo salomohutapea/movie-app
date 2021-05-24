@@ -21,7 +21,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMovieDetailBinding
     private val movieDetailViewModel: MovieDetailViewModel by viewModel()
     private var menu: Menu? = null
-    lateinit var movie: Movie
+    private lateinit var movie: Movie
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
