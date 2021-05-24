@@ -6,11 +6,9 @@ import com.example.movieapp.domain.model.TvShow
 import com.example.movieapp.utils.EspressoIdlingResource
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.launch
 
 @DelicateCoroutinesApi
 class RemoteDataSource private constructor(private val networkHandler: NetworkHandler) {
@@ -25,7 +23,7 @@ class RemoteDataSource private constructor(private val networkHandler: NetworkHa
             }
     }
 
-    fun getAllMovies(): Flow<ApiResponse<List<Movie>>> {
+    suspend fun getAllMovies(): Flow<ApiResponse<List<Movie>>> {
         EspressoIdlingResource.increment()
         return flow {
             try {
@@ -33,13 +31,11 @@ class RemoteDataSource private constructor(private val networkHandler: NetworkHa
                 lateinit var data: List<Movie>
                 if (response.movies?.isNotEmpty() == true) {
                     try {
-                        GlobalScope.launch {
-                            val genreResponse =
-                                networkHandler.getService().getMovieGenres().body()
-                            response.let {
-                                data = addGenreToMovie(genreResponse, it.movies as List<Movie>)
-                                emit(ApiResponse.Success(data))
-                            }
+                        val genreResponse =
+                            networkHandler.getService().getMovieGenres().body()
+                        response.let {
+                            data = addGenreToMovie(genreResponse, it.movies as List<Movie>)
+                            emit(ApiResponse.Success(data))
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -53,7 +49,7 @@ class RemoteDataSource private constructor(private val networkHandler: NetworkHa
         }.flowOn(Dispatchers.IO)
     }
 
-    fun getAllTvShows(): Flow<ApiResponse<List<TvShow>>> {
+    suspend fun getAllTvShows(): Flow<ApiResponse<List<TvShow>>> {
         EspressoIdlingResource.increment()
         return flow {
             try {
@@ -61,14 +57,11 @@ class RemoteDataSource private constructor(private val networkHandler: NetworkHa
                 lateinit var data: List<TvShow>
                 if (response.tvShow?.isNotEmpty() == true) {
                     try {
-                        GlobalScope.launch {
-                            val genreResponse =
-                                networkHandler.getService().getTvGenres().body()
-                            response.let {
-                                data = addGenreToTvShows(genreResponse, it.tvShow as List<TvShow>)
-//                                resultTvShow.postValue(ApiResponse.Success(data))
-                                emit(ApiResponse.Success(data))
-                            }
+                        val genreResponse =
+                            networkHandler.getService().getTvGenres().body()
+                        response.let {
+                            data = addGenreToTvShows(genreResponse, it.tvShow as List<TvShow>)
+                            emit(ApiResponse.Success(data))
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()

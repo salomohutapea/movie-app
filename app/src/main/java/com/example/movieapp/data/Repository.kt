@@ -49,7 +49,7 @@ class Repository private constructor(
 
     override fun getAllMovies(): Flow<Resource<List<Movie>>> {
         return object : NetworkBoundResource<List<Movie>, List<Movie>>() {
-            public override fun loadFromDB(): Flow<List<Movie>> {
+            override fun loadFromDB(): Flow<List<Movie>> {
                 return localDataSource.getAllMovies()
             }
 
@@ -69,17 +69,17 @@ class Repository private constructor(
 
     override fun getAllTvShows(): Flow<Resource<List<TvShow>>> {
         return object : NetworkBoundResource<List<TvShow>, List<TvShow>>() {
-            public override fun loadFromDB(): Flow<List<TvShow>> {
+            override fun loadFromDB(): Flow<List<TvShow>> {
                 return localDataSource.getAllTvShows()
             }
 
             override fun shouldFetch(data: List<TvShow>?): Boolean =
                 data == null || data.isEmpty()
 
-            public override suspend fun createCall(): Flow<ApiResponse<List<TvShow>>> =
+            override suspend fun createCall(): Flow<ApiResponse<List<TvShow>>> =
                 remoteDataSource.getAllTvShows()
 
-            public override suspend fun saveCallResult(data: List<TvShow>) {
+            override suspend fun saveCallResult(data: List<TvShow>) {
                 localDataSource.insertTvShows(data)
             }
         }.asFlow()
