@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiConfig {
 
     // set interceptor
-    private fun getInterceptor(): OkHttpClient {
+    private fun provideOkHttpClient(): OkHttpClient {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
@@ -25,13 +25,13 @@ object ApiConfig {
             .build()
     }
 
-    private fun getRetrofit(): Retrofit {
-        return Retrofit.Builder()
+    fun provideApiService(): ApiService {
+        val retrofit = Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org/3/")
-            .client(getInterceptor())
+            .client(provideOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+        return retrofit.create(ApiService::class.java)
     }
 
-    fun getService(): ApiService = getRetrofit().create(ApiService::class.java)
 }

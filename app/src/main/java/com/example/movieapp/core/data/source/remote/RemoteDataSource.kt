@@ -11,15 +11,15 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
 @DelicateCoroutinesApi
-class RemoteDataSource private constructor() {
+class RemoteDataSource private constructor(private val apiService: ApiService) {
 
     companion object {
         @Volatile
         private var instance: RemoteDataSource? = null
 
-        fun getInstance(): RemoteDataSource =
+        fun getInstance(service: ApiService): RemoteDataSource =
             instance ?: synchronized(this) {
-                RemoteDataSource().apply { instance = this }
+                instance ?: RemoteDataSource(service)
             }
     }
 
@@ -27,12 +27,13 @@ class RemoteDataSource private constructor() {
         EspressoIdlingResource.increment()
         return flow {
             try {
-                val response = ApiConfig.getService().getAllMovies()
+                ApiConfig
+                val response = apiService.getAllMovies()
                 lateinit var data: List<Movie>
                 if (response.movies?.isNotEmpty() == true) {
                     try {
                         val genreResponse =
-                            ApiConfig.getService().getMovieGenres().body()
+                            apiService.getMovieGenres().body()
                         response.let {
                             data = addGenreToMovie(genreResponse, it.movies as List<Movie>)
                             emit(ApiResponse.Success(data))
@@ -54,12 +55,12 @@ class RemoteDataSource private constructor() {
         EspressoIdlingResource.increment()
         return flow {
             try {
-                val response = ApiConfig.getService().getAllTvShows()
+                val response = apiService.getAllTvShows()
                 lateinit var data: List<TvShow>
                 if (response.tvShow?.isNotEmpty() == true) {
                     try {
                         val genreResponse =
-                            ApiConfig.getService().getTvGenres().body()
+                            apiService.getTvGenres().body()
                         response.let {
                             data = addGenreToTvShows(genreResponse, it.tvShow as List<TvShow>)
                             emit(ApiResponse.Success(data))

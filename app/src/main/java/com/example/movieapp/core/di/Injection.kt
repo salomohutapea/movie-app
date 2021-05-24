@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.movieapp.core.data.Repository
 import com.example.movieapp.core.data.source.local.AppDatabase
 import com.example.movieapp.core.data.source.local.LocalDataSource
+import com.example.movieapp.core.data.source.remote.ApiConfig
 import com.example.movieapp.core.data.source.remote.RemoteDataSource
 import com.example.movieapp.core.domain.repository.IMovieRepository
 import com.example.movieapp.core.domain.usecase.MovieInteractor
@@ -18,7 +19,7 @@ object Injection {
 
         val database = AppDatabase.getInstance(context)
         val localDataSource = LocalDataSource.getInstance(database.movieDao(), database.tvShowDao())
-        val remoteRepository = RemoteDataSource.getInstance()
+        val remoteRepository = RemoteDataSource.getInstance(ApiConfig.provideApiService())
         val appExecutors = AppExecutors()
 
         return Repository.getInstance(remoteRepository, localDataSource, appExecutors)
