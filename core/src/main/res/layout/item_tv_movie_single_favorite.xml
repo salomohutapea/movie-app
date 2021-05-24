@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp">
         <ImageView
-            tools:src="@color/purple_700"
+            android:id="@+id/fav_single_image"
+            tools:src="@color/purple_500"
             android:layout_width="120dp"
             android:layout_height="160dp"
             android:contentDescription="@string/movie_poster" />

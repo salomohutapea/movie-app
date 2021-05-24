@@ -19,6 +19,9 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.salomohutapea.movieapp.main.MainActivity" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.salomohutapea.movieapp.main.MainActivity" />
         </activity>
         <activity
             android:name="com.salomohutapea.movieapp.moviedetail.MovieDetailActivity"
