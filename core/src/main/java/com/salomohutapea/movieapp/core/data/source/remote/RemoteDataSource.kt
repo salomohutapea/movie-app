@@ -68,6 +68,7 @@ class RemoteDataSource(private val apiService: ApiService) {
     }
 
     private fun addGenreToMovie(movieGenres: GenreEntity?, movieEntity: List<Movie>): List<Movie> {
+
         movieEntity.forEach { movie ->
             movie.genres = ArrayList()
             movie.genreIds?.forEach { id ->
