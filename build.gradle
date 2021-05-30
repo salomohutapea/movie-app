@@ -1,3 +1,5 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 buildscript {
     ext.kotlin_version = "1.5.0"
     ext.kotlin_coroutines_version = "1.3.9"
@@ -35,6 +37,19 @@ allprojects {
         mavenCentral()
     }
 }
+
+task installGitHook(type: Copy) {
+    def suffix = "macos"
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        suffix = "windows"
+    }
+    from new File(rootProject.rootDir, "scripts/pre-commit-macos-$suffix")
+    into { new File(rootProject.rootDir, '.git/hooks') }
+    rename("pre-commit-macos-$suffix", 'pre-commit-macos')
+    fileMode 0775
+}
+
+tasks.getByPath(':app:preBuild').dependsOn installGitHook
 
 task clean(type: Delete) {
     delete rootProject.buildDir

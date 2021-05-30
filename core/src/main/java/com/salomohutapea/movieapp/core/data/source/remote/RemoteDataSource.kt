@@ -6,9 +6,7 @@ import com.salomohutapea.movieapp.core.domain.model.TvShow
 import com.salomohutapea.movieapp.core.utils.EspressoIdlingResource
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.*
 
 @DelicateCoroutinesApi
 class RemoteDataSource(private val apiService: ApiService) {
