@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.19584065868652825" />
+        <entry key="app/src/main/res/layout/activity_movie_detail.xml" value="0.12892603850050657" />
+        <entry key="app/src/main/res/layout/activity_tv_detail.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_movie_tv.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/menu_detail.xml" value="0.4914502719381981" />
+        <entry key="app/src/main/res/menu/menu_open_favorite.xml" value="0.1546875" />
+        <entry key="core/src/main/res/drawable/ic_star_rate_black_24dp.xml" value="0.14444444444444443" />
+        <entry key="core/src/main/res/layout/item_tv_movie_list.xml" value="0.215435553418199" />
+        <entry key="core/src/main/res/layout/item_tv_movie_single_favorite.xml" value="0.1983695652173913" />
+        <entry key="favorite/src/main/res/layout/activity_favorite.xml" value="0.25" />
+        <entry key="favorite/src/main/res/layout/item_tv_movie_single_favorite.xml" value="0.375" />
+      </map>
+    </option>
+  </component>
+  <component name="EntryPointsManager">
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="kotlinx.coroutines.DelicateCoroutinesApi" />
+    </list>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+</project>

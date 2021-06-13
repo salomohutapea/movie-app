@@ -10,6 +10,9 @@ import com.salomohutapea.movieapp.core.data.source.remote.RemoteDataSource
 import com.salomohutapea.movieapp.core.domain.repository.IMovieRepository
 import com.salomohutapea.movieapp.core.utils.AppExecutors
 import kotlinx.coroutines.DelicateCoroutinesApi
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -21,18 +24,25 @@ val databaseModule = module {
     factory { get<AppDatabase>().movieDao() }
     factory { get<AppDatabase>().tvShowDao() }
     single {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("dicoding".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             AppDatabase::class.java,
             "movie.db"
         )
             .fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
             .build()
     }
 }
 
 val networkModule = module {
     single {
+        val hostname = "api.themoviedb.org"
+        val certificatePinner = CertificatePinner.Builder()
+            .add(hostname, "sha256/+vqZVAzTqUP8BGkfl88yU7SQ3C8J2uNEa55B7RZjEg0=")
+            .build()
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
         OkHttpClient.Builder()
@@ -45,6 +55,7 @@ val networkModule = module {
                 request = request.newBuilder().url(url).build()
                 chain.proceed(request)
             }
+            .certificatePinner(certificatePinner)
             .build()
     }
     single {
